@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->enum('priority', ['low', 'medium', 'high']);
-            // Priority a voir
             $table->dateTime('finished_at');
             $table->dateTime('date_start');
             $table->dateTime('date_end');
