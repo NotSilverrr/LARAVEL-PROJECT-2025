@@ -20,6 +20,7 @@ return new class extends Migration
             $table->dateTime('finished_at');
             $table->dateTime('date_start');
             $table->dateTime('date_end');
+            $table->foreignId('category_id')->constrained("categories")->onDelete('cascade');
             $table->foreignId('project_id')->constrained("projects")->onDelete('cascade');
             $table->foreignId('column_id')->constrained("columns")->onDelete('cascade');
             $table->foreignId('created_by')->constrained("users")->onDelete('cascade');
