@@ -29,19 +29,32 @@ class CalendarController extends Controller
         ];
 
         $selected_month = $today["month"];
+        $selected_year = $today["year"];
         
         if(isset($request->month)){
             $selected_month = $request->month;
         }
+        
+        if(isset($request->year)){
+            $selected_year = $request->year;
+        }
+        
+        if($selected_year % 4 == 0 && ($selected_year % 100 != 0 || $selected_year % 400 == 0)){
+            $months[1]["days"] = 29;
+        }
+        
+        $first_day_of_month = $this->getFirstDayOfMonth($selected_month, $selected_year);
 
         return view('project_views.calendar', [
             'today' => $today,
             'months' => $months,
             'selected_month' => $selected_month,
+            'selected_year' => $selected_year,
+            'first_day_of_month' => $first_day_of_month,
         ]);
     }
-
-    private function monthStartDay($month, $year) {
-        return (int)date("w", mktime(0, 0, 0, $month, 1, $year));
+    
+    private function getFirstDayOfMonth($month, $year) {
+        return (int)date('w', strtotime("{$year}-{$month}-01"))-1;
     }
 }
