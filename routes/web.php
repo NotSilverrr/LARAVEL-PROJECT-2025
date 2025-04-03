@@ -18,6 +18,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
+Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar.index');
 
 require __DIR__.'/auth.php';
