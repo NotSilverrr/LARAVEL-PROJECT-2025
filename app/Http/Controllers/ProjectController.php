@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -28,7 +29,19 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $data = $request->all();
+        $data['created_by'] = Auth::id();
+
+        $project = Project::create($data);
+
+        $project->users()->attach(Auth::id());
+
+        return redirect()->route('projects.show', $project->id)->with('success', 'Project created successfully.');
     }
 
     /**
@@ -36,7 +49,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return view('projects.show', compact('project'));
     }
 
     /**

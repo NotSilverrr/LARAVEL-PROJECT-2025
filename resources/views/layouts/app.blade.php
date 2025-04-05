@@ -30,7 +30,7 @@
 
                 <x-sidebar />
         
-                <section class="flex-1 p-6 overflow-y-auto bg-purple-900">
+                <section class="flex-1 p-6 overflow-y-auto bg-gray-800" style="background-image: url('{{ asset('assets/images/background.jpg') }}'); background-size: 100% auto;">
                     {{ $slot }}
                 </section>
             </main>
