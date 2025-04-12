@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class KanbanController extends Controller
@@ -12,6 +13,12 @@ class KanbanController extends Controller
     public function index()
     {
         return view('kanban.index');
+    }
+
+    public function show(Project $project)
+    {
+        // Logic to fetch and display the Kanban board for the given project
+        return view('kanban.show', ['project' => $project]);
     }
 
     /**

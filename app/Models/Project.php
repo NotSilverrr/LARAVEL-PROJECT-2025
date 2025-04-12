@@ -34,4 +34,8 @@ class Project extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
 }

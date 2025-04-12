@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -18,17 +20,43 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Project $project)
     {
-        //
+        return view('projects.tasks.create', compact('project'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Project $project)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'priority' => 'nullable|string|in:low,medium,high',
+            'category_id' => 'nullable|exists:categories,id',
+            'date_start' => 'nullable|date',
+            'date_end' => 'nullable|date|after_or_equal:date_start',
+            'column_id' => 'nullable|exists:columns,id',
+        ]);
+
+        $data = $request->only([
+            'title',
+            'description',
+            'priority',
+            'category_id',
+            'date_start',
+            'date_end',
+            'column_id'
+        ]);
+        $data['created_by'] = Auth::id();
+
+        // dd($data); // For debugging
+
+        // Assuming you have a relationship set up in your Project model
+        $task = $project->tasks()->create($data);
+
+        return redirect()->back()->with('success', 'Tâche créée avec succès.');
     }
 
     /**

@@ -41,7 +41,21 @@ class ProjectController extends Controller
 
         $project->users()->attach(Auth::id());
 
-        return redirect()->route('projects.show', $project->id)->with('success', 'Project created successfully.');
+        // create default columns with the cerated_by user
+        $project->columns()->create([
+            'name' => 'To Do',
+            'created_by' => Auth::id(),
+        ]);
+        $project->columns()->create([
+            'name' => 'In Progress',
+            'created_by' => Auth::id(),
+        ]);
+        $project->columns()->create([
+            'name' => 'Done',
+            'created_by' => Auth::id(),
+        ]);
+
+        return redirect()->route('projects.view.list', $project->id)->with('success', 'Project created successfully.');
     }
 
     /**

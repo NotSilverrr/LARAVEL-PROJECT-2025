@@ -10,7 +10,7 @@
             <ul class="space-y-2">
                 @foreach (Auth::user()->projects as $project)
                     <li>
-                        <a href="{{ route('projects.show', $project->id) }}" class="block px-4 py-2 w-full rounded-[1rem] hover:bg-gray-700">
+                        <a href="{{ route('projects.view.list', $project->id) }}" class="block px-4 py-2 w-full rounded-[1rem] hover:bg-gray-700">
                             {{ $project->name }}
                         </a>
                     </li>
@@ -19,7 +19,7 @@
         </nav>
         <div class="mt-6">
             <a href="{{ route('projects.create') }}" 
-            class="block px-4 py-2 rounded-[1rem] 
+            class="block px-4 py-2 rounded-[1rem] text-center
                     bg-gradient-to-b from-[#E04E75] to-[#902340] 
                     hover:bg-gradient-to-t">
                 Créer un projet
