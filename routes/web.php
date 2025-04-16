@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColumnController;
 use App\Http\Controllers\KanbanController;
 use App\Http\Controllers\ProjectController;
@@ -29,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('projects', [ProjectController::class, 'store'])->name('projects.store');
     Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
     Route::get('/projects/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
+    Route::get('/projects/{project}/categories', [CategoryController::class, 'index'])->name('projects.categories.index');
     
 
     Route::get('/projects/{project}/view/list', [ProjectViewController::class, 'list'])->name('projects.view.list');

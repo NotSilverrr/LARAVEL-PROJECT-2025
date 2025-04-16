@@ -20,14 +20,17 @@
             <div class="flex justify-between items-center">
                 <div class="flex gap-4 items-center">
                     <h1 class="text-3xl mr-4 font-bold">{{$project->name}}</h1>
-                    <a href="{{route("projects.edit", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200">
+                    <a href="{{route("projects.edit", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Edit">
                         <x-iconpark-edit-o class="w-6 h-6 text-gray-100" />
                     </a>
-                    <a href="" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200">
+                    <a href="" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Groups">
                         <x-iconpark-peoples-o class="w-6 h-6 text-gray-100" />
                     </a>
-                    <a href="" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200">
+                    <a href="" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Delete">
                         <x-iconpark-delete-o class="w-6 h-6 text-gray-100 " />
+                    </a>
+                    <a href="{{route("projects.categories.index", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Category">
+                        <x-iconpark-gridfour class="w-6 h-6 text-gray-100 " />
                     </a>
 
                 </div>
