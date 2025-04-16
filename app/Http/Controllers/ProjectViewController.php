@@ -61,8 +61,6 @@ class ProjectViewController extends Controller
         }
 
         $first_day_of_month = $this->getFirstDayOfMonth($selected_month, $selected_year);
-        $events = $project->tasks()->get();
-
         $totalDays = $months[$selected_month-1]['days'];
         $monthName = $months[$selected_month-1]['name'];
         $prevMonth = $selected_month - 1;
@@ -80,6 +78,8 @@ class ProjectViewController extends Controller
         $totalCells = $totalDays + $first_day_of_month;
         $totalWeeks = ceil($totalCells / 7);
 
+        $tasks = $project->tasks()->get();
+
         return view('projects.views.calendar', [
             'today' => $today,
             'months' => $months,
@@ -87,7 +87,7 @@ class ProjectViewController extends Controller
             'selected_year' => $selected_year,
             'first_day_of_month' => $first_day_of_month,
             'project' => $project,
-            'events' => $events,
+            'tasks' => $tasks,
             'totalDays' => $totalDays,
             'monthName' => $monthName,
             'prevMonth' => $prevMonth,

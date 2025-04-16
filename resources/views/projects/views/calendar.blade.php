@@ -38,12 +38,14 @@
                                         <div class="w-4 h-4"></div>
                                     </div>
 
-                                    <div class="w-full h-[1px] bg-gray-400 my-1"></div>
-
-                                    <div class="flex flex-1 items-end justify-between space-x-1">
-                                        <div class="w-1/3 h-10 bg-transparent"></div>
-                                        <div class="w-1/3 h-10 bg-transparent"></div>
-                                        <div class="w-1/3 h-10 bg-transparent"></div>
+                                    <div class="flex flex-1 items-end justify-between space-x-1 border-t border-gray-400 mt-1">
+                                        @foreach ($tasks as $task)
+                                            @if ($task->date_end->day == $dayNumber)
+                                                <div class="w-1/3 h-10 bg-transparent">
+                                                    <h3 class="text-sm text-white font-semibold">{{ $task->title }}</h3>
+                                                </div>
+                                            @endif
+                                        @endforeach
                                     </div>
                                 </div>
                             @else

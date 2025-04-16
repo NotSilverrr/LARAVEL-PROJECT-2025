@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Task extends Model
 {
+    protected $casts = [
+        'date_end' => 'datetime',
+    ];
     /** @use HasFactory<\Database\Factories\TaskFactory> */
     use HasFactory;
 
