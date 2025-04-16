@@ -56,13 +56,29 @@ class ProjectViewController extends Controller
             $selected_year = $request->year;
         }
         
-        // Leap year adjustment
         if($selected_year % 4 == 0 && ($selected_year % 100 != 0 || $selected_year % 400 == 0)){
             $months[1]["days"] = 29;
         }
 
         $first_day_of_month = $this->getFirstDayOfMonth($selected_month, $selected_year);
-        $events = $project->tasks()->get(); // Or other logic
+        $events = $project->tasks()->get();
+
+        $totalDays = $months[$selected_month-1]['days'];
+        $monthName = $months[$selected_month-1]['name'];
+        $prevMonth = $selected_month - 1;
+        $prevYear = $selected_year;
+        if ($prevMonth < 1) {
+            $prevMonth = 12;
+            $prevYear--;
+        }
+        $nextMonth = $selected_month + 1;
+        $nextYear = $selected_year;
+        if ($nextMonth > 12) {
+            $nextMonth = 1;
+            $nextYear++;
+        }
+        $totalCells = $totalDays + $first_day_of_month;
+        $totalWeeks = ceil($totalCells / 7);
 
         return view('projects.views.calendar', [
             'today' => $today,
@@ -72,6 +88,14 @@ class ProjectViewController extends Controller
             'first_day_of_month' => $first_day_of_month,
             'project' => $project,
             'events' => $events,
+            'totalDays' => $totalDays,
+            'monthName' => $monthName,
+            'prevMonth' => $prevMonth,
+            'prevYear' => $prevYear,
+            'nextMonth' => $nextMonth,
+            'nextYear' => $nextYear,
+            'totalCells' => $totalCells,
+            'totalWeeks' => $totalWeeks,
         ]);
     }
 

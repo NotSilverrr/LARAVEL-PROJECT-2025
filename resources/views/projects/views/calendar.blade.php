@@ -4,27 +4,6 @@
 <h2 class="text-xl font-semibold mb-4">Vue Calendrier</h2>
 <div>
     <div class="flex flex-wrap" style="flex-wrap: wrap;">
-        @php
-            $totalDays = $months[$selected_month-1]['days'];
-            $monthName = $months[$selected_month-1]['name'];
-            
-            $prevMonth = $selected_month - 1;
-            $prevYear = $selected_year;
-            if ($prevMonth < 1) {
-                $prevMonth = 12;
-                $prevYear--;
-            }
-            
-            $nextMonth = $selected_month + 1;
-            $nextYear = $selected_year;
-            if ($nextMonth > 12) {
-                $nextMonth = 1;
-                $nextYear++;
-            }
-            
-            $totalCells = $totalDays + $first_day_of_month;
-            $totalWeeks = ceil($totalCells / 7);
-        @endphp
         
         <div class="w-full flex justify-end">
             <div class="bg-gray-700 rounded-lg p-4 max-w-4xl w-full mx-auto">
@@ -53,22 +32,22 @@
                             @endphp
                             
                             @if($dayNumber > 0 && $dayNumber <= $totalDays)
-                                <div class="bg-gray-800 rounded-lg w-40 h-24 p-2 m-2 flex flex-col justify-between">
+                                <div class="bg-gray-800 rounded-lg w-40 h-20 p-2 m-2 flex flex-col justify-between">
                                     <div class="flex justify-between">
-                                        <span class="text-white text-xl font-bold">{{ $dayNumber }}</span>
+                                        <span class="text-white text-sm font-bold">{{ $dayNumber }}</span>
                                         <div class="w-4 h-4"></div>
                                     </div>
 
                                     <div class="w-full h-[1px] bg-gray-400 my-1"></div>
 
                                     <div class="flex flex-1 items-end justify-between space-x-1">
-                                        <div class="w-1/3 h-12 bg-transparent"></div>
-                                        <div class="w-1/3 h-12 bg-transparent"></div>
-                                        <div class="w-1/3 h-12 bg-transparent"></div>
+                                        <div class="w-1/3 h-10 bg-transparent"></div>
+                                        <div class="w-1/3 h-10 bg-transparent"></div>
+                                        <div class="w-1/3 h-10 bg-transparent"></div>
                                     </div>
                                 </div>
                             @else
-                                <div class="w-40 h-24 m-2 bg-transparent rounded-lg"></div>
+                                <div class="w-40 h-20 m-2 p-2 bg-transparent rounded-lg"></div>
                             @endif
                         @endfor
                     </div>
