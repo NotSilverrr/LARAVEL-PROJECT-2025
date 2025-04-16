@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Column;
+use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ColumnController extends Controller
@@ -12,7 +14,8 @@ class ColumnController extends Controller
      */
     public function index()
     {
-        //
+        $columns = Column::all();
+        return view('columns.index', ['columns' => $columns]);
     }
 
     /**
@@ -20,7 +23,9 @@ class ColumnController extends Controller
      */
     public function create()
     {
-        //
+        $projects = Project::all();
+        $users = User::all();
+        return view('columns.create', ['projects' => $projects, 'users' => $users]);
     }
 
     /**

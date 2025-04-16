@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\KanbanController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,5 +21,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar.index');
+
+Route::get('/kanban', [KanbanController::class, 'index'])->name('kanban.index');
+
+Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
+Route::post('projects', [ProjectController::class, 'store'])->name('projects.store');
+
+Route::get('projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
 
 require __DIR__.'/auth.php';

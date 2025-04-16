@@ -15,10 +15,10 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div class="h-screen flex flex-col overflow-hidden">
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
+                <!-- Page Heading -->
             @isset($header)
                 <header class="bg-white dark:bg-gray-800 shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -26,11 +26,15 @@
                     </div>
                 </header>
             @endisset
+            <main class="flex-1 flex overflow-hidden">
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
+                <x-sidebar />
+        
+                <section class="flex-1 p-6 overflow-y-auto bg-gray-800" style="background-image: url('{{ asset('assets/images/background.jpg') }}'); background-size: 100% auto;">
+                    {{ $slot }}
+                </section>
             </main>
-        </div>
-    </body>
+
+        </body>
+    </div>
 </html>
