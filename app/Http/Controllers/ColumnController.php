@@ -6,6 +6,7 @@ use App\Models\Column;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ColumnController extends Controller
 {
@@ -31,9 +32,18 @@ class ColumnController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Project $project,Request $request)
     {
-        //
+        // Validate the name et add the column to the project
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $data = $request->only(['name']);
+        $data['created_by'] = Auth::id();
+
+        $project->columns()->create($data);
+        return redirect()->back()->with('success', 'Colonne créée avec succès.');
+        
     }
 
     /**
@@ -65,6 +75,9 @@ class ColumnController extends Controller
      */
     public function destroy(Column $column)
     {
-        //
+        // Find the column and delete it
+        $column->delete();
+
+        return redirect()->back()->with('success', 'Colonne supprimée avec succès.');
     }
 }

@@ -1,30 +1,58 @@
 {{-- resources/views/components/layouts/project-view.blade.php --}}
 <x-app-layout>
-    <div class="flex flex-col h-full flex-1">
-        <div class="flex justify-between items-center">
-            <h1>{{$project->name}}</h1>
-            <div class="flex space-x-4">
-                <a href="{{ route('projects.view.list', $project) }}"
-                    class="text-sm px-3 py-2 rounded 
-                            {{ request()->routeIs('projects.view.list') ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-100' }}">
-                    Liste
-                </a>
-                <a href="{{ route('projects.view.kanban', $project) }}"
-                    class="text-sm px-3 py-2 rounded 
-                            {{ request()->routeIs('projects.view.kanban') ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-100' }}">
-                    Kanban
-                </a>
-                <a href="{{ route('projects.view.calendar', $project) }}"
-                    class="text-sm px-3 py-2 rounded 
-                            {{ request()->routeIs('projects.view.calendar') ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-100' }}">
-                    Calendrier
-                </a>
+    @if ($errors->any())
+    <script>
+        @foreach ($errors->all() as $error)
+            Toastify({
+                text: "{{ $error }}",
+                duration: 5000,
+                gravity: "top", 
+                position: "right",
+                backgroundColor: "#f56565", // rouge
+            }).showToast();
+        @endforeach
+    </script>
+    @endif
+    <div class="flex flex-col h-full flex-1 p-6" style="background-image: url('{{ asset('assets/images/background.jpg') }}'); background-size: 100% auto;">
+        <div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
+
+        <div class="relative z-10">
+            <div class="flex justify-between items-center">
+                <div class="flex gap-4 items-center">
+                    <h1 class="text-3xl mr-4 font-bold">{{$project->name}}</h1>
+                    <a href="{{route("projects.edit", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200">
+                        <x-iconpark-edit-o class="w-6 h-6 text-gray-100" />
+                    </a>
+                    <a href="" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200">
+                        <x-iconpark-peoples-o class="w-6 h-6 text-gray-100" />
+                    </a>
+                    <a href="" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200">
+                        <x-iconpark-delete-o class="w-6 h-6 text-gray-100 " />
+                    </a>
+
+                </div>
+                <div class="flex gap-1 bg-gray-800 rounded-full p-1">
+                    <a href="{{ route('projects.view.list', $project) }}"
+                    class="text-sm p-2 rounded-full text-white
+                            {{ request()->routeIs('projects.view.list') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
+                        <x-iconpark-listtwo class="w-4 h-4" />
+                    </a>
+                    <a href="{{ route('projects.view.kanban', $project) }}"
+                        class="text-sm p-2 rounded-full text-white
+                                {{ request()->routeIs('projects.view.kanban') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
+                        <x-iconpark-aligntoptwo class="w-4 h-4" />
+                    </a>
+                    <a href="{{ route('projects.view.calendar', $project) }}"
+                        class="text-sm p-2 rounded-full text-white 
+                                {{ request()->routeIs('projects.view.calendar') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
+                        <x-iconpark-calendar class="w-4 h-4" />
+                    </a>
+                </div>
+            </div>
+            <div class="flex-1">
+                @yield('project-view-content')
             </div>
         </div>
-        <div class="flex-1">
-            @yield('project-view-content')
-        </div>
-
     </div>
     
 </x-app-layout>
