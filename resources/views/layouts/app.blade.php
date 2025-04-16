@@ -13,14 +13,18 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<!-- Toastify JS -->
+        <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased text-white bg-gray-700">
         <div class="h-screen flex flex-col overflow-hidden">
             @include('layouts.navigation')
 
                 <!-- Page Heading -->
             @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
+                <header class="bg-white dark:bg-gray-800 shadow text-white">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -30,7 +34,7 @@
 
                 <x-sidebar />
         
-                <section class="flex-1 flex flex-col p-6 overflow-y-auto bg-gray-800" style="background-image: url('{{ asset('assets/images/background.jpg') }}'); background-size: 100% auto;">
+                <section class="flex-1 flex flex-col overflow-y-auto bg-gray-800 relative" >    
                     {{ $slot }}
                 </section>
             </main>
