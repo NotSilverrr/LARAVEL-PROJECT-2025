@@ -6,16 +6,12 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class TaskFormPopup extends Component
+class AddUserModal extends Component
 {
     public $project;
-    public $categories;
-    public $column_id;
-
-    public function __construct($project, $categories)
+    public function __construct($project)
     {
         $this->project = $project;
-        $this->categories = $categories;
     }
 
     /**
@@ -23,6 +19,6 @@ class TaskFormPopup extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.projects.task-form-popup');
+        return view('components.projects.add-user-modal');
     }
 }

@@ -113,4 +113,8 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'resend' => [
+        'api_key' => env('RESEND_API_KEY'),
+    ],
+
 ];

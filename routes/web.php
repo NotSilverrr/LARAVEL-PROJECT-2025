@@ -6,6 +6,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColumnController;
 use App\Http\Controllers\KanbanController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectInvitationController;
+use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\ProjectViewController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +26,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Route pour accepter l'invitation
+Route::get('/invitations/{token}', [ProjectInvitationController::class, 'accept'])->name('projects.invitations.accept');
+Route::post('/invitations/register', [ProjectInvitationController::class, 'register'])->name('projects.invitations.register');
+
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
@@ -31,6 +39,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
     Route::get('/projects/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
     Route::get('/projects/{project}/categories', [CategoryController::class, 'index'])->name('projects.categories.index');
+    Route::get('/projects/{project}/users', [ProjectUserController::class, 'index'])->name('projects.users.index');
+    
+    Route::post('/projects/{project}/inviteUser', [ProjectUserController::class, 'inviteUserToProject'])->name('projects.users.invite');
     
 
     Route::get('/projects/{project}/view/list', [ProjectViewController::class, 'list'])->name('projects.view.list');

@@ -2,9 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ProjectInvitationMail;
+use App\Models\Project;
+use App\Models\ProjectInvitation;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class ProjectUserController extends Controller
 {
-    //
+    public function index(Project $project) {
+        $users = $project->users()->withPivot('role')->paginate(10);
+        return view('projects.users.index', compact('project', 'users'));
+    }
+
+    public function store(Request $request, Project $project) {
+        
+    }
+
+    public function inviteUserToProject(Request $request, Project $project) {
+
+        // Valider la requête
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+        ]);
+        // Vérifier si l'utilisateur est déjà membre du projet
+        $user = User::where('email', $request->email)->first();
+        if ($project->users()->where('user_id', $user->id)->exists()) {
+            return back()->with('error', 'Cet utilisateur est déjà membre du projet.');
+        }
+        // Créer un token d'invitation unique
+        $token = Str::random(40);
+
+        // Enregistrer l'invitation avec un délai d'expiration
+        $invitation = ProjectInvitation::create([
+            'project_id' => $project->id,
+            'email' => $request->email,
+            'token' => $token,
+            'expires_at' => now()->addDays(2), // expiration dans 2 jours
+        ]);
+
+        // Créer l'URL d'invitation avec token
+        $url = route('projects.invitations.accept', ['token' => $token]);
+
+        // Envoyer l'email d'invitation
+        Mail::to($request->email)->send(new ProjectInvitationMail($project, $url));
+
+        return back()->with('success', 'Invitation envoyée avec succès !');
+    }
+    
 }
