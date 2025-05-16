@@ -7,12 +7,34 @@
         .kanban-task:hover {
             cursor: grab;
         }
+
+        .kanban-task {
+            transition: all 0.3s ease;
+        }
+
         .kanban-task.dragging {
             cursor: grabbing;
+            /* @apply opacity-50 scale-95 ring-2 ring-pink-500; */
+            opacity: 0.5;
+            transform: scale(0.95);
+
+            
         }
 
         .kanban-column.drag-over {
-            box-shadow: 0 0 0 2px rgb(0, 166, 255);
+            outline: 2px dashed #288cff;
+        }
+
+        
+
+        .animate-shake {
+        animation: shake 0.5s ease;
         }
     }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
 }

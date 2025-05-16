@@ -16,8 +16,9 @@ columns.forEach(column => {
 
         if (task) {
             const tasksList = column.querySelector('.kanban-task-list');
-            console.log('tasksList', tasksList);
             tasksList.appendChild(task);
+            task.offsetHeight;
+            console.log('tasksList', tasksList);
             task.classList.remove('dragging');
             const idTask = taskId.split('-')[2];
             console.log('idTask', idTask);
@@ -96,9 +97,15 @@ function updateTaskPosition(taskId, columnId) {
     })
     .catch(error => {
         console.error('Error updating task position:', error);
+        
 
         // 🚨 Replacer la tâche dans sa colonne d'origine
         const task = document.getElementById(`kanban-task-${taskId}`);
+        task.classList.add('animate-shake'); // par exemple
+
+        setTimeout(() => {
+        task.classList.remove('animate-shake');
+        }, 500);
         const originColumnId = task?.dataset.originColumnId;
         if (originColumnId) {
             const originColumn = document.getElementById(originColumnId);
