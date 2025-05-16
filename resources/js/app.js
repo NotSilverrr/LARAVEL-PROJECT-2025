@@ -1,5 +1,6 @@
 import './bootstrap';
 import './modal';
+import './kanban';
 
 import Alpine from 'alpinejs';
 

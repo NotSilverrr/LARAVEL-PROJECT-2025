@@ -73,7 +73,7 @@ class ColumnController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Column $column)
+    public function destroy(Project $project, Column $column)
     {
         // Find the column and delete it
         $column->delete();

@@ -14,7 +14,7 @@
                 <div class="flex justify-between mb-2 items-center">
                     <h2 class="text-xl text-white font-bold">{{$column->name}}</h2>
                     <button class="modal-button text-[#902340] opacity-0 p-2 rounded-full group-hover:opacity-100 transition-opacity duration-300 hover:bg-gray-600/20 "
-                        data-modal-name="modal-delete-column">
+                        data-modal-name="modal-delete-column-{{ $column->id }}">
                         <x-iconpark-delete-o class="w-6 h-6 [&>path]:stroke-[4]"/>
                     </button>
                 </div>
@@ -22,7 +22,7 @@
                 <ul class="flex flex-col text-white">
                     @foreach ($column->tasks as $task)
                         <li class="bg-gray-600 p-2 mb-2 rounded-[6px]">
-                            <h3 class="text-lg font-semibold">{{$task->name}}</h3>
+                            <h3 class="text-lg font-semibold">{{$task->title}}</h3>
                             <p>{{$task->description}}</p>
                             <p>Statut: {{$task->status}}</p>
                             <p>Priorité: {{$task->priority}}</p>
@@ -54,6 +54,7 @@
     {{-- Modal for create a task --}}
     <x-projects.task-form-popup :project="$project" :categories="$categories" />
     <x-projects.add-column-modal :project="$project" />
+
 
     
     {{-- Modal for delete a column --}}
