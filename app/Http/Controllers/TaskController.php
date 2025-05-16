@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Column;
 use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -89,5 +90,18 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         //
+    }
+
+    public function moveColumn(Task $task, Column $column)
+    {
+        // Validate the column ID
+        if (!$column) {
+            return response()->json(['error' => 'Invalid column ID'], 400);
+        }
+
+        // Update the task's column
+        $task->update(['column_id' => $column->id]);
+
+        return response()->json(['success' => 'Task moved to new column']);
     }
 }

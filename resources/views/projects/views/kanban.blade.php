@@ -3,11 +3,11 @@
 @section('project-view-content')
     <h2 class="text-xl font-semibold mb-4">Vue Kanban</h2>
 
-    <div class="overflow-x-auto pb-4 ">
+    <div class="overflow-x-auto p-1 pb-4 kanban">
         <div class="flex items-start gap-4 w-max">
             @foreach ($columns as $column)
             
-            <div class="relative bg-gray-800 p-[10px] rounded-[1rem] w-[250px] overflow-y-auto flex-shrink-0 group">
+            <div class="relative bg-gray-800 p-[10px] rounded-[1rem] w-[250px] overflow-y-auto flex-shrink-0 group kanban-column" id="kanban-column-{{ $column->id }}">
                 <!-- Le bouton delete sera caché par défaut et apparaîtra au hover de la colonne -->
                 
             
@@ -19,9 +19,9 @@
                     </button>
                 </div>
 
-                <ul class="flex flex-col text-white">
+                <ul class="flex flex-col text-white kanban-task-list">
                     @foreach ($column->tasks as $task)
-                        <li class="bg-gray-600 p-2 mb-2 rounded-[6px]">
+                        <li class="bg-gray-600 p-2 mb-2 rounded-[6px] kanban-task" draggable="true" id="kanban-task-{{ $task->id }}">
                             <h3 class="text-lg font-semibold">{{$task->title}}</h3>
                             <p>{{$task->description}}</p>
                             <p>Statut: {{$task->status}}</p>

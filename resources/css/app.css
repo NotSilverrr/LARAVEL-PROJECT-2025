@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .kanban {
+        .kanban-task:hover {
+            cursor: grab;
+        }
+        .kanban-task.dragging {
+            cursor: grabbing;
+        }
+
+        .kanban-column.drag-over {
+            box-shadow: 0 0 0 2px rgb(0, 166, 255);
+        }
+    }
+}
