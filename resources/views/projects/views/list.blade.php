@@ -7,7 +7,7 @@
     <form method="GET" class="mb-6 bg-gray-800 p-4 rounded-lg flex flex-wrap gap-4 items-end text-white">
         <div>
             <label for="column_id" class="block mb-1">Colonne</label>
-            <select name="column_id" id="column_id" class="text-black rounded p-1">
+            <select name="column_id" id="column_id" class="text-black rounded p-1 w-40">
                 <option value="">Toutes</option>
 
             </select>
@@ -15,7 +15,7 @@
 
         <div>
             <label for="status" class="block mb-1">Statut</label>
-            <select name="status" id="status" class="text-black rounded p-1">
+            <select name="status" id="status" class="text-black rounded p-1 w-40">
                 <option value="">Tous</option>
                 <option value="à faire" @selected(request('status') == 'à faire')>À faire</option>
                 <option value="en cours" @selected(request('status') == 'en cours')>En cours</option>
@@ -25,7 +25,7 @@
 
         <div>
             <label for="priority" class="block mb-1">Priorité</label>
-            <select name="priority" id="priority" class="text-black rounded p-1">
+            <select name="priority" id="priority" class="text-black rounded p-1 w-40">
                 <option value="">Toutes</option>
                 <option value="basse" @selected(request('priority') == 'basse')>Basse</option>
                 <option value="moyenne" @selected(request('priority') == 'moyenne')>Moyenne</option>
@@ -40,18 +40,20 @@
             
         </div>
     </form>
-
+@php
+ //dd($tasks);   
+@endphp
     {{-- Tableau --}}
     <div class="bg-gray-700 rounded-lg p-4 max-w-6xl mx-auto">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-600 text-white">
                 <thead class="bg-gray-800">
                     <tr>
-                        <th class="px-4 py-2 text-left text-sm font-medium">Nom</th>
+                        <th class="px-4 py-2 text-left text-sm font-medium">Tâche</th>
                         <th class="px-4 py-2 text-left text-sm font-medium">Description</th>
-                        <th class="px-4 py-2 text-left text-sm font-medium">Statut</th>
                         <th class="px-4 py-2 text-left text-sm font-medium">Priorité</th>
                         <th class="px-4 py-2 text-left text-sm font-medium">Groupe de tâche</th>
+                        <th class="px-4 py-2 text-left text-sm font-medium">Crée par</th>
                         <th class="px-4 py-2 text-left text-sm font-medium">Actions</th>
                     </tr>
                 </thead>
@@ -64,9 +66,9 @@
                                 </a>
                             </td>
                             <td class="px-4 py-3">{{ $task->description }}</td>
-                            <td class="px-4 py-3">{{ $task->statut }}</td>
                             <td class="px-4 py-3">{{ $task->priority }}</td>
                             <td class="px-4 py-3">{{ $task->column->name }}</td>
+                            <td class="px-4 py-3">{{ $task->creator->firstname ?? '' }} {{ $task->creator->lastname ?? '' }}</td>
                             <td class="px-4 py-3 space-x-2">
                                 <a href="{{ route('projects.edit', $task->id) }}" class="text-blue-300 hover:text-blue-400">Modifier</a>
                             </td>
