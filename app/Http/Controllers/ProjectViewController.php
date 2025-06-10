@@ -80,6 +80,8 @@ class ProjectViewController extends Controller
 
         $tasks = $project->tasks()->get();
 
+        $categories = \App\Models\Category::all();
+
         return view('projects.views.calendar', [
             'today' => $today,
             'months' => $months,
@@ -88,6 +90,7 @@ class ProjectViewController extends Controller
             'first_day_of_month' => $first_day_of_month,
             'project' => $project,
             'tasks' => $tasks,
+            'categories' => $categories,
             'totalDays' => $totalDays,
             'monthName' => $monthName,
             'prevMonth' => $prevMonth,

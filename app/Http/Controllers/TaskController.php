@@ -71,17 +71,41 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task)
+    public function edit(Project $project, Task $task)
     {
-        //
+        // Fetch all categories for the select dropdown
+        $categories = \App\Models\Category::all();
+        return view('projects.tasks.task-edit-popup', compact('project', 'task', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, Project $project, Task $task)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'priority' => 'nullable|string|in:low,medium,high',
+            'category_id' => 'nullable|exists:categories,id',
+            'date_start' => 'nullable|date',
+            'date_end' => 'nullable|date|after_or_equal:date_start',
+            'column_id' => 'nullable|exists:columns,id',
+        ]);
+
+        $data = $request->only([
+            'title',
+            'description',
+            'priority',
+            'category_id',
+            'date_start',
+            'date_end',
+            'column_id'
+        ]);
+
+        $task->update($data);
+
+        return redirect()->back()->with('success', 'Tâche mise à jour avec succès.');
     }
 
     /**

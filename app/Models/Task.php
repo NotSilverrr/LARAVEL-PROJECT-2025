@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Task extends Model
 {
     protected $casts = [
-        'date_end' => 'datetime',
+        'date_start' => 'date',
+        'date_end' => 'date',
     ];
     /** @use HasFactory<\Database\Factories\TaskFactory> */
     use HasFactory;

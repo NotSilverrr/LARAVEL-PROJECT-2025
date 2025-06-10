@@ -23,6 +23,13 @@
                     </a>
                 </div>
                 
+                @php
+                $tasks = $tasks->filter(fn($task) =>
+                    $task->date_end->month == $selected_month &&
+                    $task->date_end->year == $selected_year
+                );
+                @endphp
+
                 @for($week = 0; $week < $totalWeeks; $week++)
                     <div class="flex w-full">
                         @for($dayOfWeek = 0; $dayOfWeek < 7; $dayOfWeek++)
@@ -36,7 +43,9 @@
                                     <div class="flex justify-between">
                                         <span class="text-white text-sm font-bold">{{ $dayNumber }}</span>
                                         @php
-                                            $taskCount = $tasks->filter(fn($task) => $task->date_end->day == $dayNumber)->count();
+                                            $taskCount = $tasks->filter(fn($task) =>
+                                            $task->date_end->day == $dayNumber
+                                        )->count();
                                         @endphp
                                         <div class="w-4 h-4 flex items-center justify-center">
                                             @if ($taskCount > 0)
@@ -48,7 +57,7 @@
                                     <div class="flex flex-1 flex-col justify-start items-start space-y-1 border-t border-gray-400 mt-1 overflow-y-auto max-h-20 w-full scrollbar-none" style="scrollbar-width: none; -ms-overflow-style: none;">
                                         @foreach ($tasks as $task)
                                             @if ($task->date_end->day == $dayNumber)
-                                                <div class="w-full bg-transparent flex items-center space-x-2 min-w-0">
+                                                <div class="w-full bg-transparent flex items-center space-x-2 min-w-0 cursor-pointer task-calendar-item" data-task-id="{{ $task->id }}">
                                                     <span class="flex items-center justify-center">
                                                         <span class="w-2 h-2 rounded-full border-2 border-green-400 bg-green-300 flex items-center justify-center">
                                                             <span class="w-2 h-2 rounded-full bg-green-400"></span>
@@ -57,6 +66,16 @@
                                                     <h3 class="text-sm text-white font-semibold truncate w-full max-w-[72px]">
                                                         {{ $task->title }}
                                                     </h3>
+                                                </div>
+                                                <div id="modal-edit-task-{{ $task->id }}" class="modal hidden fixed inset-0 z-50 items-center justify-center bg-gray-900 bg-opacity-50">
+                                                    <x-projects.task-edit-popup
+                                                        :project="$project"
+                                                        :task="$task"
+                                                        :categories="$categories"
+                                                        :action="route('projects.tasks.update', [$project, $task])"
+                                                        method="PATCH"
+                                                        button="Mettre à jour"
+                                                    />
                                                 </div>
                                             @endif
                                         @endforeach
@@ -73,3 +92,30 @@
     </div>
 </div>
 @endsection
+
+{{-- Modal show/hide script --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Show modal on task click
+        document.querySelectorAll('.task-calendar-item').forEach(function (el) {
+            el.addEventListener('click', function () {
+                var taskId = this.getAttribute('data-task-id');
+                var modal = document.getElementById('modal-edit-task-' + taskId);
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                }
+            });
+        });
+        // Hide modal on close button
+        document.querySelectorAll('.modal-close').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var modal = btn.closest('.modal');
+                if (modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+            });
+        });
+    });
+</script>
