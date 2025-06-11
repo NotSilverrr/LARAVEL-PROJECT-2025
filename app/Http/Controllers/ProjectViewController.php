@@ -108,6 +108,7 @@ class ProjectViewController extends Controller
     }
 
     private function getFirstDayOfMonth($month, $year) {
-        return (int)date('w', strtotime("{$year}-{$month}-01")) - 1;
+        $day = (int)date('w', strtotime("{$year}-{$month}-01")) - 1;
+        return $day == -1 ? 6 : $day;
     }
 }
