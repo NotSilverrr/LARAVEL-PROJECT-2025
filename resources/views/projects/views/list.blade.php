@@ -3,43 +3,56 @@
 @section('project-view-content')
     <h2 class="text-xl font-semibold mb-4">Vue Liste des tâches</h2>
 
-    {{-- Filtres --}}
-    <form method="GET" class="mb-6 bg-gray-800 p-4 rounded-lg flex flex-wrap gap-4 items-end text-white">
-        <div>
-            <label for="column_id" class="block mb-1">Colonne</label>
-            <select name="column_id" id="column_id" class="text-black rounded p-1 w-40">
-                <option value="">Toutes</option>
+    <div class="flex flex-col gap-4 mb-6">
+        <div class="flex gap-4 bg-gray-800 items-center">
+            <div class="flex-1">
+                {{-- Filtres --}}
+                <form method="GET" class="p-4 rounded-lg flex flex-wrap gap-4 items-end text-white">
+                    <div>
+                        <label for="column_id" class="block mb-1">Colonne</label>
+                        <select name="column_id" id="column_id" class="text-black rounded p-1 w-40">
+                            <option value="">Toutes</option>
 
-            </select>
-        </div>
+                        </select>
+                    </div>
 
-        <div>
-            <label for="status" class="block mb-1">Statut</label>
-            <select name="status" id="status" class="text-black rounded p-1 w-40">
-                <option value="">Tous</option>
-                <option value="à faire" @selected(request('status') == 'à faire')>À faire</option>
-                <option value="en cours" @selected(request('status') == 'en cours')>En cours</option>
-                <option value="terminé" @selected(request('status') == 'terminé')>Terminé</option>
-            </select>
-        </div>
+                    <div>
+                        <label for="status" class="block mb-1">Statut</label>
+                        <select name="status" id="status" class="text-black rounded p-1 w-40">
+                            <option value="">Tous</option>
+                            <option value="à faire" @selected(request('status') == 'à faire')>À faire</option>
+                            <option value="en cours" @selected(request('status') == 'en cours')>En cours</option>
+                            <option value="terminé" @selected(request('status') == 'terminé')>Terminé</option>
+                        </select>
+                    </div>
 
-        <div>
-            <label for="priority" class="block mb-1">Priorité</label>
-            <select name="priority" id="priority" class="text-black rounded p-1 w-40">
-                <option value="">Toutes</option>
-                <option value="basse" @selected(request('priority') == 'basse')>Basse</option>
-                <option value="moyenne" @selected(request('priority') == 'moyenne')>Moyenne</option>
-                <option value="haute" @selected(request('priority') == 'haute')>Haute</option>
-            </select>
-        </div>
+                    <div>
+                        <label for="priority" class="block mb-1">Priorité</label>
+                        <select name="priority" id="priority" class="text-black rounded p-1 w-40">
+                            <option value="">Toutes</option>
+                            <option value="basse" @selected(request('priority') == 'basse')>Basse</option>
+                            <option value="moyenne" @selected(request('priority') == 'moyenne')>Moyenne</option>
+                            <option value="haute" @selected(request('priority') == 'haute')>Haute</option>
+                        </select>
+                    </div>
 
-        <div>
-            <button type="submit" class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">
-                Filtrer
-            </button>
-            
+                    <div>
+                        <button type="submit" class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">
+                            Filtrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="flex-shrink-0 w-64">
+                <button
+                    class="modal-button text-white w-full text-start flex items-center gap-2 p-2 rounded-[6px] hover:bg-gray-600/20" 
+                    data-modal-name="modal-add-task">
+                    <x-iconpark-plus class="w-6 font-bold [&>path]:stroke-[4]" stroke-width="8"/>
+                    Ajouter une tache
+                </button>
+            </div>
         </div>
-    </form>
+    </div>
 @php
  //dd($tasks);   
 @endphp
@@ -82,4 +95,6 @@
             </table>
         </div>
     </div>
+        {{-- Modal for create a task --}}
+        <x-projects.task-form-popup :project="$project" :categories="$categories" />
 @endsection
