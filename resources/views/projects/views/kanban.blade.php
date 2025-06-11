@@ -21,12 +21,23 @@
 
                 <ul class="flex flex-col text-white kanban-task-list">
                     @foreach ($column->tasks as $task)
-                        <li class="bg-gray-600 p-2 mb-2 rounded-[6px] kanban-task" draggable="true" id="kanban-task-{{ $task->id }}">
+                        <li class="bg-gray-600 p-2 mb-2 rounded-[6px] kanban-task task-kanban-item cursor-pointer" draggable="true" id="kanban-task-{{ $task->id }}" data-task-id="{{ $task->id }}">
                             <h3 class="text-lg font-semibold">{{$task->title}}</h3>
                             <p>{{$task->description}}</p>
                             <p>Statut: {{$task->status}}</p>
                             <p>Priorité: {{$task->priority}}</p>
                         </li>
+                        <div id="modal-edit-task-{{ $task->id }}" class="modal hidden fixed inset-0 z-50 items-center justify-center bg-gray-900 bg-opacity-50">
+                            <button type="button" class="modal-close absolute top-2 right-2 text-white bg-gray-800 rounded-full w-8 h-8 flex items-center justify-center z-10" title="Fermer">&times;</button>
+                            <x-projects.task-edit-popup
+                                :project="$project"
+                                :task="$task"
+                                :categories="$categories"
+                                :action="route('projects.tasks.update', [$project, $task])"
+                                method="PATCH"
+                                button="Mettre à jour"
+                            />
+                        </div>
                     @endforeach
                 </ul>
                 <button

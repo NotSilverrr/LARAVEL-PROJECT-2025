@@ -92,30 +92,3 @@
     </div>
 </div>
 @endsection
-
-{{-- Modal show/hide script --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Show modal on task click
-        document.querySelectorAll('.task-calendar-item').forEach(function (el) {
-            el.addEventListener('click', function () {
-                var taskId = this.getAttribute('data-task-id');
-                var modal = document.getElementById('modal-edit-task-' + taskId);
-                if (modal) {
-                    modal.classList.remove('hidden');
-                    modal.classList.add('flex');
-                }
-            });
-        });
-        // Hide modal on close button
-        document.querySelectorAll('.modal-close').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var modal = btn.closest('.modal');
-                if (modal) {
-                    modal.classList.add('hidden');
-                    modal.classList.remove('flex');
-                }
-            });
-        });
-    });
-</script>

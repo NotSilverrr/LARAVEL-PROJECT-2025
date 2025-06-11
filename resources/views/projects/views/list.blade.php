@@ -59,7 +59,7 @@
                 </thead>
                 <tbody class="divide-y divide-gray-600">
                     @forelse ($tasks as $task)
-                        <tr class="hover:bg-gray-800/40 transition">
+                        <tr class="hover:bg-gray-800/40 transition task-list-row cursor-pointer" data-task-id="{{ $task->id }}">
                             <td class="px-4 py-3">
                                 <a href="{{ route('projects.show', $task->id) }}" class="hover:underline text-blue-300">
                                     {{ $task->title }}
@@ -70,7 +70,16 @@
                             <td class="px-4 py-3">{{ $task->column->name }}</td>
                             <td class="px-4 py-3">{{ $task->creator->firstname ?? '' }} {{ $task->creator->lastname ?? '' }}</td>
                             <td class="px-4 py-3 space-x-2">
-                                <a href="{{ route('projects.edit', $task->id) }}" class="text-blue-300 hover:text-blue-400">Modifier</a>
+                                <div id="modal-edit-task-{{ $task->id }}" class="modal hidden fixed inset-0 z-50 items-center justify-center bg-gray-900 bg-opacity-50">
+                                    <x-projects.task-edit-popup
+                                        :project="$project"
+                                        :task="$task"
+                                        :categories="$categories"
+                                        :action="route('projects.tasks.update', [$project, $task])"
+                                        method="PATCH"
+                                        button="Mettre à jour"
+                                    />
+                                </div>
                             </td>
                         </tr>
                     @empty
