@@ -51,6 +51,9 @@ class TaskController extends Controller
             'column_id'
         ]);
         $data['created_by'] = Auth::id();
+        if($data['column_id'] == null) {
+            $data['column_id'] = $project->columns()->first()->id;
+        }
 
         // dd($data); // For debugging
 
