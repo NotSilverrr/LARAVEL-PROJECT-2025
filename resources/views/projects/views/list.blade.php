@@ -4,7 +4,7 @@
     <h2 class="text-xl font-semibold mb-4">Vue Liste des tâches</h2>
 
     <div class="flex flex-col gap-4 mb-6">
-        <div class="flex gap-4 bg-gray-800 items-center">
+        <div class="flex gap-4 bg-gray-800 rounded-lg items-center">
             <div class="flex-1">
                 {{-- Filtres --}}
                 <form method="GET" class="p-4 rounded-lg flex flex-wrap gap-4 items-end text-white">
@@ -45,7 +45,7 @@
             </div>
             <div class="flex-shrink-0 w-64">
                 <button
-                    class="modal-button text-white w-full text-start flex items-center gap-2 p-2 rounded-[6px] hover:bg-gray-600/20" 
+                    class="modal-button text-white w-full text-start flex items-center gap-2 p-2 rounded-lg hover:bg-gray-600/20" 
                     data-modal-name="modal-add-task">
                     <x-iconpark-plus class="w-6 font-bold [&>path]:stroke-[4]" stroke-width="8"/>
                     Ajouter une tache
@@ -83,7 +83,17 @@
                             <td class="px-4 py-3">{{ $task->column->name }}</td>
                             <td class="px-4 py-3">{{ $task->creator->firstname ?? '' }} {{ $task->creator->lastname ?? '' }}</td>
                             <td class="px-4 py-3 space-x-2">
-                                <a href="{{ route('projects.edit', $task->id) }}" class="text-blue-300 hover:text-blue-400">Modifier</a>
+                                <button class="text-blue-300 hover:text-blue-400 task-edit-button" data-task-id="{{ $task->id }}">Modifier</button>
+                                    <div id="modal-edit-task-{{ $task->id }}" class="modal hidden fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+                                        <x-projects.task-edit-popup
+                                            :project="$project"
+                                            :task="$task"
+                                            :categories="$categories"
+                                            :action="route('projects.tasks.update', [$project, $task])"
+                                            method="PATCH"
+                                            button="Mettre à jour"
+                                        />
+                                    </div>
                             </td>
                         </tr>
                     @empty
@@ -98,3 +108,26 @@
         {{-- Modal for create a task --}}
         <x-projects.task-form-popup :project="$project" :categories="$categories" />
 @endsection
+
+{{-- Modal show/hide script --}}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Show modal on task edit button click
+    document.querySelectorAll('.task-edit-button').forEach(function (el) {
+        el.addEventListener('click', function () {
+            const taskId = this.dataset.taskId;
+            const modal = document.getElementById('modal-edit-task-' + taskId);
+            modal.classList.remove('hidden');
+        });
+    });
+
+    // Close modal when clicking outside
+    document.querySelectorAll('.modal').forEach(function (modal) {
+        modal.addEventListener('click', function (e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+            }
+        });
+    });
+});
+</script>

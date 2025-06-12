@@ -13,7 +13,7 @@
         @endforeach
     </script>
     @endif
-    <div class="flex flex-col h-full flex-1 p-6" style="background-image: url('{{ asset('assets/images/background.jpg') }}'); background-size: 100% auto;">
+    <div class="flex flex-col h-full flex-1 p-6 bg-project-image">
         <div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
 
         <div class="relative z-10">
@@ -57,5 +57,4 @@
             </div>
         </div>
     </div>
-    
 </x-app-layout>

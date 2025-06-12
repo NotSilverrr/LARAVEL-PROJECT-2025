@@ -13,6 +13,10 @@
 
             <!-- Settings Dropdown -->
             <div class="items-center hidden sm:flex">
+                <button id="theme-toggle" class="p-2 text-white hover:text-gray-300" aria-label="Toggle dark mode">
+                    <x-iconpark-sun class="w-6 h-6" id="light-icon" />
+                    <x-iconpark-moon class="w-6 h-6 hidden" id="dark-icon" />
+                </button>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 text-sm text-white hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
