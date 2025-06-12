@@ -5,6 +5,7 @@ use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColumnController;
 use App\Http\Controllers\KanbanController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectInvitationController;
 use App\Http\Controllers\ProjectUserController;
@@ -40,6 +41,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/projects/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
     Route::get('/projects/{project}/categories', [CategoryController::class, 'index'])->name('projects.categories.index');
     Route::get('/projects/{project}/users', [ProjectUserController::class, 'index'])->name('projects.users.index');
+    
+    Route::get('/projects/{project}/groups', [GroupController::class, 'index'])->name('projects.groups.index');
+    Route::get('/projects/{project}/groups/create', [GroupController::class, 'create'])->name('projects.groups.create');
+    Route::post('/projects/{project}/groups', [GroupController::class, 'store'])->name('projects.groups.store');
+    Route::get('/projects/{project}/groups/{group}/edit', [GroupController::class, 'edit'])->name('projects.groups.edit');
+    Route::put('/projects/{project}/groups/{group}', [GroupController::class, 'update'])->name('projects.groups.update');
+    Route::delete('/projects/{project}/groups/{group}', [GroupController::class, 'destroy'])->name('projects.groups.destroy');
     
     Route::post('/projects/{project}/inviteUser', [ProjectUserController::class, 'inviteUserToProject'])->name('projects.users.invite');
     

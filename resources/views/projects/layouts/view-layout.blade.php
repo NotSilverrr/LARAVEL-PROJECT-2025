@@ -24,6 +24,9 @@
                         <x-iconpark-edit-o class="w-6 h-6 text-gray-100" />
                     </a>
                     <a href="{{route("projects.users.index", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Groups">
+                        <x-iconpark-user-o class="w-6 h-6 text-gray-100" />
+                    </a>
+                    <a href="{{route("projects.groups.index", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Groups">
                         <x-iconpark-peoples-o class="w-6 h-6 text-gray-100" />
                     </a>
                     <a href="" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Delete">
