@@ -50,11 +50,13 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/projects/{project}/groups/{group}', [GroupController::class, 'destroy'])->name('projects.groups.destroy');
     
     Route::post('/projects/{project}/inviteUser', [ProjectUserController::class, 'inviteUserToProject'])->name('projects.users.invite');
-    
 
     Route::get('/projects/{project}/view/list', [ProjectViewController::class, 'list'])->name('projects.view.list');
     Route::get('/projects/{project}/view/kanban', [ProjectViewController::class, 'kanban'])->name('projects.view.kanban');
     Route::get('/projects/{project}/view/calendar', [ProjectViewController::class, 'calendar'])->name('projects.view.calendar');
+    Route::get('/projects/{project}/view/week', [ProjectViewController::class, 'week'])->name('projects.view.week');
+    Route::get('/projects/{project}/view/three_days', [ProjectViewController::class, 'three_days'])->name('projects.view.three_days');
+    Route::get('/projects/{project}/view/day', [ProjectViewController::class, 'day'])->name('projects.view.day');
 
     Route::get('/projects/{project}/tasks/create', [TaskController::class, 'create'])->name('projects.tasks.create');
     Route::post('/projects/{project}/tasks', [TaskController::class, 'store'])->name('projects.tasks.store');

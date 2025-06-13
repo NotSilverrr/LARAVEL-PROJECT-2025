@@ -50,16 +50,22 @@ class ProjectViewController extends Controller
             "day" => (int)date("d"),
         ];
 
+        $selected_day = $today["day"];
+        if (isset($request->day)) {
+            $selected_day = (int)$request->day;
+        }
+
         $selected_month = $today["month"];
         $selected_year = $today["year"];
-        
-        if(isset($request->month)){
+        if (isset($request->month)) {
             $selected_month = $request->month;
         }
-        
-        if(isset($request->year)){
+        if (isset($request->year)) {
             $selected_year = $request->year;
         }
+
+        $selectedDate = new \DateTime("{$selected_year}-{$selected_month}-{$selected_day}");
+        $selected_week = (int)$selectedDate->format("W");
         
         if($selected_year % 4 == 0 && ($selected_year % 100 != 0 || $selected_year % 400 == 0)){
             $months[1]["days"] = 29;
@@ -84,12 +90,13 @@ class ProjectViewController extends Controller
         $totalWeeks = ceil($totalCells / 7);
 
         $tasks = $project->tasks()->get();
-
         $categories = \App\Models\Category::all();
 
         return view('projects.views.calendar', [
             'today' => $today,
             'months' => $months,
+            'selected_day' => $selected_day,
+            'selected_week' => $selected_week,
             'selected_month' => $selected_month,
             'selected_year' => $selected_year,
             'first_day_of_month' => $first_day_of_month,
@@ -105,6 +112,64 @@ class ProjectViewController extends Controller
             'totalCells' => $totalCells,
             'totalWeeks' => $totalWeeks,
         ]);
+    }
+
+    public function week(Request $request, Project $project)
+    {
+        $today = [
+            "year" => (int)date("Y"),
+            "month" => (int)date("m"),
+            "day" => (int)date("d"),
+        ];
+
+        $selected_year = $today["year"];
+        $selected_week = (int)date("W");
+        if (isset($request->year)) {
+            $selected_year = (int)$request->year;
+        }
+        if (isset($request->week)) {
+            $selected_week = (int)$request->week;
+        }
+
+        $prevWeek = $selected_week - 1;
+        $prevYear = $selected_year;
+        $nextWeek = $selected_week + 1;
+        $nextYear = $selected_year;
+        $weeksInYear = (int) (new \DateTime("{$selected_year}-12-28"))->format("W");
+        if ($prevWeek < 1) {
+            $prevYear--;
+            $prevWeek = (int) (new \DateTime("{$prevYear}-12-28"))->format("W");
+        }
+        if ($nextWeek > $weeksInYear) {
+            $nextWeek = 1;
+            $nextYear++;
+        }
+
+        $tasks = $project->tasks()->get();
+        $categories = \App\Models\Category::all();
+
+        return view('projects.views.week', [
+            'today' => $today,
+            'selected_week' => $selected_week,
+            'selected_year' => $selected_year,
+            'project' => $project,
+            'tasks' => $tasks,
+            'categories' => $categories,
+            'prevWeek' => $prevWeek,
+            'prevWeekYear' => $prevYear,
+            'nextWeek' => $nextWeek,
+            'nextWeekYear' => $nextYear,
+        ]);
+    }
+
+    public function three_days(Request $request, Project $project)
+    {
+        
+    }
+
+    public function day(Request $request, Project $project)
+    {
+        
     }
 
     private function getFirstDayOfMonth($month, $year) {

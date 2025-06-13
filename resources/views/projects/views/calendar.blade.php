@@ -1,10 +1,34 @@
 @extends('projects.layouts.view-layout')
 
 @section('project-view-content')
-<h2 class="text-xl font-semibold mb-4">Vue Calendrier</h2>
+<div class="w-full flex justify-between mt-2">
+    <h2 class="text-xl font-semibold mb-4">Vue Calendrier</h2>
+    <div class="flex flex-wrap justify-end" style="flex-wrap: wrap;">
+        <div class="flex gap-1 bg-gray-800 rounded-full p-1 mb-4">
+            <a href="{{ route('projects.view.day', $project) }}"
+                class="text-sm p-2 rounded-full text-white 
+                        {{ request()->routeIs('projects.view.day') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
+                1
+            </a>
+            <a href="{{ route('projects.view.three_days', $project) }}"
+                class="text-sm p-2 rounded-full text-white 
+                        {{ request()->routeIs('projects.view.three_days') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
+                3
+            </a>
+            <a href="{{ route('projects.view.week', $project) }}"
+                class="text-sm p-2 rounded-full text-white 
+                        {{ request()->routeIs('projects.view.week') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
+                7
+            </a>
+            <a href="{{ route('projects.view.calendar', $project) }}"
+                class="text-sm p-2 rounded-full text-white 
+                        {{ request()->routeIs('projects.view.calendar') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
+                M
+            </a>
+        </div>
+    </div>
+</div>
 <div>
-    <div class="flex flex-wrap" style="flex-wrap: wrap;">
-        
         <div class="w-full flex justify-end">
             <div class="bg-gray-700 rounded-lg p-4 w-full mx-auto">
                 <div class="flex justify-center items-center space-x-6 mb-6">
