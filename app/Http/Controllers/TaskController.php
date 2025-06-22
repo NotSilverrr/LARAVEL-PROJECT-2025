@@ -107,6 +107,9 @@ class TaskController extends Controller
         ]);
 
         $task->update($data);
+        if (isset($data['user_ids'])) {
+            $task->users()->sync($data['user_ids']);
+        }
 
         return redirect()->back()->with('success', 'Tâche mise à jour avec succès.');
     }

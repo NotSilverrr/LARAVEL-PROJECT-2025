@@ -27,6 +27,16 @@
                     </select>
                 </div>
                 <div>
+                    <label for="users" class="block text-gray-100 text-sm font-bold mb-2">Membres assignés</label>
+                    <select name="user_ids[]" id="users" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline" multiple required>
+                        @foreach ($project->users as $user)
+                            <option value="{{ $user->id }}" {{ in_array($user->id, $task->users->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                {{ $user->firstname }} {{ $user->lastname }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
                     <label for="date_start" class="block text-gray-100 text-sm font-bold mb-2">Date de début</label>
                     <input type="date" id="date_start" name="date_start" value="{{ old('date_start', isset($task->date_start) ? $task->date_start->format('Y-m-d') : '') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                 </div>
@@ -42,7 +52,7 @@
                 </div>
                 <div class="flex-1">
                     <label for="description" class="block text-gray-100 text-sm font-bold mb-2">Description de la tâche</label>
-                    <textarea id="description" name="description" rows="9" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y" required>{{ old('description', $task->description ?? '') }}</textarea>
+                    <textarea id="description" name="description" rows="17" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y" required>{{ old('description', $task->description ?? '') }}</textarea>
                 </div>
             </div>
         </div>
