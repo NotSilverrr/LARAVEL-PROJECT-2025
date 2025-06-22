@@ -11,6 +11,7 @@ use App\Http\Controllers\ProjectInvitationController;
 use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\ProjectViewController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ListController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -51,7 +52,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::post('/projects/{project}/inviteUser', [ProjectUserController::class, 'inviteUserToProject'])->name('projects.users.invite');
 
-    Route::get('/projects/{project}/view/list', [ProjectViewController::class, 'list'])->name('projects.view.list');
+    Route::get('/projects/{project}/view/list', [ListController::class, 'list'])->name('projects.view.list');
     Route::get('/projects/{project}/view/kanban', [ProjectViewController::class, 'kanban'])->name('projects.view.kanban');
     Route::get('/projects/{project}/view/calendar', [ProjectViewController::class, 'calendar'])->name('projects.view.calendar');
     Route::get('/projects/{project}/view/week', [ProjectViewController::class, 'week'])->name('projects.view.week');

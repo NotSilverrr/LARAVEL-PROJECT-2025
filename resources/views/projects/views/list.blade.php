@@ -8,11 +8,21 @@
             <div class="flex-1">
                 {{-- Filtres --}}
                 <form method="GET" class="p-4 rounded-lg flex flex-wrap gap-4 items-end text-white">
+                    <div class="flex-1">
+                        <label for="search" class="block mb-1">Rechercher</label>
+                        <input type="text" name="search" id="search" 
+                               value="{{ request('search') }}"
+                               class="text-black rounded p-1 w-full" 
+                               placeholder="Rechercher une tâche...">
+                    </div>
+
                     <div>
-                        <label for="column_id" class="block mb-1">Colonne</label>
+                        <label for="column_id" class="block mb-1">Groupe</label>
                         <select name="column_id" id="column_id" class="text-black rounded p-1 w-40">
                             <option value="">Toutes</option>
-
+                            @foreach ($project->columns as $column)
+                                <option value="{{ $column->id }}" @selected(request('column_id') == $column->id)>{{ $column->name }}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -20,7 +30,6 @@
                         <label for="status" class="block mb-1">Statut</label>
                         <select name="status" id="status" class="text-black rounded p-1 w-40">
                             <option value="">Tous</option>
-                            <option value="à faire" @selected(request('status') == 'à faire')>À faire</option>
                             <option value="en cours" @selected(request('status') == 'en cours')>En cours</option>
                             <option value="terminé" @selected(request('status') == 'terminé')>Terminé</option>
                         </select>
@@ -29,10 +38,10 @@
                     <div>
                         <label for="priority" class="block mb-1">Priorité</label>
                         <select name="priority" id="priority" class="text-black rounded p-1 w-40">
-                            <option value="">Toutes</option>
-                            <option value="basse" @selected(request('priority') == 'basse')>Basse</option>
-                            <option value="moyenne" @selected(request('priority') == 'moyenne')>Moyenne</option>
-                            <option value="haute" @selected(request('priority') == 'haute')>Haute</option>
+                            <option value="" @selected(request('priority') == '')>Toutes</option>
+                            <option value="low" @selected(request('priority') == 'low')>Basse</option>
+                            <option value="medium" @selected(request('priority') == 'medium')>Moyenne</option>
+                            <option value="high" @selected(request('priority') == 'high')>Haute</option>
                         </select>
                     </div>
 
@@ -72,10 +81,13 @@
                 </thead>
                 <tbody class="divide-y divide-gray-600">
                     @forelse ($tasks as $task)
-                        <tr class="hover:bg-gray-800/40 transition task-list-row cursor-pointer" data-task-id="{{ $task->id }}">
+                        <tr class="hover:bg-gray-800/40 transition task-list-row cursor-pointer {{ $task->isLate() ? 'bg-red-800/20' : '' }}" data-task-id="{{ $task->id }}">
                             <td class="px-4 py-3">
-                                <a href="{{ route('projects.show', $task->id) }}" class="hover:underline text-blue-300">
+                                <a href="{{ route('projects.show', $task->id) }}" class="hover:underline {{ $task->isLate() ? 'text-red-400' : 'text-blue-300' }}">
                                     {{ $task->title }}
+                                    @if($task->isLate())
+                                        <span class="text-xs text-red-400">(Retard)</span>
+                                    @endif
                                 </a>
                             </td>
                             <td class="px-4 py-3">{{ $task->description }}</td>

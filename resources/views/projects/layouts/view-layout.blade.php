@@ -38,15 +38,15 @@
 
                 </div>
                 <div class="flex gap-1 bg-gray-800 rounded-full p-1">
-                    <a href="{{ route('projects.view.list', $project) }}"
-                    class="text-sm p-2 rounded-full text-white
-                            {{ request()->routeIs('projects.view.list') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
-                        <x-iconpark-listtwo class="w-4 h-4" />
-                    </a>
                     <a href="{{ route('projects.view.kanban', $project) }}"
                         class="text-sm p-2 rounded-full text-white
                                 {{ request()->routeIs('projects.view.kanban') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
                         <x-iconpark-aligntoptwo class="w-4 h-4" />
+                    </a>
+                    <a href="{{ route('projects.view.list', $project) }}"
+                    class="text-sm p-2 rounded-full text-white
+                            {{ request()->routeIs('projects.view.list') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
+                        <x-iconpark-listtwo class="w-4 h-4" />
                     </a>
                     <a href="{{ route('projects.view.calendar', $project) }}"
                         class="text-sm p-2 rounded-full text-white 
