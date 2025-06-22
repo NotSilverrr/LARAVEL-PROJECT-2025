@@ -4,11 +4,7 @@
     <h2 class="text-xl font-semibold mb-4">Vue Liste des tâches</h2>
 
     <div class="flex flex-col gap-4 mb-6">
-<<<<<<< HEAD
-        <div class="flex gap-4 bg-gray-800 items-center">
-=======
         <div class="flex gap-4 bg-gray-800 rounded-lg items-center">
->>>>>>> wip-list
             <div class="flex-1">
                 {{-- Filtres --}}
                 <form method="GET" class="p-4 rounded-lg flex flex-wrap gap-4 items-end text-white">
@@ -49,11 +45,7 @@
             </div>
             <div class="flex-shrink-0 w-64">
                 <button
-<<<<<<< HEAD
-                    class="modal-button text-white w-full text-start flex items-center gap-2 p-2 rounded-[6px] hover:bg-gray-600/20" 
-=======
                     class="modal-button text-white w-full text-start flex items-center gap-2 p-2 rounded-lg hover:bg-gray-600/20" 
->>>>>>> wip-list
                     data-modal-name="modal-add-task">
                     <x-iconpark-plus class="w-6 font-bold [&>path]:stroke-[4]" stroke-width="8"/>
                     Ajouter une tache
