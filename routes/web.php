@@ -41,6 +41,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
     Route::get('/projects/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
     Route::get('/projects/{project}/categories', [CategoryController::class, 'index'])->name('projects.categories.index');
+    Route::get('/projects/{project}/categories/{category}/edit', [CategoryController::class, 'edit'])->name('projects.categories.edit');
+    Route::patch('/projects/{project}/categories/{category}', [CategoryController::class, 'update'])->name('projects.categories.update');
+    Route::delete('/projects/{project}/categories/{category}', [CategoryController::class, 'destroy'])->name('projects.categories.destroy');
+    Route::post('/projects/{project}/categories', [CategoryController::class, 'store'])->name('projects.categories.store');
     Route::get('/projects/{project}/users', [ProjectUserController::class, 'index'])->name('projects.users.index');
     
     Route::get('/projects/{project}/groups', [GroupController::class, 'index'])->name('projects.groups.index');
