@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use Carbon\Carbon;
 
 class ProjectViewController extends Controller
 {
@@ -80,7 +82,7 @@ class ProjectViewController extends Controller
         $totalWeeks = ceil($totalCells / 7);
 
         $tasks = $project->tasks()->get();
-        $categories = \App\Models\Category::all();
+        $categories = Category::all();
 
         return view('projects.views.calendar', [
             'today' => $today,
@@ -136,7 +138,7 @@ class ProjectViewController extends Controller
         }
 
         $tasks = $project->tasks()->get();
-        $categories = \App\Models\Category::all();
+        $categories = Category::all();
 
         return view('projects.views.week', [
             'today' => $today,
@@ -154,12 +156,106 @@ class ProjectViewController extends Controller
 
     public function three_days(Request $request, Project $project)
     {
-        
+        $today = [
+            "year" => (int)date("Y"),
+            "month" => (int)date("m"),
+            "day" => (int)date("d"),
+        ];
+
+        $selected_year = $today["year"];
+        $selected_month = $today["month"];
+        $selected_day = $today["day"];
+
+        if ($request->has('year')) {
+            $selected_year = (int)$request->year;
+        }
+        if ($request->has('month')) {
+            $selected_month = (int)$request->month;
+        }
+        if ($request->has('day')) {
+            $selected_day = (int)$request->day;
+        }
+
+        $centerDate = new \DateTime();
+        $centerDate->setDate($selected_year, $selected_month, $selected_day);
+        $centerDate->setTime(0, 0, 0);
+
+        $dates = [
+            (clone $centerDate)->modify('-1 day'),
+            (clone $centerDate),
+            (clone $centerDate)->modify('+1 day'),
+        ];
+
+        $prevPeriod = (clone $centerDate)->modify('-2 days');
+        $nextPeriod = (clone $centerDate)->modify('+2 days');
+
+        $tasks = $project->tasks()->get();
+        $categories = Category::all();
+
+        return view('projects.views.three_days', [
+            'today' => $today,
+            'selected_year' => $selected_year,
+            'selected_month' => $selected_month,
+            'selected_day' => $selected_day,
+            'project' => $project,
+            'tasks' => $tasks,
+            'categories' => $categories,
+            'dates' => $dates,
+            'prevPeriodDay' => (int)$prevPeriod->format('d'),
+            'prevPeriodMonth' => (int)$prevPeriod->format('m'),
+            'prevPeriodYear' => (int)$prevPeriod->format('Y'),
+            'nextPeriodDay' => (int)$nextPeriod->format('d'),
+            'nextPeriodMonth' => (int)$nextPeriod->format('m'),
+            'nextPeriodYear' => (int)$nextPeriod->format('Y'),
+        ]);
     }
 
     public function day(Request $request, Project $project)
     {
-        
+        $today = [
+            "year" => (int)date("Y"),
+            "month" => (int)date("m"),
+            "day" => (int)date("d"),
+        ];
+
+        $selected_year = $today["year"];
+        $selected_month = $today["month"];
+        $selected_day = $today["day"];
+
+        if ($request->has('year')) {
+            $selected_year = (int)$request->year;
+        }
+        if ($request->has('month')) {
+            $selected_month = (int)$request->month;
+        }
+        if ($request->has('day')) {
+            $selected_day = (int)$request->day;
+        }
+
+        $currentDate = new \DateTime();
+        $currentDate->setDate($selected_year, $selected_month, $selected_day);
+        $currentDate->setTime(0, 0, 0);
+        $prevDate = (clone $currentDate)->modify('-1 day');
+        $nextDate = (clone $currentDate)->modify('+1 day');
+
+        $tasks = $project->tasks()->get();
+        $categories = Category::all();
+
+        return view('projects.views.day', [
+            'today' => $today,
+            'selected_year' => $selected_year,
+            'selected_month' => $selected_month,
+            'selected_day' => $selected_day,
+            'project' => $project,
+            'tasks' => $tasks,
+            'categories' => $categories,
+            'prevDay' => (int)$prevDate->format('d'),
+            'prevDayMonth' => (int)$prevDate->format('m'),
+            'prevDayYear' => (int)$prevDate->format('Y'),
+            'nextDay' => (int)$nextDate->format('d'),
+            'nextDayMonth' => (int)$nextDate->format('m'),
+            'nextDayYear' => (int)$nextDate->format('Y'),
+        ]);
     }
 
     private function getFirstDayOfMonth($month, $year) {

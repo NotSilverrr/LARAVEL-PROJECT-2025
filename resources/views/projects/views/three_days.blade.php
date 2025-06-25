@@ -2,7 +2,7 @@
 
 @section('project-view-content')
 <div class="w-full flex justify-between mt-2">
-    <h2 class="text-xl font-semibold mb-4">Vue Calendrier</h2>
+    <h2 class="text-xl font-semibold mb-4">Vue 3 Jours</h2>
     <div class="flex flex-wrap justify-end" style="flex-wrap: wrap;">
         <div class="flex gap-1 bg-gray-800 rounded-full p-1 mb-4">
             <a href="{{ route('projects.view.day', $project) }}"
@@ -32,55 +32,45 @@
     <div class="flex flex-wrap" style="flex-wrap: wrap;">
         <div class="w-full flex justify-end">
             <div class="bg-gray-700 rounded-lg p-4 w-full mx-auto">
-                <div class="flex justify-center items-center space-x-6 mb-6">
-                    <a href="{{ route('projects.view.week', [$project, 'week' => $prevWeek, 'year' => $prevWeekYear]) }}" class="text-white hover:text-blue-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                <div class="flex justify-center items-center space-x-12 mb-10">
+                    <a href="{{ route('projects.view.three_days', [$project, 'year' => $prevPeriodYear, 'month' => $prevPeriodMonth, 'day' => $prevPeriodDay]) }}" class="text-white hover:text-blue-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-16 h-16">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                         </svg>
                     </a>
-
-                    <h2 class="text-3xl font-bold text-white">Semaine {{ $selected_week }} {{ $selected_year }}</h2>
-
-                    <a href="{{ route('projects.view.week', [$project, 'week' => $nextWeek, 'year' => $nextWeekYear]) }}" class="text-white hover:text-blue-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                    <h2 class="text-4xl font-extrabold text-white tracking-wide">
+                        {{ $dates[0]->format('d/m/Y') }} - {{ $dates[2]->format('d/m/Y') }}
+                    </h2>
+                    <a href="{{ route('projects.view.three_days', [$project, 'year' => $nextPeriodYear, 'month' => $nextPeriodMonth, 'day' => $nextPeriodDay]) }}" class="text-white hover:text-blue-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-16 h-16">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
                     </a>
                 </div>
-
-                @php
-                    $dto = new DateTime();
-                    $dto->setISODate($selected_year, $selected_week, 1); // Monday
-                    $days = [];
-                    for ($i = 0; $i < 7; $i++) {
-                        $days[] = (clone $dto)->modify("+{$i} day");
-                    }
-                @endphp
-
-                <div class="flex w-full">
-                    @foreach ($days as $day)
-                        <div class="bg-gray-800 rounded-lg w-40 h-64 p-2 m-2 flex flex-col justify-between">
-                            <div class="flex justify-between">
-                                <span class="text-white text-sm font-bold">{{ ucfirst($day->format('l')) }}<br>{{ $day->format('d/m') }}</span>
-                                @php
-                                    $taskCount = $tasks->filter(fn($task) => $task->date_end && $task->date_end->format('Y-m-d') === $day->format('Y-m-d'))->count();
-                                @endphp
-                                <div class="w-4 h-4 flex items-center justify-center">
+                <div class="flex w-full justify-center gap-8">
+                    @foreach ($dates as $date)
+                        @php
+                            $taskCount = $tasks->filter(fn($task) => $task->date_end && $task->date_end->isSameDay($date))->count();
+                        @endphp
+                        <div class="bg-gray-800 rounded-2xl min-w-0 h-[600px] p-8 flex flex-col justify-between shadow-2xl" style="width: 30%;">
+                            <div class="flex justify-between items-center mb-6">
+                                <span class="text-white text-2xl font-extrabold">{{ ucfirst(__($date->format('l'))) }}<br><span class="text-lg font-bold">{{ $date->format('d/m') }}</span></span>
+                                <div class="w-10 h-10 flex items-center justify-center">
                                     @if ($taskCount > 0)
-                                        <span class="bg-gradient-to-b from-[#E04E75] to-[#902340] text-white rounded-full w-4 h-4 flex items-center justify-center text-xs font-bold">{{ $taskCount }}</span>
+                                        <span class="bg-gradient-to-b from-[#E04E75] to-[#902340] text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-extrabold">{{ $taskCount }}</span>
                                     @endif
                                 </div>
                             </div>
-                            <div class="flex flex-1 flex-col justify-start items-start space-y-1 border-t border-gray-400 mt-1 overflow-y-auto max-h-40 w-full scrollbar-none" style="scrollbar-width: none; -ms-overflow-style: none;">
+                            <div class="flex flex-1 flex-col justify-start items-start space-y-4 border-t-2 border-gray-400 pt-4 mt-4 overflow-y-auto max-h-[420px] w-full scrollbar-none" style="scrollbar-width: none; -ms-overflow-style: none;">
                                 @foreach ($tasks as $task)
-                                    @if ($task->date_end && $task->date_end->format('Y-m-d') === $day->format('Y-m-d'))
-                                        <div class="w-full bg-transparent flex items-center space-x-2 min-w-0 cursor-pointer task-calendar-item" data-task-id="{{ $task->id }}">
+                                    @if ($task->date_end && $task->date_end->isSameDay($date))
+                                        <div class="w-full bg-transparent flex items-center space-x-6 min-w-0 cursor-pointer task-calendar-item py-3 px-2" data-task-id="{{ $task->id }}">
                                             <span class="flex items-center justify-center">
-                                                <span class="w-2 h-2 rounded-full border-2 border-green-400 bg-green-300 flex items-center justify-center">
-                                                    <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                                                <span class="w-6 h-6 rounded-full border-4 border-green-400 bg-green-300 flex items-center justify-center">
+                                                    <span class="w-4 h-4 rounded-full bg-green-400"></span>
                                                 </span>
                                             </span>
-                                            <h3 class="text-sm text-white font-semibold truncate w-full max-w-[72px]">
+                                            <h3 class="text-xl text-white font-bold truncate w-full max-w-[200px]">
                                                 {{ $task->title }}
                                             </h3>
                                         </div>
