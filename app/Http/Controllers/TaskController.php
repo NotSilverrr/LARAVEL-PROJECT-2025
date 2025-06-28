@@ -94,6 +94,7 @@ class TaskController extends Controller
             'date_start' => 'nullable|date',
             'date_end' => 'nullable|date|after_or_equal:date_start',
             'column_id' => 'nullable|exists:columns,id',
+            'status' => 'required|string|in:pending,in_progress,completed',
         ]);
 
         $data = $request->only([
@@ -103,7 +104,8 @@ class TaskController extends Controller
             'category_id',
             'date_start',
             'date_end',
-            'column_id'
+            'column_id',
+            'status'
         ]);
 
         $task->update($data);
