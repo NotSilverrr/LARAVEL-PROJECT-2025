@@ -69,7 +69,7 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/projects/{project}/tasks/{task}', [TaskController::class, 'update'])->name('projects.tasks.update');
     Route::post('/projects/{project}/column', [ColumnController::class, 'store'])->name('projects.column.store');
     Route::delete('projects/{project}/column/{column}', [ColumnController::class, 'destroy'])->name('projects.columns.destroy');
-
+    Route::patch('/projects/{project}/column/{column}', [ColumnController::class, 'update'])->name('projects.columns.update');
 });
 
 require __DIR__.'/auth.php';

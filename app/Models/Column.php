@@ -15,7 +15,8 @@ class Column extends Model
     protected $fillable = [
         'name', 
         'created_by', 
-        'project_id'
+        'project_id',
+        'is_final',
     ];
 
     public function project(): BelongsTo

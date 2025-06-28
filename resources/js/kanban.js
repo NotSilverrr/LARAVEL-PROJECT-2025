@@ -94,17 +94,15 @@ function updateTaskPosition(taskId, columnId) {
     })
     .then(data => {
         console.log('Task position updated:', data);
+        window.location.reload();
     })
     .catch(error => {
         console.error('Error updating task position:', error);
-        
-
         // 🚨 Replacer la tâche dans sa colonne d'origine
         const task = document.getElementById(`kanban-task-${taskId}`);
         task.classList.add('animate-shake'); // par exemple
-
         setTimeout(() => {
-        task.classList.remove('animate-shake');
+            task.classList.remove('animate-shake');
         }, 500);
         const originColumnId = task?.dataset.originColumnId;
         if (originColumnId) {
@@ -114,7 +112,6 @@ function updateTaskPosition(taskId, columnId) {
                 originList.appendChild(task);
             }
         }
-
         // Optionnel : afficher une erreur à l'utilisateur
     });
 }
