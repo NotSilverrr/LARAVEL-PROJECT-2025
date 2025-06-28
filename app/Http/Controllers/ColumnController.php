@@ -65,9 +65,17 @@ class ColumnController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Column $column)
+    public function update(Request $request, Project $project, Column $column)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'is_final' => 'nullable|boolean',
+        ]);
+        $column->update([
+            'name' => $request->name,
+            'is_final' => $request->has('is_final'),
+        ]);
+        return redirect()->back()->with('success', 'Colonne modifiée avec succès.');
     }
 
     /**

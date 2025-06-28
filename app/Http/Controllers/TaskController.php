@@ -93,8 +93,8 @@ class TaskController extends Controller
             'category_id' => 'nullable|exists:categories,id',
             'date_start' => 'nullable|date',
             'date_end' => 'nullable|date|after_or_equal:date_start',
-            'column_id' => 'nullable|exists:columns,id',
-            'status' => 'required|string|in:pending,in_progress,completed',
+            // 'column_id' => 'nullable|exists:columns,id',
+            'status' => 'required|string|in:todo,in_progress,done',
         ]);
 
         $data = $request->only([
@@ -104,7 +104,7 @@ class TaskController extends Controller
             'category_id',
             'date_start',
             'date_end',
-            'column_id',
+            // 'column_id',
             'status'
         ]);
 
@@ -133,6 +133,11 @@ class TaskController extends Controller
 
         // Update the task's column
         $task->update(['column_id' => $column->id]);
+
+        // Si la colonne est finale, on passe le statut de la tâche à "completed"
+        if ($column->is_final) {
+            $task->update(['status' => 'done']);
+        }
 
         return response()->json(['success' => 'Task moved to new column']);
     }
