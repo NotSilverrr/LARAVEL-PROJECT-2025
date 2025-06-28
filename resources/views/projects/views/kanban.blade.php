@@ -13,9 +13,9 @@
             
                 <div class="flex justify-between mb-2 items-center">
                     <h2 class="text-xl text-white font-bold">{{$column->name}}</h2>
-                    <button class="modal-button text-[#902340] opacity-0 p-2 rounded-full group-hover:opacity-100 transition-opacity duration-300 hover:bg-gray-600/20 "
+                    <button class="modal-button text-gray-400 opacity-0 p-2 rounded-full group-hover:opacity-100 transition-opacity duration-300 hover:bg-gray-600/20 "
                         data-modal-name="modal-edit-column-{{ $column->id }}">
-                        <x-iconpark-delete-o class="w-6 h-6 [&>path]:stroke-[4]"/>
+                        <x-iconpark-edit-o class="w-6 h-6 [&>path]:stroke-[4]"/>
                     </button>
                 </div>
 
