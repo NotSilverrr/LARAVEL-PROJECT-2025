@@ -44,6 +44,14 @@
                     <label for="date_end" class="block text-gray-100 text-sm font-bold mb-2">Date de fin</label>
                     <input type="date" id="date_end" name="date_end" value="{{ old('date_end', isset($task->date_end) ? $task->date_end->format('Y-m-d') : '') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                 </div>
+                <div>
+                    <label for="status" class="block text-gray-100 text-sm font-bold mb-2">Statut de la tâche</label>
+                    <select name="status" id="status" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        <option value="pending" {{ old('status', $task->status ?? '') == 'pending' ? 'selected' : '' }}>À faire</option>
+                        <option value="in_progress" {{ old('status', $task->status ?? '') == 'in_progress' ? 'selected' : '' }}>En cours</option>
+                        <option value="completed" {{ old('status', $task->status ?? '') == 'completed' ? 'selected' : '' }}>Terminée</option>
+                    </select>
+                </div>
             </div>
             <div class="flex-1 flex flex-col gap-6">
                 <div>
