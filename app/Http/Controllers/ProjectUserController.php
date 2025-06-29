@@ -25,7 +25,7 @@ class ProjectUserController extends Controller
 
         // Valider la requête
         $request->validate([
-            'email' => 'required|email|exists:users,email',
+            'email' => 'required|email',
         ]);
         // Vérifier si l'utilisateur est déjà membre du projet
         $user = User::where('email', $request->email)->first();
