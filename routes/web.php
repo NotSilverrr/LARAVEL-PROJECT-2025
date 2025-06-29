@@ -28,11 +28,13 @@ Route::middleware('auth')->group(function () {
 });
 
 // Route pour accepter l'invitation
-Route::get('/invitations/{token}', [ProjectInvitationController::class, 'accept'])->name('projects.invitations.accept');
 Route::post('/invitations/register', [ProjectInvitationController::class, 'register'])->name('projects.invitations.register');
 
 // Route pour rattacher l'utilisateur au projet après login si invitation en session
 Route::get('/invitations/post-login', [ProjectInvitationController::class, 'postLoginInvitation'])->name('projects.invitations.postlogin');
+
+Route::get('/invitations/{token}', [ProjectInvitationController::class, 'accept'])->name('projects.invitations.accept');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
