@@ -63,7 +63,6 @@ class ProjectInvitationController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        dd('register');
 
 
         // Vérifier l'invitation
