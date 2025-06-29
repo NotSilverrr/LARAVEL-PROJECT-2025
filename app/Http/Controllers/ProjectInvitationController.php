@@ -20,6 +20,8 @@ class ProjectInvitationController extends Controller
             abort(403, 'Cette invitation a expiré.');
         }
 
+        dd($invitation);
+
         // Si l'utilisateur est connecté, on l'ajoute au projet directement
         if (Auth::check()) {
             $invitation->project->users()->attach(Auth::id(), ['role' => 'member']);
@@ -29,7 +31,6 @@ class ProjectInvitationController extends Controller
                 ->with('success', 'Tu as rejoint le projet avec succès !');
         }
 
-        dd($invitation);
         // Sinon, on redirige vers la page d'inscription avec le token et l'email de l'invitation
         return view('auth.register-invite', ['invitation' => $invitation]);
     }
