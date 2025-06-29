@@ -15,12 +15,13 @@ class ProjectInvitationController extends Controller
     {
         $invitation = ProjectInvitation::where('token', $token)->firstOrFail();
 
+        dd($invitation);
+
         // Vérifier si l'invitation a expiré
         if ($invitation->isExpired()) {
             abort(403, 'Cette invitation a expiré.');
         }
 
-        dd($invitation);
 
         // Si l'utilisateur est connecté, on l'ajoute au projet directement
         if (Auth::check()) {
