@@ -29,7 +29,7 @@ class ProjectUserController extends Controller
         ]);
         // Vérifier si l'utilisateur est déjà membre du projet
         $user = User::where('email', $request->email)->first();
-        if ($project->users()->where('user_id', $user->id)->exists()) {
+        if ($user && $project->users()->where('user_id', $user->id)->exists()) {
             return back()->with('error', 'Cet utilisateur est déjà membre du projet.');
         }
         // Créer un token d'invitation unique
