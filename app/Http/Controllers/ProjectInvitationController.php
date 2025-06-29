@@ -54,7 +54,6 @@ class ProjectInvitationController extends Controller
 
     public function register(Request $request)
     {
-        dd('register');
         $request->validate([
             'token' => 'required',
             'firstname' => ['required', 'string', 'max:255'],
@@ -63,6 +62,9 @@ class ProjectInvitationController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+
+        dd('register');
+
 
         // Vérifier l'invitation
         $invitation = ProjectInvitation::where('token', $request->token)->firstOrFail();
