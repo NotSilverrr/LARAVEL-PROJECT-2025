@@ -40,8 +40,16 @@ class ProjectInvitationController extends Controller
                 ->with('success', 'Tu as rejoint le projet avec succès !');
         }
 
-        // Sinon, on redirige vers la page d'inscription avec le token et l'email de l'invitation
-        return view('auth.register-invite', ['invitation' => $invitation]);
+        // Si l'utilisateur n'est pas connecté
+        $existingUser = User::where('email', $invitation->email)->first();
+        if ($existingUser) {
+            // Stocker le token en session pour l'utiliser après connexion
+            session(['invitation_token' => $token]);
+            return redirect()->route('login')->with('info', 'Connecte-toi pour rejoindre le projet.');
+        } else {
+            // Afficher la page d'inscription avec l'email pré-rempli
+            return view('auth.register-invite', ['invitation' => $invitation]);
+        }
     }
 
     public function register(Request $request)
@@ -87,5 +95,25 @@ class ProjectInvitationController extends Controller
 
         return redirect()->route('projects.view.list', $invitation->project)
             ->with('success', 'Compte créé et projet rejoint avec succès !');
+    }
+
+    public function postLoginInvitation()
+    {
+        $token = session('invitation_token');
+        if (!$token) {
+            return redirect()->route('dashboard');
+        }
+        $invitation = ProjectInvitation::where('token', $token)->first();
+        if ($invitation && Auth::check() && Auth::user()->email === $invitation->email) {
+            if (!$invitation->project->users()->where('user_id', Auth::id())->exists()) {
+                $invitation->project->users()->attach(Auth::id(), ['role' => 'member']);
+            }
+            $invitation->delete();
+            session()->forget('invitation_token');
+            return redirect()->route('projects.show', $invitation->project)
+                ->with('success', 'Tu as rejoint le projet avec succès !');
+        }
+        session()->forget('invitation_token');
+        return redirect()->route('dashboard');
     }
 }
