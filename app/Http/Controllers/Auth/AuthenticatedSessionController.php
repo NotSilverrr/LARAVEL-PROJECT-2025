@@ -26,8 +26,6 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
         $request->session()->regenerate();
-
-        dd('User authenticated successfully.' . session('invitation_token'));
         // Redirection spéciale si une invitation est en cours
         if (session('invitation_token')) {
             return redirect()->route('projects.invitations.postlogin');

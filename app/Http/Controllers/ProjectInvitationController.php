@@ -99,6 +99,7 @@ class ProjectInvitationController extends Controller
 
     public function postLoginInvitation()
     {
+        dd('Post login invitation handler');
         $token = session('invitation_token');
         dd($token);
         if (!$token) {
