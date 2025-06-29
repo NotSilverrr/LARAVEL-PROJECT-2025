@@ -52,4 +52,14 @@ class ProjectUserController extends Controller
         return back()->with('success', 'Invitation envoyée avec succès !');
     }
     
+    public function destroy(Project $project, User $user)
+    {
+        // Vérifier que l'utilisateur à supprimer n'est pas le créateur du projet
+        if ($project->created_by == $user->id) {
+            return back()->with('error', 'Impossible de supprimer le créateur du projet.');
+        }
+        // Détacher l'utilisateur du projet
+        $project->users()->detach($user->id);
+        return back()->with('success', 'Utilisateur supprimé du projet avec succès.');
+    }
 }

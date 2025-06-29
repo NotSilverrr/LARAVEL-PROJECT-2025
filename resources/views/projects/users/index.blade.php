@@ -30,15 +30,15 @@
                     <td class="p-4">{{ $user->lastname }}</td>
                     <td class="p-4">{{ $user->email }}</td>
                     <td class="p-4">{{ $user->pivot->role }}</td>
-                    {{-- <td>
-                        <a href="{{ route('projects.users.edit', [$project, $user]) }}" class="text-blue-500">Modifier</a>
+                    <td>
+                        {{-- <a href="{{ route('projects.users.edit', [$project, $user]) }}" class="text-blue-500">Modifier</a> --}}
                         |
                         <form action="{{ route('projects.users.destroy', [$project, $user]) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-red-500">Supprimer</button>
                         </form>
-                    </td> --}}
+                    </td>
                 </tr>
             @endforeach
         </tbody>
