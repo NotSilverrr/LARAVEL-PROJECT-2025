@@ -54,6 +54,7 @@ class ProjectInvitationController extends Controller
 
     public function register(Request $request)
     {
+        dd('register');
         $request->validate([
             'token' => 'required',
             'firstname' => ['required', 'string', 'max:255'],
