@@ -87,6 +87,7 @@ class ProjectInvitationController extends Controller
         // Connecter l'utilisateur
         Auth::login($user);
 
+        dd($invitation->project->users());
         // Ajouter l'utilisateur au projet
         $invitation->project->users()->attach($user->id, ['role' => 'member']);
 
