@@ -13,7 +13,6 @@ class ProjectInvitationController extends Controller
 {
     public function accept($token)
     {
-        dd($token);
         $invitation = ProjectInvitation::where('token', $token)->firstOrFail();
 
         // Vérifier si l'invitation a expiré
@@ -30,6 +29,7 @@ class ProjectInvitationController extends Controller
                 ->with('success', 'Tu as rejoint le projet avec succès !');
         }
 
+        dd($invitation);
         // Sinon, on redirige vers la page d'inscription avec le token et l'email de l'invitation
         return view('auth.register-invite', ['invitation' => $invitation]);
     }
