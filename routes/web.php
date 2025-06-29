@@ -69,6 +69,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/projects/{project}/column', [ColumnController::class, 'store'])->name('projects.column.store');
     Route::delete('projects/{project}/column/{column}', [ColumnController::class, 'destroy'])->name('projects.columns.destroy');
     Route::patch('/projects/{project}/column/{column}', [ColumnController::class, 'update'])->name('projects.columns.update');
+    Route::delete('/projects/{project}/users/{user}', [ProjectUserController::class, 'destroy'])->name('projects.users.destroy');
 });
 
 require __DIR__.'/auth.php';
