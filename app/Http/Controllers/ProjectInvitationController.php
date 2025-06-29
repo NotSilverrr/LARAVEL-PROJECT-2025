@@ -100,6 +100,7 @@ class ProjectInvitationController extends Controller
     public function postLoginInvitation()
     {
         $token = session('invitation_token');
+        dd($token);
         if (!$token) {
             return redirect()->route('dashboard');
         }
