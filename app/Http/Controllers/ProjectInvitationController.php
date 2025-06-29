@@ -20,12 +20,22 @@ class ProjectInvitationController extends Controller
             abort(403, 'Cette invitation a expiré.');
         }
 
-
-        // Si l'utilisateur est connecté, on l'ajoute au projet directement
+        // Si l'utilisateur est connecté
         if (Auth::check()) {
-            $invitation->project->users()->attach(Auth::id(), ['role' => 'member']);
+            $user = Auth::user();
+            // Vérifier que l'email de l'utilisateur correspond à l'email de l'invitation
+            if ($user->email !== $invitation->email) {
+                return redirect()->route('dashboard')->with('error', "Tu es connecté avec un autre compte que celui invité (" . $invitation->email . ").");
+            }
+            // Vérifier que l'utilisateur n'est pas déjà membre du projet
+            if ($invitation->project->users()->where('user_id', $user->id)->exists()) {
+                $invitation->delete(); // On peut supprimer l'invitation car il est déjà membre
+                return redirect()->route('projects.show', $invitation->project)
+                    ->with('info', 'Tu fais déjà partie de ce projet.');
+            }
+            // Ajouter l'utilisateur au projet
+            $invitation->project->users()->attach($user->id, ['role' => 'member']);
             $invitation->delete();
-
             return redirect()->route('projects.show', $invitation->project)
                 ->with('success', 'Tu as rejoint le projet avec succès !');
         }
