@@ -13,6 +13,7 @@ class ProjectInvitationController extends Controller
 {
     public function accept($token)
     {
+        dd($token);
         $invitation = ProjectInvitation::where('token', $token)->firstOrFail();
 
         // Vérifier si l'invitation a expiré
