@@ -25,8 +25,12 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
+
+        // Redirection spéciale si une invitation est en cours
+        if (session('invitation_token')) {
+            return redirect()->route('projects.invitations.postlogin');
+        }
 
         return redirect()->intended(route('dashboard', absolute: false));
     }
