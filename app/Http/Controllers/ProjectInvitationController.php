@@ -112,7 +112,7 @@ class ProjectInvitationController extends Controller
             }
             $invitation->delete();
             session()->forget('invitation_token');
-            return redirect()->route('projects.show', $invitation->project)
+            return redirect()->route('projects.view.list', $invitation->project)
                 ->with('success', 'Tu as rejoint le projet avec succès !');
         }
         session()->forget('invitation_token');
