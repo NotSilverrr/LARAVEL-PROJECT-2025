@@ -55,7 +55,7 @@ class ProjectController extends Controller
             'created_by' => Auth::id(),
         ]);
 
-        return redirect()->route('projects.view.list', $project->id)->with('success', 'Project created successfully.');
+        return redirect()->route('projects.view.kanban', $project->id)->with('success', 'Project created successfully.');
     }
 
     /**

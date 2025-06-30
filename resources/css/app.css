@@ -17,24 +17,160 @@
             /* @apply opacity-50 scale-95 ring-2 ring-pink-500; */
             opacity: 0.5;
             transform: scale(0.95);
-
-            
         }
 
         .kanban-column.drag-over {
             outline: 2px dashed #288cff;
         }
 
-        
-
         .animate-shake {
-        animation: shake 0.5s ease;
+            animation: shake 0.5s ease;
         }
     }
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-4px);
+    }
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+/* Styles personnalisés pour la page d'accueil */
+.welcome-section {
+    background-color: #f8fafc;
+}
+
+.welcome-section .nav-links {
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+}
+
+.welcome-section .nav-links a {
+    color: #4b5563;
+    transition: color 0.2s ease;
+}
+
+.welcome-section .nav-links a:hover {
+    color: #111827;
+}
+
+.welcome-section .main-content {
+    background: linear-gradient(rgba(17, 24, 39, 0.6), rgba(17, 24, 39, 0.8));
+    backdrop-filter: blur(10px);
+}
+
+.welcome-section .main-content h1 {
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 3.5rem;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+.welcome-section .main-content p {
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+}
+
+.welcome-section .main-content .cta-button {
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    background-color: #3b82f6;
+    color: #ffffff;
+    transition: background-color 0.2s ease;
+}
+
+.welcome-section .main-content .cta-button:hover {
+    background-color: #2563eb;
+}
+
+.welcome-section .authors-section {
+    padding: 4rem 0;
+    background-color: #ffffff;
+}
+
+.welcome-section .authors-section h2 {
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 2.25rem;
+    color: #111827;
+    margin-bottom: 2rem;
+}
+
+.welcome-section .author-card {
+    text-align: center;
+}
+
+.welcome-section .author-avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.welcome-section .author-name {
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    color: #4b5563;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+    .welcome-section .main-content h1 {
+        font-size: 2rem;
+        line-height: 2.75rem;
+    }
+
+    .welcome-section .main-content p {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+    }
+
+    .welcome-section .author-card {
+        margin-bottom: 2rem;
+    }
+}
+
+@media (min-width: 640px) {
+    .welcome-section .nav-links {
+        gap: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .welcome-section .main-content h1 {
+        font-size: 3rem;
+        line-height: 4rem;
+    }
+
+    .welcome-section .main-content p {
+        font-size: 1.5rem;
+        line-height: 2.5rem;
+    }
 }

@@ -9,15 +9,6 @@ use Carbon\Carbon;
 
 class ProjectViewController extends Controller
 {
-    public function list(Project $project)
-    {
-        $tasks = $project->tasks()->with('column', 'category', 'creator', 'groups', 'users')->get();
-        //($tasks);
-        $categories = $project->categories()->get();
-
-        return view('projects.views.list', compact('project', 'tasks', 'categories'));
-    }
-
     public function kanban(Project $project)
     {
         // Tu peux charger ici les colonnes et tâches si besoin

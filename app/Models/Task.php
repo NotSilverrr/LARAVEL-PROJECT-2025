@@ -54,4 +54,9 @@ class Task extends Model
     {
         return $this->belongsToMany(Group::class);
     }
+
+    public function isLate(): bool
+    {
+        return $this->date_end && $this->date_end < now() && $this->finished_at === null;
+    }
 }
