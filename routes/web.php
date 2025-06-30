@@ -12,7 +12,10 @@ use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\ProjectViewController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ListController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
+
+Route::post('/language-switch', [LanguageController::class, 'switch'])->name('language.switch');
 
 Route::get('/', function () {
     return view('welcome');

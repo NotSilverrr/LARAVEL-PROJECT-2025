@@ -50,7 +50,7 @@
                     </a>
                     <a href="{{ route('projects.view.calendar', $project) }}"
                         class="text-sm p-2 rounded-full text-white 
-                                {{ request()->routeIs('projects.view.calendar') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
+                                {{ request()->routeIs('projects.view.calendar', 'projects.view.week', 'projects.view.three_days', 'projects.view.day') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
                         <x-iconpark-calendar class="w-4 h-4" />
                     </a>
                 </div>

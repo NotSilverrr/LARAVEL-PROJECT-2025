@@ -23,7 +23,7 @@
             class="block px-4 py-2 rounded-[1rem] text-center
                     bg-gradient-to-b from-[#E04E75] to-[#902340] 
                     hover:bg-gradient-to-t">
-                Créer un projet
+                {{ __('messages.create_project') }}
             </a>
         </div>
     </div>

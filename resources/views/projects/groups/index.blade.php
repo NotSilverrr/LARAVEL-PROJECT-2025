@@ -39,7 +39,7 @@
                         <form action="{{ route('projects.groups.destroy', [$project, $group]) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="text-red-500 hover:underline">Supprimer</button>
+                            <button type="submit" class="text-red-500 hover:underline">{{ __('messages.delete') }}</button>
                         </form>
                     </td>
                 </tr>

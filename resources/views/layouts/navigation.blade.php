@@ -17,6 +17,13 @@
                     <x-iconpark-sun class="w-6 h-6" id="light-icon" />
                     <x-iconpark-moon class="w-6 h-6 hidden" id="dark-icon" />
                 </button>
+                <form action="{{ route('language.switch') }}" method="POST" class="ml-2">
+                    @csrf
+                    <input type="hidden" name="locale" value="{{ app()->getLocale() === 'en' ? 'fr' : 'en' }}">
+                    <button type="submit" class="p-2 text-white hover:text-gray-300 rounded transition">
+                        {{ app()->getLocale() === 'en' ? 'FR' : 'EN' }}
+                    </button>
+                </form>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 text-sm text-white hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
