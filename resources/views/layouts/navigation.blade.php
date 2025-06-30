@@ -20,9 +20,9 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 text-sm text-white hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div class="ms-1">
+                            {{-- <div class="ms-1">
                                 <x-iconpark-remind-o class="w-6 h-6 text-gray-100" />
-                            </div>    
+                            </div>     --}}
                             <div class="ms-1">
                                 <x-iconpark-user-o class="w-6 h-6 text-gray-100" />
                             </div>
