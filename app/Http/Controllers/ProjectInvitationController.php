@@ -95,7 +95,7 @@ class ProjectInvitationController extends Controller
         // Supprimer l'invitation
         $invitation->delete();
 
-        return redirect()->route('projects.view.list', $invitation->project)
+        return redirect()->route('projects.view.kanban', $invitation->project)
             ->with('success', 'Compte créé et projet rejoint avec succès !');
     }
 
@@ -114,7 +114,7 @@ class ProjectInvitationController extends Controller
             }
             $invitation->delete();
             session()->forget('invitation_token');
-            return redirect()->route('projects.view.list', $invitation->project)
+            return redirect()->route('projects.view.kanban', $invitation->project)
                 ->with('success', 'Tu as rejoint le projet avec succès !');
         }
         session()->forget('invitation_token');

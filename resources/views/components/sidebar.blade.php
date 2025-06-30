@@ -10,7 +10,7 @@
             <ul class="space-y-2">
                 @foreach (Auth::user()->projects as $project)
                     <li>
-                        <a href="{{ route('projects.view.list', $project->id) }}" class="block px-4 py-2 w-full rounded-[1rem] hover:bg-gray-700
+                        <a href="{{ route('projects.view.kanban', $project->id) }}" class="block px-4 py-2 w-full rounded-[1rem] hover:bg-gray-700
                             {{ request()->is('projects/' . $project->id . '*') ? 'bg-gray-600' : '' }}">
                             {{ $project->name }}
                         </a>
