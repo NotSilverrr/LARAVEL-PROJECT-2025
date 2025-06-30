@@ -9,8 +9,10 @@
                     <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                 </div>
                 <div class="mb-4">
-                    <label for="description" class="block text-gray-100 text-sm font-bold mb-2">{{ __('messages.project_description') }}</label>
-                    <input type="text" id="description" name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <label for="description" class="block text-gray-100 text-sm font-bold mb-2">Description du projet</label>
+                    <textarea id="description" name="description" rows="4" 
+                              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                              required></textarea>
                 </div>
                 <button type="submit" class="block px-4 py-2 rounded-[1rem] bg-gradient-to-b from-[#E04E75] to-[#902340] hover:bg-gradient-to-t text-white font-bold mt-2">{{ __('messages.create') }}</button>
             </form>

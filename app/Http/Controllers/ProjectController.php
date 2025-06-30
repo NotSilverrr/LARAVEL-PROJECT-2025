@@ -79,7 +79,14 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $project->update($request->all());
+
+        return redirect()->route('projects.view.kanban', $project->id)->with('success', 'Project updated successfully.');
     }
 
     /**
