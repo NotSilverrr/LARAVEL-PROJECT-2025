@@ -1,6 +1,6 @@
 <div class="modal-content bg-gray-800 p-10 rounded-[1.5rem] w-11/12 max-w-6xl">
-    <button class="modal-close text-white text-3xl item-self-end absolute top-8 right-10">&times;</button>
-    <h2 class="text-white text-2xl font-bold mb-10 text-center">{{ $title ?? __('messages.edit_task') }}</h2>
+    <button class="modal-close text-white text-3xl ml-auto mb-4">&times;</button>
+    <h2 class="text-white text-2xl font-bold mb-10 text-center">{{ 'Modifier la tâche ' . $task->title ?? 'Modifier une tâche' }}</h2>
     <form action="{{ $action }}" method="POST" class="flex flex-col gap-0">
         @csrf
         @isset($method)
