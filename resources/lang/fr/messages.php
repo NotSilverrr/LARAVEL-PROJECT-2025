@@ -1,5 +1,7 @@
 <?php
 return [
+    'project_name' => 'Nom du projet',
+    'project_description' => 'Description du projet',
     'welcome' => 'Bienvenue sur le tableau Kanban !',
     'edit_task' => 'Modifier la tâche',
     'delete_task' => 'Supprimer la tâche',
@@ -42,8 +44,6 @@ return [
     'group_name' => 'Nom du groupe',
     'group_members' => 'Membres du groupe',
     'add_members' => 'Ajouter des membres',
-    'project_name' => 'Nom du projet',
-    'project_description' => 'Description du projet',
     'edit' => 'Modifier',
     'delete' => 'Supprimer',
     'create' => 'Créer',

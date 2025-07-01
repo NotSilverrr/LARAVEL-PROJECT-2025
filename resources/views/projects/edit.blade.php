@@ -9,14 +9,14 @@
             @method('PUT')
             
             <div>
-                <label for="name" class="block text-sm font-medium text-white">Project Name</label>
+                <label for="name" class="block text-sm font-medium text-white">{{ __('messages.project_name') }}</label>
                 <input type="text" name="name" id="name" value="{{ old('name', $project->name) }}" 
                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-white bg-gray-700" 
                        required>
             </div>
 
             <div>
-                <label for="description" class="block text-sm font-medium text-white">Description</label>
+                <label for="description" class="block text-sm font-medium text-white">{{ __('messages.description') }}</label>
                 <textarea name="description" id="description" rows="3"
                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-white bg-gray-700"
                           required>{{ old('description', $project->description) }}</textarea>

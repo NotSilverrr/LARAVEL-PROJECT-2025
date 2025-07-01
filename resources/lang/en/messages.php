@@ -1,10 +1,12 @@
 <?php
 return [
+    'project_name' => 'Project Name',
+    'description' => 'Description',
+    'project_description' => 'Project Description',
     'welcome' => 'Welcome to the Kanban board!',
     'edit_task' => 'Edit Task',
     'delete_task' => 'Delete Task',
     'title' => 'Title',
-    'description' => 'Description',
     'due_date' => 'Due Date',
     'category' => 'Category',
     'actions' => 'Actions',
@@ -42,8 +44,6 @@ return [
     'group_name' => 'Group Name',
     'group_members' => 'Group Members',
     'add_members' => 'Add Members',
-    'project_name' => 'Project Name',
-    'project_description' => 'Project Description',
     'edit' => 'Edit',
     'delete' => 'Delete',
     'create' => 'Create',

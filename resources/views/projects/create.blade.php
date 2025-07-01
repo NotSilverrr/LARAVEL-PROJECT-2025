@@ -9,7 +9,7 @@
                     <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                 </div>
                 <div class="mb-4">
-                    <label for="description" class="block text-gray-100 text-sm font-bold mb-2">Description du projet</label>
+                    <label for="description" class="block text-gray-100 text-sm font-bold mb-2">{{ __('messages.project_description') }}</label>
                     <textarea id="description" name="description" rows="4" 
                               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                               required></textarea>
