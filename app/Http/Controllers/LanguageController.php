@@ -12,8 +12,6 @@ class LanguageController extends Controller
         if (in_array($locale, ['en', 'fr'])) {
             session(['locale' => $locale]);
             app()->setLocale($locale);
-            \Log::info('Locale switched to: ' . $locale);
-            \Log::info('Session locale: ' . session('locale'));
         }
         return redirect()->back();
     }
