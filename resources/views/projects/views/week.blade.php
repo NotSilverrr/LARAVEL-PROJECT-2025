@@ -2,26 +2,26 @@
 
 @section('project-view-content')
 <div class="w-full flex justify-between mt-2">
-    <h2 class="text-xl font-semibold mb-4">Vue Calendrier</h2>
+    <h2 class="text-xl font-semibold mb-4">{{ __('messages.week_view') }}</h2>
     <div class="flex flex-wrap justify-end" style="flex-wrap: wrap;">
         <div class="flex gap-1 bg-gray-800 rounded-full p-1 mb-4">
             <a href="{{ route('projects.view.day', $project) }}"
-                class="text-sm p-2 rounded-full text-white 
+                class="flex items-center justify-center text-sm p-2 rounded-full text-white h-8 w-8 
                         {{ request()->routeIs('projects.view.day') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
                 1
             </a>
             <a href="{{ route('projects.view.three_days', $project) }}"
-                class="text-sm p-2 rounded-full text-white 
+                class="flex items-center justify-center text-sm p-2 rounded-full text-white h-8 w-8 
                         {{ request()->routeIs('projects.view.three_days') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
                 3
             </a>
             <a href="{{ route('projects.view.week', $project) }}"
-                class="text-sm p-2 rounded-full text-white 
+                class="flex items-center justify-center text-sm p-2 rounded-full text-white h-8 w-8 
                         {{ request()->routeIs('projects.view.week') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
                 7
             </a>
             <a href="{{ route('projects.view.calendar', $project) }}"
-                class="text-sm p-2 rounded-full text-white 
+                class="flex items-center justify-center text-sm p-2 rounded-full text-white h-8 w-8 
                         {{ request()->routeIs('projects.view.calendar') ? 'bg-gradient-to-b from-[#E04E75] to-[#902340] ' : 'hover:bg-gray-600' }}">
                 M
             </a>
@@ -91,7 +91,7 @@
                                                 :categories="$categories"
                                                 :action="route('projects.tasks.update', [$project, $task])"
                                                 method="PATCH"
-                                                button="Mettre à jour"
+                                                button="{{ __('messages.save') }}"
                                             />
                                         </div>
                                     @endif

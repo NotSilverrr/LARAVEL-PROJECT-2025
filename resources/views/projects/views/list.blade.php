@@ -1,7 +1,7 @@
 @extends('projects.layouts.view-layout')
 
 @section('project-view-content')
-    <h2 class="text-xl font-semibold mb-4">Vue Liste des tâches</h2>
+    <h2 class="text-xl font-semibold mb-4">{{ __('messages.task_list') }}</h2>
 
     <div class="flex flex-col gap-4 mb-6">
         <div class="flex gap-4 bg-gray-800 rounded-lg items-center">
@@ -17,7 +17,7 @@
                     </div>
 
                     <div>
-                        <label for="column_id" class="block mb-1">Groupe</label>
+                        <label for="column_id" class="block mb-1">{{ __('messages.column') }}</label>
                         <select name="column_id" id="column_id" class="text-black rounded p-1 w-40">
                             <option value="">Toutes</option>
                             @foreach ($project->columns as $column)
@@ -27,7 +27,7 @@
                     </div>
 
                     <div>
-                        <label for="status" class="block mb-1">Statut</label>
+                        <label for="status" class="block mb-1">{{ __('messages.status') }}</label>
                         <select name="status" id="status" class="text-black rounded p-1 w-40">
                             <option value="">Tous</option>
                             <option value="en cours" @selected(request('status') == 'en cours')>En cours</option>
@@ -36,7 +36,7 @@
                     </div>
 
                     <div>
-                        <label for="priority" class="block mb-1">Priorité</label>
+                        <label for="priority" class="block mb-1">{{ __('messages.priority') }}</label>
                         <select name="priority" id="priority" class="text-black rounded p-1 w-40">
                             <option value="" @selected(request('priority') == '')>Toutes</option>
                             <option value="low" @selected(request('priority') == 'low')>Basse</option>
@@ -57,7 +57,7 @@
                     class="modal-button text-white w-full text-start flex items-center gap-2 p-2 rounded-lg hover:bg-gray-600/20" 
                     data-modal-name="modal-add-task">
                     <x-iconpark-plus class="w-6 font-bold [&>path]:stroke-[4]" stroke-width="8"/>
-                    Ajouter une tache
+                    {{ __('messages.add_task') }}
                 </button>
             </div>
         </div>
@@ -76,7 +76,7 @@
                         <th class="px-4 py-2 text-left text-sm font-medium">Priorité</th>
                         <th class="px-4 py-2 text-left text-sm font-medium">Groupe de tâche</th>
                         <th class="px-4 py-2 text-left text-sm font-medium">Crée par</th>
-                        <th class="px-4 py-2 text-left text-sm font-medium">Actions</th>
+                        <th class="px-4 py-2 text-left text-sm font-medium">{{ __('messages.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-600">
@@ -95,7 +95,7 @@
                             <td class="px-4 py-3">{{ $task->column->name }}</td>
                             <td class="px-4 py-3">{{ $task->creator->firstname ?? '' }} {{ $task->creator->lastname ?? '' }}</td>
                             <td class="px-4 py-3 space-x-2">
-                                <button class="text-blue-300 hover:text-blue-400 task-edit-button" data-task-id="{{ $task->id }}">Modifier</button>
+                                <button class="text-blue-300 hover:text-blue-400 task-edit-button" data-task-id="{{ $task->id }}">{{ __('messages.edit') }}</button>
                                     <div id="modal-edit-task-{{ $task->id }}" class="modal hidden fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
                                         <x-projects.task-edit-popup
                                             :project="$project"
@@ -103,14 +103,14 @@
                                             :categories="$categories"
                                             :action="route('projects.tasks.update', [$project, $task])"
                                             method="PATCH"
-                                            button="Mettre à jour"
+                                            button="{{ __('messages.save') }}"
                                         />
                                     </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center py-6">Aucune tâche trouvée.</td>
+                            <td colspan="6" class="text-center py-6">{{ __('messages.no_tasks') }}</td>
                         </tr>
                     @endforelse
                 </tbody>
