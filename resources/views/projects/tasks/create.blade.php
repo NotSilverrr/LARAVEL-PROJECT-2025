@@ -19,9 +19,7 @@
             <option value="low">{{ __('messages.low_priority') }}</option>
             <option value="medium">{{ __('messages.medium_priority') }}</option>
             <option value="high">{{ __('messages.high_priority') }}</option>
-            <option value="low">Basse</option>
-            <option value="medium">Moyenne</option>
-            <option value="high">Haute</option>
+            
         </select>
     {{-- <div class="mb-4">
         <label for="name" class="block text-gray-100 text-sm font-bold mb-2">{{ __('messages.base_columns') }}</label>

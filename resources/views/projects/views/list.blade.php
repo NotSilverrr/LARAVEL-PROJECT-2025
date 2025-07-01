@@ -9,17 +9,17 @@
                 {{-- Filtres --}}
                 <form method="GET" class="p-4 rounded-lg flex flex-wrap gap-4 items-end text-white">
                     <div class="flex-1">
-                        <label for="search" class="block mb-1">Rechercher</label>
+                        <label for="search" class="block mb-1">@lang('messages.search')</label>
                         <input type="text" name="search" id="search" 
                                value="{{ request('search') }}"
                                class="text-black rounded p-1 w-full" 
-                               placeholder="Rechercher une tâche...">
+                               placeholder="@lang('messages.search_task_placeholder')">
                     </div>
 
                     <div>
                         <label for="column_id" class="block mb-1">{{ __('messages.column') }}</label>
                         <select name="column_id" id="column_id" class="text-black rounded p-1 w-40">
-                            <option value="">Toutes</option>
+                            <option value="">@lang('messages.all')</option>
                             @foreach ($project->columns as $column)
                                 <option value="{{ $column->id }}" @selected(request('column_id') == $column->id)>{{ $column->name }}</option>
                             @endforeach
@@ -29,9 +29,9 @@
                     <div>
                         <label for="status" class="block mb-1">{{ __('messages.status') }}</label>
                         <select name="status" id="status" class="text-black rounded p-1 w-40">
-                            <option value="">Tous</option>
-                            <option value="en cours" @selected(request('status') == 'en cours')>En cours</option>
-                            <option value="terminé" @selected(request('status') == 'terminé')>Terminé</option>
+                            <option value="">@lang('messages.all')</option>
+                            <option value="en cours" @selected(request('status') == 'en cours')>@lang('messages.in_progress')</option>
+                            <option value="terminé" @selected(request('status') == 'terminé')>@lang('messages.completed')</option>
                         </select>
                     </div>
 
@@ -39,15 +39,15 @@
                         <label for="priority" class="block mb-1">{{ __('messages.priority') }}</label>
                         <select name="priority" id="priority" class="text-black rounded p-1 w-40">
                             <option value="" @selected(request('priority') == '')>Toutes</option>
-                            <option value="low" @selected(request('priority') == 'low')>Basse</option>
-                            <option value="medium" @selected(request('priority') == 'medium')>Moyenne</option>
-                            <option value="high" @selected(request('priority') == 'high')>Haute</option>
+                            <option value="low" @selected(request('priority') == 'low')>@lang('messages.low')</option>
+                            <option value="medium" @selected(request('priority') == 'medium')>@lang('messages.medium')</option>
+                            <option value="high" @selected(request('priority') == 'high')>@lang('messages.high')</option>
                         </select>
                     </div>
 
                     <div>
                         <button type="submit" class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">
-                            Filtrer
+                            @lang('messages.filter')
                         </button>
                     </div>
                 </form>
@@ -71,11 +71,11 @@
             <table class="min-w-full divide-y divide-gray-600 text-white">
                 <thead class="bg-gray-800">
                     <tr>
-                        <th class="px-4 py-2 text-left text-sm font-medium">Tâche</th>
-                        <th class="px-4 py-2 text-left text-sm font-medium">Description</th>
-                        <th class="px-4 py-2 text-left text-sm font-medium">Priorité</th>
-                        <th class="px-4 py-2 text-left text-sm font-medium">Groupe de tâche</th>
-                        <th class="px-4 py-2 text-left text-sm font-medium">Crée par</th>
+                        <th class="px-4 py-2 text-left text-sm font-medium">@lang('messages.task')</th>
+                        <th class="px-4 py-2 text-left text-sm font-medium">@lang('messages.description')</th>
+                        <th class="px-4 py-2 text-left text-sm font-medium">@lang('messages.priority')</th>
+                        <th class="px-4 py-2 text-left text-sm font-medium">@lang('messages.task_group')</th>
+                        <th class="px-4 py-2 text-left text-sm font-medium">@lang('messages.created_by')</th>
                         <th class="px-4 py-2 text-left text-sm font-medium">{{ __('messages.actions') }}</th>
                     </tr>
                 </thead>
@@ -86,7 +86,7 @@
                                 <a href="{{ route('projects.show', $task->id) }}" class="hover:underline {{ $task->isLate() ? 'text-red-400' : 'text-blue-300' }}">
                                     {{ $task->title }}
                                     @if($task->isLate())
-                                        <span class="text-xs text-red-400">(Retard)</span>
+                                        <span class="text-xs text-red-400">(@lang('messages.late'))</span>
                                     @endif
                                 </a>
                             </td>

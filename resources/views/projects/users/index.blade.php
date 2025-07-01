@@ -2,25 +2,25 @@
 
 @section('project-view-content')
     <div class="flex justify-between items-center mb-4 mt-4">
-        <h2 class="text-3xl font-semibold">Membres</h2>
+        <h2 class="text-3xl font-semibold">@lang('messages.members')</h2>
         <button href="{{ route('projects.create') }}" 
             class="modal-button flex gap-1 px-3 py-2 rounded-[1rem] text-center
                     bg-gradient-to-b from-[#E04E75] to-[#902340] 
                     hover:bg-gradient-to-t"
                     data-modal-name="modal-add-user">
                     <x-iconpark-plus class="w-6 font-bold [&>path]:stroke-[4]" stroke-width="8"/>
-                Ajouter un utilisateur
+                @lang('messages.add_user')
         </button>
     </div>
 
     <table class="min-w-full bg-gray-700 rounded-lg shadow-md overflow-hidden">
         <thead>
             <tr class="text-left bg-gray-800  font-bold">
-                <th class="p-4 ">Nom</th>
-                <th class="p-4">Prénom</th>
-                <th class="p-4">Email</th>
-                <th class="p-4">Rôle</th>
-                <th class="p-4">Actions</th>
+                <th class="p-4">@lang('messages.lastname')</th>
+                <th class="p-4">@lang('messages.firstname')</th>
+                <th class="p-4">@lang('messages.email')</th>
+                <th class="p-4">@lang('messages.role')</th>
+                <th class="p-4">@lang('messages.actions')</th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +36,7 @@
                         <form action="{{ route('projects.users.destroy', [$project, $user]) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="text-red-500">Supprimer</button>
+                            <button type="submit" class="text-red-500">@lang('messages.delete')</button>
                         </form>
                     </td>
                 </tr>

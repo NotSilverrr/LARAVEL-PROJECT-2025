@@ -1,7 +1,7 @@
 @extends('projects.layouts.view-layout')
 
 @section('project-view-content')
-    <h2 class="text-xl font-semibold mb-4">Vue Kanban</h2>
+    <h2 class="text-xl font-semibold mb-4">@lang('messages.kanban_view')</h2>
 
     <div class="overflow-x-auto p-1 pb-4 kanban">
         <div class="flex items-start gap-4 w-max">
@@ -24,18 +24,18 @@
                         <li class="bg-gray-600 p-2 mb-2 rounded-[6px] kanban-task task-kanban-item cursor-pointer" draggable="true" id="kanban-task-{{ $task->id }}" data-task-id="{{ $task->id }}">
                             <h3 class="text-lg font-semibold">{{$task->title}}</h3>
                             <p>{{$task->description}}</p>
-                            <p>Statut: {{$task->status}}</p>
-                            <p>Priorité: {{$task->priority}}</p>
+                            <p>@lang('messages.status'): {{$task->status}}</p>
+                            <p>@lang('messages.priority'): {{$task->priority}}</p>
                         </li>
                         <div id="modal-edit-task-{{ $task->id }}" class="modal hidden fixed inset-0 z-50 items-center justify-center bg-gray-900 bg-opacity-50">
-                            <button type="button" class="modal-close absolute top-2 right-2 text-white bg-gray-800 rounded-full w-8 h-8 flex items-center justify-center z-10" title="Fermer">&times;</button>
+                            <button type="button" class="modal-close absolute top-2 right-2 text-white bg-gray-800 rounded-full w-8 h-8 flex items-center justify-center z-10" title="@lang('messages.close')">&times;</button>
                             <x-projects.task-edit-popup
                                 :project="$project"
                                 :task="$task"
                                 :categories="$categories"
                                 :action="route('projects.tasks.update', [$project, $task])"
                                 method="PATCH"
-                                button="Mettre à jour"
+                                button="@lang('messages.update')"
                             />
                         </div>
                     @endforeach
@@ -45,7 +45,7 @@
                     data-modal-name="modal-add-task"
                     data-column_id="{{$column->id}}">
                     <x-iconpark-plus class="w-6 font-bold [&>path]:stroke-[4]" stroke-width="8"/>
-                    Ajouter une tache
+                    @lang('messages.add_task')
                 </button>
             </div>
 
@@ -56,7 +56,7 @@
                 data-modal-name="modal-add-column">
                 
                 <x-iconpark-plus class="w-8 font-bold [&>path]:stroke-[4]" stroke-width="8" />
-                Ajouter une colonne
+                @lang('messages.add_column')
             </button>
         </div>
     </div>

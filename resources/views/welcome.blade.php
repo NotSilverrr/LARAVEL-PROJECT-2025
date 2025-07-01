@@ -28,9 +28,9 @@
                         @auth
                             <a href="{{ url('/dashboard') }}" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">Dashboard</a>
                         @else
-                            <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">Se connecter</a>
+                            <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">{{ __('messages.login') }}</a>
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">S'inscrire</a>
+                                <a href="{{ route('register') }}" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">{{ __('messages.register') }}</a>
                             @endif
                         @endauth
                     @endif
@@ -45,8 +45,8 @@
                     
                     <!-- Contenu -->
                     <div class="relative p-8 text-white">
-                        <h1 class="text-4xl font-bold mb-4">Bienvenue sur Kanboard</h1>
-                        <p class="text-xl mb-8">Organisez vos projets avec notre outil de gestion de tâches visuel.</p>
+                        <h1 class="text-4xl font-bold mb-4">{{ __('messages.welcome_title') }}</h1>
+                        <p class="text-xl mb-8">{{ __('messages.welcome_subtitle') }}</p>
                         
                         <!-- Bouton Commencer -->
                         @guest
@@ -57,7 +57,7 @@
 
                         <!-- Section Auteurs -->
                         <div class="mt-12 text-center">
-                            <h2 class="text-2xl font-semibold mb-4">Créé par</h2>
+                            <h2 class="text-2xl font-semibold mb-4">{{ __('messages.created_by') }}</h2>
                             <div class="flex justify-center gap-8">
                                 <div class="flex flex-col items-center">
                                     <img src="{{ asset('assets/images/mathis.png') }}" alt="Mathis LATIMIER" class="w-16 h-16 rounded-full mb-2">

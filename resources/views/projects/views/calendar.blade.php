@@ -2,7 +2,7 @@
 
 @section('project-view-content')
 <div class="w-full flex justify-between mt-2">
-    <h2 class="text-xl font-semibold mb-4">Vue Calendrier</h2>
+    <h2 class="text-xl font-semibold mb-4">@lang('messages.calendar_view')</h2>
     <div class="flex flex-wrap justify-end" style="flex-wrap: wrap;">
         <div class="flex gap-1 bg-gray-800 rounded-full p-1 mb-4">
             <a href="{{ route('projects.view.day', $project) }}"

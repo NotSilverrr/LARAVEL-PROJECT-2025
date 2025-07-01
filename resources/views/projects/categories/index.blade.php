@@ -3,7 +3,7 @@
 @section('project-view-content')
 <div x-data="categoryManager()">
     <div class="flex justify-between items-center mb-4 mt-4">
-        <h2 class="text-3xl font-semibold">Catégories</h2>
+        <h2 class="text-3xl font-semibold">@lang('messages.categories')</h2>
         <button class="flex gap-1 px-3 py-2 rounded-[1rem] text-center
                 bg-gradient-to-b from-[#E04E75] to-[#902340] 
                 hover:bg-gradient-to-t text-white"
@@ -20,8 +20,8 @@
     <table class="min-w-full bg-gray-700 rounded-lg shadow-md overflow-hidden">
         <thead>
             <tr class="text-left bg-gray-800 font-bold">
-                <th class="p-4">Nom</th>
-                <th class="p-4">Actions</th>
+                <th class="p-4">@lang('messages.name')</th>
+                <th class="p-4">@lang('messages.actions')</th>
             </tr>
         </thead>
         <tbody>
@@ -32,7 +32,7 @@
                         <button class="px-3 py-1 rounded-[1rem] text-center
                                 bg-gradient-to-b from-blue-500 to-blue-700 
                                 hover:bg-gradient-to-t text-white transition duration-200" 
-                                x-on:click="openEditModal({{ $category->id }}, '{{ $category->name }}')">Modifier</button>
+                                x-on:click="openEditModal({{ $category->id }}, '{{ $category->name }}')">@lang('messages.edit')</button>
                         <button class="px-3 py-1 rounded-[1rem] text-center
                                 bg-gradient-to-b from-red-500 to-red-700 
                                 hover:bg-gradient-to-t text-white transition duration-200"
@@ -55,7 +55,7 @@
                 </div>
                 <div class="flex justify-end gap-2">
                     <button type="button" x-on:click="$dispatch('close-modal', 'add-category-modal')" class="px-4 py-2 rounded-[1rem] bg-gray-600 hover:bg-gray-500 text-white transition duration-200">Annuler</button>
-                    <button type="submit" class="px-4 py-2 rounded-[1rem] bg-gradient-to-b from-[#E04E75] to-[#902340] hover:bg-gradient-to-t text-white">Ajouter</button>
+                    <button type="submit" class="px-4 py-2 rounded-[1rem] bg-gradient-to-b from-[#E04E75] to-[#902340] hover:bg-gradient-to-t text-white">@lang('messages.add')</button>
                 </div>
             </form>
         </div>
@@ -64,7 +64,7 @@
     <!-- Modal édition -->
     <x-modal name="edit-category-modal" maxWidth="md">
         <div class="bg-gray-800 p-6 rounded-[1rem]">
-            <h3 class="text-white text-xl font-bold mb-4">Modifier la catégorie</h3>
+            <h3 class="text-white text-xl font-bold mb-4">@lang('messages.edit_category')</h3>
             <form method="POST" x-bind:action="`/projects/{{ $project->id }}/categories/${editCategoryId}`" class="flex flex-col">
                 @csrf
                 @method('PATCH')
@@ -74,7 +74,7 @@
                 </div>
                 <div class="flex justify-end gap-2">
                     <button type="button" x-on:click="$dispatch('close-modal', 'edit-category-modal')" class="px-4 py-2 rounded-[1rem] bg-gray-600 hover:bg-gray-500 text-white transition duration-200">Annuler</button>
-                    <button type="submit" class="px-4 py-2 rounded-[1rem] bg-gradient-to-b from-blue-500 to-blue-700 hover:bg-gradient-to-t text-white">Enregistrer</button>
+                    <button type="submit" class="px-4 py-2 rounded-[1rem] bg-gradient-to-b from-blue-500 to-blue-700 hover:bg-gradient-to-t text-white">@lang('messages.save')</button>
                 </div>
             </form>
         </div>

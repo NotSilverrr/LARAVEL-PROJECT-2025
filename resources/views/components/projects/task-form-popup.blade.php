@@ -22,7 +22,7 @@
                 </select>
             </div>
             <div class="mb-4">
-                <label for="category_id" class="block text-gray-100 text-sm font-bold mb-2">Catégorie de la tache</label>
+                <label for="category_id" class="block text-gray-100 text-sm font-bold mb-2">@lang('messages.category')orie de la tache</label>
                 <select name="category_id" id="category" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     <option value="" disabled selected>Choisir une categorie</option>
                     @foreach ($categories as $category)
