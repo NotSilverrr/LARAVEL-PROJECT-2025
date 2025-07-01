@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Kanboard</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -26,11 +26,11 @@
                 <nav class="flex justify-end gap-4 mb-8">
                     @if (Route::has('login'))
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">Dashboard</a>
+                            <a href="{{ url('/dashboard') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors">Dashboard</a>
                         @else
-                            <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">{{ __('messages.login') }}</a>
+                            <a href="{{ route('login') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors">Se connecter</a>
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">{{ __('messages.register') }}</a>
+                                <a href="{{ route('register') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors">S'inscrire</a>
                             @endif
                         @endauth
                     @endif
@@ -45,6 +45,7 @@
                     
                     <!-- Contenu -->
                     <div class="relative p-8 text-white">
+<<<<<<< Updated upstream
                         <h1 class="text-4xl font-bold mb-4">{{ __('messages.welcome_title') }}</h1>
                         <p class="text-xl mb-8">{{ __('messages.welcome_subtitle') }}</p>
                         
@@ -54,6 +55,10 @@
                                 Commencer
                             </a>
                         @endguest
+=======
+                        <h1 class="text-4xl font-bold mb-4">Bienvenue sur Kanboard</h1>
+                        <p class="text-xl mb-8">Organisez vos projets avec notre outil de gestion de tâches visuel.</p>
+>>>>>>> Stashed changes
 
                         <!-- Section Auteurs -->
                         <div class="mt-12 text-center">
