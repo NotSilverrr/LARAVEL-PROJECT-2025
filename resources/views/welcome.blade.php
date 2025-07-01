@@ -45,20 +45,8 @@
                     
                     <!-- Contenu -->
                     <div class="relative p-8 text-white">
-<<<<<<< Updated upstream
                         <h1 class="text-4xl font-bold mb-4">{{ __('messages.welcome_title') }}</h1>
                         <p class="text-xl mb-8">{{ __('messages.welcome_subtitle') }}</p>
-                        
-                        <!-- Bouton Commencer -->
-                        @guest
-                            <a href="{{ route('register') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors">
-                                Commencer
-                            </a>
-                        @endguest
-=======
-                        <h1 class="text-4xl font-bold mb-4">Bienvenue sur Kanboard</h1>
-                        <p class="text-xl mb-8">Organisez vos projets avec notre outil de gestion de tâches visuel.</p>
->>>>>>> Stashed changes
 
                         <!-- Section Auteurs -->
                         <div class="mt-12 text-center">
