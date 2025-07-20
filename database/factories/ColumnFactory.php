@@ -17,7 +17,13 @@ class ColumnFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->randomElement([
+                'To Do', 'In Progress', 'Review', 'Testing', 'Done',
+                'Backlog', 'Ready', 'Development', 'QA', 'Completed'
+            ]),
+            'is_final' => fake()->boolean(20), // 20% chance of being final
+            'created_by' => 1, // Will be set explicitly in seeder
+            'project_id' => 1, // Will be set explicitly in seeder
         ];
     }
 }
