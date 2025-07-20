@@ -62,6 +62,9 @@ Route::middleware(['auth'])->group(function () {
     
     Route::post('/projects/{project}/inviteUser', [ProjectUserController::class, 'inviteUserToProject'])->name('projects.users.invite');
 
+    Route::get('/projects/{project}/import', [\App\Http\Controllers\ProjectImportController::class, 'show'])->name('projects.import.form');
+    Route::post('/projects/{project}/import', [\App\Http\Controllers\ProjectImportController::class, 'import'])->name('projects.import');
+
     Route::get('/projects/{project}/view/list', [ListController::class, 'list'])->name('projects.view.list');
     Route::get('/projects/{project}/view/kanban', [ProjectViewController::class, 'kanban'])->name('projects.view.kanban');
     Route::get('/projects/{project}/view/calendar', [ProjectViewController::class, 'calendar'])->name('projects.view.calendar');

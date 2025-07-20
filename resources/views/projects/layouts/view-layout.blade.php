@@ -20,8 +20,11 @@
             <div class="flex justify-between items-center">
                 <div class="flex gap-4 items-center">
                     <h1 class="text-3xl mr-4 font-bold">{{$project->name}}</h1>
-                    <a href="{{route("projects.edit", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Edit">
+                    <a href="{{route('projects.edit', $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Edit">
                         <x-iconpark-edit-o class="w-6 h-6 text-gray-100" />
+                    </a>
+                    <a href="{{ route('projects.import.form', $project) }}" class="p-2 rounded-full hover:bg-green-200/20 transition duration-200" title="Importer depuis Excel">
+                        <x-iconpark-upload-o class="w-6 h-6 text-gray-100" />
                     </a>
                     <a href="{{route("projects.users.index", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Groups">
                         <x-iconpark-user-o class="w-6 h-6 text-gray-100" />
