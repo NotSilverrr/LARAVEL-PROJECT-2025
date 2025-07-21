@@ -92,5 +92,7 @@ return [
     'details' => 'Details',
     'no_activity_found' => 'Aucune activité trouvée',
     'user_history' => 'Historique de l\'utilisateur',
-    'back' => 'Retour'
+    'back' => 'Retour',
+    'welcome_title' => 'Bienvenue sur le tableau Kanban !',
+    'welcome_subtitle' => 'Gérez vos tâches et projets facilement.',
 ];

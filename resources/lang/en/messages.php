@@ -92,5 +92,7 @@ return [
     'details' => 'Details',
     'no_activity_found' => 'No activity found',
     'user_history' => 'User History',
-    'back' => 'Back'
+    'back' => 'Back',
+    'welcome_title' => 'Welcome to the Kanban board!',
+    'welcome_subtitle' => 'Manage your tasks and projects with ease.',
 ];
