@@ -85,6 +85,13 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('projects/{project}/column/{column}', [ColumnController::class, 'destroy'])->name('projects.columns.destroy');
     Route::patch('/projects/{project}/column/{column}', [ColumnController::class, 'update'])->name('projects.columns.update');
     Route::delete('/projects/{project}/users/{user}', [ProjectUserController::class, 'destroy'])->name('projects.users.destroy');
+    
+    // Routes pour l'assignation d'utilisateurs aux tâches
+    Route::post('/tasks/{task}/assign-user', [TaskController::class, 'assignUser'])->name('tasks.assign-user');
+    Route::delete('/tasks/{task}/unassign-user', [TaskController::class, 'unassignUser'])->name('tasks.unassign-user');
+    
+    // Route de test pour les emails (développement uniquement)
+    Route::get('/test-email-notification', [TaskController::class, 'testEmailNotification'])->name('test.email.notification');
 });
 
 require __DIR__.'/auth.php';

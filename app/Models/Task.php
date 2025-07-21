@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\TaskCreated;
+use App\Events\UserAddedToTask;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -55,6 +57,17 @@ class Task extends Model
         'status',
     ];
 
+    protected static function booted(): void
+    {
+        static::created(function (Task $task) {
+            // Déclencher l'événement après la création de la tâche
+            // Mais seulement si des utilisateurs sont déjà assignés
+            if ($task->users()->count() > 0) {
+                event(new TaskCreated($task));
+            }
+        });
+    }
+
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
@@ -78,6 +91,33 @@ class Task extends Model
     public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class);
+    }
+
+    /**
+     * Assigner un utilisateur à la tâche et déclencher l'événement
+     */
+    public function assignUser(User $user): void
+    {
+        // Vérifier si l'utilisateur n'est pas déjà assigné
+        if (!$this->users()->where('user_id', $user->id)->exists()) {
+            $this->users()->attach($user);
+            
+            // Déclencher l'événement
+            event(new UserAddedToTask($this, $user));
+        }
+    }
+
+    /**
+     * Assigner plusieurs utilisateurs à la tâche
+     */
+    public function assignUsers(array $userIds): void
+    {
+        foreach ($userIds as $userId) {
+            $user = User::find($userId);
+            if ($user) {
+                $this->assignUser($user);
+            }
+        }
     }
 
     public function isLate(): bool
