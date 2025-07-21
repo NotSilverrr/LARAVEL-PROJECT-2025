@@ -62,4 +62,13 @@ class ProjectUserController extends Controller
         $project->users()->detach($user->id);
         return back()->with('success', 'Utilisateur supprimé du projet avec succès.');
     }
+
+    public function history(Project $project, User $user)
+    {
+        $activities = \Spatie\Activitylog\Models\Activity::where('causer_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        return view('projects.users.history', compact('project', 'user', 'activities'));
+    }
 }

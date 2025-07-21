@@ -86,4 +86,11 @@ return [
     'delete_category' => 'Supprimer la catégorie',
     'delete_category_confirm' => 'Supprimer la catégorie ":name" ?',
     'add' => 'Ajouter',
+    'history' => 'Historique',
+    'date' => 'Date',
+    'event' => 'Event',
+    'details' => 'Details',
+    'no_activity_found' => 'Aucune activité trouvée',
+    'user_history' => 'Historique de l\'utilisateur',
+    'back' => 'Retour'
 ];
