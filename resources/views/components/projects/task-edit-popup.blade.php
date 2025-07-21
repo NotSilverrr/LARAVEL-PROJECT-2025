@@ -77,4 +77,9 @@
         <input type="hidden" name="column_id" id="column_id" value="{{ old('column_id', $task->column_id ?? '') }}">
         <button type="submit" class="block px-8 py-3 rounded-[1rem] bg-gradient-to-b from-[#E04E75] to-[#902340] hover:bg-gradient-to-t text-white text-lg font-semibold mt-8 w-full">{{ $button ?? __('messages.update') }}</button>
     </form>
+    <form action="{{ route('projects.tasks.destroy', ['project' => $project->id, 'task' => $task->id]) }}" method="POST" class="mt-4">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="block px-8 py-3 rounded-[1rem] bg-gradient-to-b from-red-500 to-red-800 hover:bg-gradient-to-t text-white text-lg font-semibold w-full">{{ __('messages.delete') }}</button>
+    </form>
 </div>

@@ -118,9 +118,13 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(Project $project, Task $task)
     {
-        //
+        // Detach relationships if necessary
+        $task->users()->detach();
+        $task->groups()->detach();
+        $task->delete();
+        return redirect()->back()->with('success', 'Tâche supprimée avec succès.');
     }
 
     public function moveColumn(Task $task, Column $column)
