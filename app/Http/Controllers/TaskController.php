@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TaskCreated;
 use App\Models\Column;
 use App\Models\Project;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,6 +41,8 @@ class TaskController extends Controller
             'date_start' => 'nullable|date',
             'date_end' => 'nullable|date|after_or_equal:date_start',
             'column_id' => 'nullable|exists:columns,id',
+            'assigned_users' => 'array',
+            'assigned_users.*' => 'exists:users,id',
         ]);
 
         $data = $request->only([
@@ -55,10 +59,13 @@ class TaskController extends Controller
             $data['column_id'] = $project->columns()->first()->id;
         }
 
-        // dd($data); // For debugging
-
-        // Assuming you have a relationship set up in your Project model
+        // Créer la tâche
         $task = $project->tasks()->create($data);
+
+        // Assigner les utilisateurs si fournis
+        if ($request->has('assigned_users') && !empty($request->assigned_users)) {
+            $task->assignUsers($request->assigned_users);
+        }
 
         return redirect()->back()->with('success', 'Tâche créée avec succès.');
     }
@@ -140,5 +147,85 @@ class TaskController extends Controller
         }
 
         return response()->json(['success' => 'Task moved to new column']);
+    }
+
+    /**
+     * Assigner un utilisateur à une tâche existante
+     */
+    public function assignUser(Request $request, Task $task)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        $user = User::findOrFail($request->user_id);
+        
+        // Utiliser la méthode assignUser qui déclenche automatiquement l'événement
+        $task->assignUser($user);
+
+        return response()->json([
+            'message' => 'Utilisateur assigné avec succès',
+            'task' => $task->load('users')
+        ]);
+    }
+
+    /**
+     * Retirer un utilisateur d'une tâche
+     */
+    public function unassignUser(Request $request, Task $task)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        $task->users()->detach($request->user_id);
+
+        return response()->json([
+            'message' => 'Utilisateur retiré avec succès',
+            'task' => $task->load('users')
+        ]);
+    }
+
+    /**
+     * Méthode pour tester l'envoi d'emails (développement uniquement)
+     */
+    public function testEmailNotification()
+    {
+        if (!app()->environment('local')) {
+            abort(404);
+        }
+
+        // Créer une tâche de test
+        $project = Project::first();
+        $column = Column::first();
+        $category = \App\Models\Category::first();
+        $testUser = User::where('email', 'test@example.com')->first();
+
+        if (!$project || !$column || !$testUser) {
+            return response()->json([
+                'error' => 'Données de test manquantes. Assurez-vous d\'avoir des projets, colonnes et utilisateurs en base.'
+            ], 400);
+        }
+
+        $task = Task::create([
+            'title' => 'Tâche de test pour email',
+            'description' => 'Ceci est une tâche de test pour vérifier l\'envoi d\'emails.',
+            'priority' => 'medium',
+            'status' => 'todo',
+            'date_start' => now(),
+            'date_end' => now()->addDays(7),
+            'project_id' => $project->id,
+            'column_id' => $column->id,
+            'category_id' => $category?->id,
+            'created_by' => $testUser->id,
+        ]);
+
+        // Assigner l'utilisateur de test
+        $task->assignUser($testUser);
+
+        return response()->json([
+            'message' => 'Tâche de test créée et email envoyé',
+            'task' => $task->load(['users', 'project'])
+        ]);
     }
 }
