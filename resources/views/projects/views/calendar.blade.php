@@ -96,6 +96,7 @@
                                                         :project="$project"
                                                         :task="$task"
                                                         :categories="$categories"
+                                                        :groups="$project->groups"
                                                         :action="route('projects.tasks.update', [$project, $task])"
                                                         method="PATCH"
                                                         button="Mettre à jour"

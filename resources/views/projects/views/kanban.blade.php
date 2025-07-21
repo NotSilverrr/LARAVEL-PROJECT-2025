@@ -32,9 +32,10 @@
                                 :project="$project"
                                 :task="$task"
                                 :categories="$categories"
+                                :groups="$project->groups"
                                 :action="route('projects.tasks.update', [$project, $task])"
                                 method="PATCH"
-                                button="@lang('messages.update')"
+                                button="{{ __('messages.update') }}"
                             />
                         </div>
                     @endforeach

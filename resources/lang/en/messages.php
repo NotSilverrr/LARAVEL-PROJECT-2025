@@ -67,6 +67,7 @@ return [
     'email' => 'Email',
     'role' => 'Role',
     'groups' => 'Groups',
+    'group' => 'Group',
     'add_group' => 'Add Group',
     'created_at' => 'Created At',
     'unknown' => 'Unknown',
@@ -86,4 +87,6 @@ return [
     'delete_category' => 'Delete Category',
     'delete_category_confirm' => 'Delete category ":name"?',
     'add' => 'Add',
+    'welcome_title' => 'Welcome to the Kanban board!',
+    'welcome_subtitle' => 'Manage your tasks and projects with ease.',
 ];
