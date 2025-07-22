@@ -89,4 +89,7 @@ return [
     'add' => 'Ajouter',
     'welcome_title' => 'Bienvenue sur le tableau Kanban !',
     'welcome_subtitle' => 'Gérez vos tâches et projets facilement.',
+    'edit_member' => 'Modifier le membre',
+    'admin' => 'Admin',
+    'owner' => 'Propriétaire'
 ];

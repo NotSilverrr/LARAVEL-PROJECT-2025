@@ -62,4 +62,26 @@ class ProjectUserController extends Controller
         $project->users()->detach($user->id);
         return back()->with('success', 'Utilisateur supprimé du projet avec succès.');
     }
+
+    public function edit(Project $project, User $user)
+    {
+        if (!$project->users()->where('user_id', $user->id)->exists()) {
+            return back()->with('error', 'Utilisateur non membre du projet.');
+        }
+        $pivot = $project->users()->where('user_id', $user->id)->first()?->pivot;
+        return view('projects.users.edit', compact('project', 'user', 'pivot'));
+    }
+
+    public function update(Request $request, Project $project, User $user)
+    {
+        // Ensure user is part of the project
+        if (!$project->users()->where('user_id', $user->id)->exists()) {
+            return back()->with('error', 'Utilisateur non membre du projet.');
+        }
+        $request->validate([
+            'role' => 'required|in:owner,admin,member',
+        ]);
+        $project->users()->updateExistingPivot($user->id, ['role' => $request->role]);
+        return redirect()->route('projects.users.index', $project)->with('success', 'Rôle mis à jour avec succès.');
+    }
 }

@@ -52,6 +52,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/projects/{project}/categories/{category}', [CategoryController::class, 'destroy'])->name('projects.categories.destroy');
     Route::post('/projects/{project}/categories', [CategoryController::class, 'store'])->name('projects.categories.store');
     Route::get('/projects/{project}/users', [ProjectUserController::class, 'index'])->name('projects.users.index');
+    Route::get('/projects/{project}/users/{user}/edit', [ProjectUserController::class, 'edit'])->name('projects.users.edit');
+    Route::patch('/projects/{project}/users/{user}', [ProjectUserController::class, 'update'])->name('projects.users.update');
     
     Route::get('/projects/{project}/groups', [GroupController::class, 'index'])->name('projects.groups.index');
     Route::get('/projects/{project}/groups/create', [GroupController::class, 'create'])->name('projects.groups.create');

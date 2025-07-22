@@ -89,4 +89,7 @@ return [
     'add' => 'Add',
     'welcome_title' => 'Welcome to the Kanban board!',
     'welcome_subtitle' => 'Manage your tasks and projects with ease.',
+    'edit_member' => 'Edit Member',
+    'admin' => 'Admin',
+    'owner' => 'Owner'
 ];

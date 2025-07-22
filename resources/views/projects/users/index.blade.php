@@ -25,14 +25,12 @@
         </thead>
         <tbody>
             @foreach ($users as $user)
-                <tr class="odd:bg-gray-700/50">
+                <tr class="odd:bg-gray-700/50" onclick="window.location='{{ route('projects.users.edit', [$project, $user]) }}'">
                     <td class="p-4">{{ $user->firstname }}</td>
                     <td class="p-4">{{ $user->lastname }}</td>
                     <td class="p-4">{{ $user->email }}</td>
                     <td class="p-4">{{ $user->pivot->role }}</td>
                     <td>
-                        {{-- <a href="{{ route('projects.users.edit', [$project, $user]) }}" class="text-blue-500">Modifier</a> --}}
-                        |
                         <form action="{{ route('projects.users.destroy', [$project, $user]) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
