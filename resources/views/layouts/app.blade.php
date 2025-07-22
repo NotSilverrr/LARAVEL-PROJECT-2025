@@ -84,8 +84,9 @@
                 <x-sidebar />
         
                 <section class="flex-1 flex flex-col overflow-y-auto relative bg-project-image" >   
-                    <div class="absolute inset-0 bg-black bg-opacity-40 z-0"></div>
-                    {{ $slot }}
+                    <div class="absolute inset-0 bg-black bg-opacity-40 z-0">
+                        {{ $slot }}
+                    </div>
                 </section>
             </main>
 
