@@ -13,6 +13,7 @@ use App\Http\Controllers\ProjectViewController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['web'])->post('/language-switch', [LanguageController::class, 'switch'])->name('language.switch');
@@ -21,9 +22,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
