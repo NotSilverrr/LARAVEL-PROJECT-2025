@@ -13,8 +13,7 @@
         @endforeach
     </script>
     @endif
-    <div class="flex flex-col h-full flex-1 p-6 bg-project-image">
-        <div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
+    <div class="flex flex-col h-full flex-1 p-6">
 
         <div class="relative z-10">
             <div class="flex justify-between items-center">
