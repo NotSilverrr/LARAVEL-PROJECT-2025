@@ -33,7 +33,7 @@
                 <!-- Contenu principal -->
                 <div class="relative rounded-2xl overflow-hidden">
                     <!-- Image de fond -->
-                    <img src="{{ asset('assets/images/background.jpg') }}" alt="Background Kanboard" class="w-full h-[300px] object-cover">
+                    <img src="{{ asset('storage/assets/images/background.jpg') }}" alt="Background Kanboard" class="w-full h-[300px] object-cover">
                     <!-- Overlay -->
                     <div class="absolute inset-0 bg-black bg-opacity-40 rounded-2xl"></div>
                     
@@ -47,15 +47,15 @@
                             <h2 class="text-2xl font-semibold mb-4">{{ __('messages.created_by') }}</h2>
                             <div class="flex justify-center gap-8">
                                 <div class="flex flex-col items-center">
-                                    <img src="{{ asset('assets/images/mathis.png') }}" alt="Mathis LATIMIER" class="w-16 h-16 rounded-full mb-2">
+                                    <img src="{{ asset('storage/assets/images/mathis.png') }}" alt="Mathis LATIMIER" class="w-16 h-16 rounded-full mb-2">
                                     <span class="text-gray-200 text-lg font-bold">Mathis LATIMIER</span>
                                 </div>
                                 <div class="flex flex-col items-center">
-                                    <img src="{{ asset('assets/images/thomas.png') }}" alt="Thomas RONSIN" class="w-16 h-16 rounded-full mb-2">
+                                    <img src="{{ asset('storage/assets/images/thomas.png') }}" alt="Thomas RONSIN" class="w-16 h-16 rounded-full mb-2">
                                     <span class="text-gray-200 text-lg font-bold">Thomas RONSIN</span>
                                 </div>
                                 <div class="flex flex-col items-center">
-                                    <img src="{{ asset('assets/images/julien.png') }}" alt="Julien LE MOING" class="w-16 h-16 rounded-full mb-2">
+                                    <img src="{{ asset('storage/assets/images/julien.png') }}" alt="Julien LE MOING" class="w-16 h-16 rounded-full mb-2">
                                     <span class="text-gray-200 text-lg font-bold">Julien LE MOING</span>
                                 </div>
                             </div>

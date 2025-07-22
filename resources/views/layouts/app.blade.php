@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="icon" type="image/png" href="/assets/images/KanboardFavIcon.png">
+        <link rel="icon" type="image/png" href="{{ asset('storage/assets/images/KanboardFavIcon.png') }}">
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
@@ -16,6 +16,17 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
 <!-- Toastify JS -->
+    <style>
+    [data-theme="dark"] .bg-project-image {
+        background-image: url('{{ asset('storage/assets/images/background.jpg') }}') !important;
+        background-size: 100% auto !important;
+    }
+    [data-theme="light"] .bg-project-image {
+        background-image: url('{{ asset('storage/assets/images/background-light.png') }}') !important;
+        background-size: 100% auto !important;
+        background-color: transparent !important;
+    }
+    </style>
         <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
         <script>
             // Fonction pour sauvegarder le mode dans localStorage

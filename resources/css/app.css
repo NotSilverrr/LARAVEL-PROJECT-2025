@@ -78,17 +78,6 @@
     background-color: #f1f5f9 ;
 }
 
-/* Image de fond */
-[data-theme="dark"] .bg-project-image {
-    background-image: url('/public/assets/images/background.jpg') !important;
-    background-size: 100% auto !important;
-}
-
-[data-theme="light"] .bg-project-image {
-    background-image: url('/public/assets/images/background-light.png') !important;
-    background-size: 100% auto !important;
-    background-color: transparent !important;
-}
 
 /* Styles personnalisés pour la page d'accueil */
 .welcome-section {
