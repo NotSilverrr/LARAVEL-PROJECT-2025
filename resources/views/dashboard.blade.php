@@ -2,8 +2,8 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div class="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-100">
                     <!-- Statistics Cards -->
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                         <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6 rounded-lg text-white">
@@ -27,16 +27,16 @@
                     <!-- Charts -->
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <!-- Tasks by Status Chart -->
-                        <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
-                            <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Tasks by Status</h3>
+                        <div class="bg-gray-700 p-6 rounded-lg shadow">
+                            <h3 class="text-lg font-semibold mb-4 text-gray-100">Tasks by Status</h3>
                             <div style="height: 300px;">
                                 <canvas id="tasksStatusChart"></canvas>
                             </div>
                         </div>
 
                         <!-- Tasks Timeline Chart -->
-                        <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
-                            <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Tasks Created Over Time</h3>
+                        <div class="bg-gray-700 p-6 rounded-lg shadow">
+                            <h3 class="text-lg font-semibold mb-4 text-gray-100">Tasks Created Over Time</h3>
                             <div style="height: 300px;">
                                 <canvas id="tasksTimelineChart"></canvas>
                             </div>
