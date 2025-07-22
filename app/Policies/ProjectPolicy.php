@@ -69,4 +69,22 @@ class ProjectPolicy
         // Seuls les membres du projet peuvent le supprimer définitivement
         return $project->users()->where('user_id', $user->id)->exists();
     }
+
+    public function manageMembers(User $user, Project $project): bool
+    {
+        if ($user->id === $project->created_by) {
+            return true;
+        }
+        $pivot = $project->users()->where('user_id', $user->id)->first()?->pivot;
+        return $pivot && in_array($pivot->role, ['owner', 'admin']);
+    }
+
+    public function manageGroups(User $user, Project $project): bool
+    {
+        if ($user->id === $project->created_by) {
+            return true;
+        }
+        $pivot = $project->users()->where('user_id', $user->id)->first()?->pivot;
+        return $pivot && in_array($pivot->role, ['owner', 'admin']);
+    }
 }

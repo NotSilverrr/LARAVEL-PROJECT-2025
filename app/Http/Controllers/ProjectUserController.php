@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 use App\Mail\ProjectInvitationMail;
 use App\Models\Project;
 use App\Models\ProjectInvitation;
@@ -12,7 +14,9 @@ use Illuminate\Support\Str;
 
 class ProjectUserController extends Controller
 {
+    use AuthorizesRequests;
     public function index(Project $project) {
+        $this->authorize('manageMembers', $project);
         $users = $project->users()->withPivot('role')->paginate(10);
         return view('projects.users.index', compact('project', 'users'));
     }
@@ -22,6 +26,7 @@ class ProjectUserController extends Controller
     }
 
     public function inviteUserToProject(Request $request, Project $project) {
+        $this->authorize('manageMembers', $project);
 
         // Valider la requête
         $request->validate([
@@ -54,6 +59,7 @@ class ProjectUserController extends Controller
     
     public function destroy(Project $project, User $user)
     {
+        $this->authorize('manageMembers', $project);
         // Vérifier que l'utilisateur à supprimer n'est pas le créateur du projet
         if ($project->created_by == $user->id) {
             return back()->with('error', 'Impossible de supprimer le créateur du projet.');
@@ -65,6 +71,7 @@ class ProjectUserController extends Controller
 
     public function edit(Project $project, User $user)
     {
+        $this->authorize('manageMembers', $project);
         if (!$project->users()->where('user_id', $user->id)->exists()) {
             return back()->with('error', 'Utilisateur non membre du projet.');
         }
@@ -74,6 +81,7 @@ class ProjectUserController extends Controller
 
     public function update(Request $request, Project $project, User $user)
     {
+        $this->authorize('manageMembers', $project);
         // Ensure user is part of the project
         if (!$project->users()->where('user_id', $user->id)->exists()) {
             return back()->with('error', 'Utilisateur non membre du projet.');
