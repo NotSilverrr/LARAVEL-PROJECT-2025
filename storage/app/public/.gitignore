@@ -1,3 +1,5 @@
 *
 !.gitignore
-!assets/images/*
+!assets/
+!assets/images/
+!assets/images/**
