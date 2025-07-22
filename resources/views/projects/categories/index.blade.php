@@ -13,10 +13,6 @@
         </button>
     </div>
 
-    @if(session('success'))
-        <div class="bg-green-100 text-green-800 p-2 rounded mb-4">{{ session('success') }}</div>
-    @endif
-
     <table class="min-w-full bg-gray-700 rounded-lg shadow-md overflow-hidden">
         <thead>
             <tr class="text-left bg-gray-800 font-bold">
@@ -45,7 +41,7 @@
 
     <!-- Modal ajout -->
     <x-modal name="add-category-modal" maxWidth="md">
-        <div class="bg-gray-800 p-6 rounded-[1rem]">
+        <div class="bg-gray-800 p-6">
             <h3 class="text-white text-xl font-bold mb-4">Ajouter une catégorie</h3>
             <form method="POST" action="{{ route('projects.categories.store', $project) }}" class="flex flex-col">
                 @csrf
@@ -63,7 +59,7 @@
 
     <!-- Modal édition -->
     <x-modal name="edit-category-modal" maxWidth="md">
-        <div class="bg-gray-800 p-6 rounded-[1rem]">
+        <div class="bg-gray-800 p-6">
             <h3 class="text-white text-xl font-bold mb-4">@lang('messages.edit_category')</h3>
             <form method="POST" x-bind:action="`/projects/{{ $project->id }}/categories/${editCategoryId}`" class="flex flex-col">
                 @csrf
@@ -82,7 +78,7 @@
 
     <!-- Modal suppression -->
     <x-modal name="delete-category-modal" maxWidth="md">
-        <div class="bg-gray-800 p-6 rounded-[1rem]">
+        <div class="bg-gray-800 p-6">
             <h3 class="text-white text-xl font-bold mb-4">Supprimer la catégorie</h3>
             <p class="mb-4 text-gray-100" x-text="`Supprimer la catégorie \"${deleteCategoryName}\" ?`"></p>
             <form method="POST" x-bind:action="`/projects/{{ $project->id }}/categories/${deleteCategoryId}`" class="flex flex-col">

@@ -64,6 +64,29 @@
                     setTheme(newTheme);
                     updateThemeIcon(newTheme);
                 });
+
+                // Afficher les messages de succès et d'erreur
+                @if (session('success'))
+                    Toastify({
+                        text: "{{ session('success') }}",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "#22c55e",
+                        className: "text-white"
+                    }).showToast();
+                @endif
+
+                @if (session('error'))
+                    Toastify({
+                        text: "{{ session('error') }}",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "#f56565",
+                        className: "text-white"
+                    }).showToast();
+                @endif
             });
         </script>
     </head>

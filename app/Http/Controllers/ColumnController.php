@@ -84,9 +84,9 @@ class ColumnController extends Controller
     public function destroy(Project $project, Column $column)
     {
         if ($project->columns()->count() <= 1) {
-            return redirect()->back()->with('error', 'Impossible de supprimer la dernière colonne du projet.');
+            return redirect()->back()->with('error', 'Impossible de supprimer la dernière colonne du projet. Veuillez créer une nouvelle colonne avant de supprimer celle-ci.');
         }
         $column->delete();
-        return redirect()->back()->with('success', 'Colonne supprimée avec succès.');
+        return redirect()->back()->with('success', 'La colonne a été supprimée avec succès.');
     }
 }
