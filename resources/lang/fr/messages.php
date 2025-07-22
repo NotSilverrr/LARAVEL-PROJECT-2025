@@ -91,5 +91,6 @@ return [
     'welcome_subtitle' => 'Gérez vos tâches et projets facilement.',
     'edit_member' => 'Modifier le membre',
     'admin' => 'Admin',
-    'owner' => 'Propriétaire'
+    'owner' => 'Propriétaire',
+    'project_title' => 'Titre du projet'
 ];

@@ -19,9 +19,11 @@
             <div class="flex justify-between items-center">
                 <div class="flex gap-4 items-center">
                     <h1 class="text-3xl mr-4 font-bold">{{$project->name}}</h1>
+                    @can('manageMembers', $project)
                     <a href="{{route("projects.edit", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Edit">
                         <x-iconpark-edit-o class="w-6 h-6 text-gray-100" />
                     </a>
+                    @endcan
                     @can('manageMembers', $project)
                     <a href="{{route("projects.users.index", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Members">
                         <x-iconpark-user-o class="w-6 h-6 text-gray-100" />
@@ -32,9 +34,11 @@
                         <x-iconpark-peoples-o class="w-6 h-6 text-gray-100" />
                     </a>
                     @endcan
+                    @can('manageMembers', $project)
                     <a href="{{route("projects.categories.index", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Category">
                         <x-iconpark-gridfour class="w-6 h-6 text-gray-100 " />
                     </a>
+                    @endcan
 
                 </div>
                 <div class="flex gap-1 bg-gray-800 rounded-full p-1">
