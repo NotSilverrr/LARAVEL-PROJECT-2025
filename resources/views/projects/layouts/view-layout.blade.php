@@ -31,10 +31,6 @@
                     <a href="{{route("projects.groups.index", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Groups">
                         <x-iconpark-peoples-o class="w-6 h-6 text-gray-100" />
                     </a>
-                    @endcan
-                    <a href="" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Delete">
-                        <x-iconpark-delete-o class="w-6 h-6 text-gray-100 " />
-                    </a>
                     <a href="{{route("projects.categories.index", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Category">
                         <x-iconpark-gridfour class="w-6 h-6 text-gray-100 " />
                     </a>
