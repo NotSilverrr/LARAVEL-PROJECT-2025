@@ -142,11 +142,11 @@
                                                 }
                                             },
                                             ticks: {
-                                                color: document.documentElement.classList.contains('dark') ? '#F3F4F6' : '#374151',
+                                                color: '#ffffff',
                                                 stepSize: 1
                                             },
                                             grid: {
-                                                color: document.documentElement.classList.contains('dark') ? '#374151' : '#E5E7EB'
+                                                color:  '#ffffff'
                                             }
                                         },
                                         x: {
@@ -161,10 +161,10 @@
                                                 }
                                             },
                                             ticks: {
-                                                color: document.documentElement.classList.contains('dark') ? '#F3F4F6' : '#374151'
+                                                color:  '#ffffff'
                                             },
                                             grid: {
-                                                color: document.documentElement.classList.contains('dark') ? '#374151' : '#E5E7EB'
+                                                color:  '#ffffff'
                                             }
                                         }
                                     },
