@@ -17,7 +17,9 @@ class ProjectUserFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'project_id' => 1, // Will be set explicitly in seeder
+            'user_id' => 1, // Will be set explicitly in seeder
+            'role' => fake()->randomElement(['owner', 'admin', 'member']),
         ];
     }
 }
