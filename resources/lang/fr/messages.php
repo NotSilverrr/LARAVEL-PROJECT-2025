@@ -90,7 +90,7 @@ return [
     'edit_member' => 'Modifier le membre',
     'admin' => 'Admin',
     'owner' => 'Propriétaire',
-    'project_title' => 'Titre du projet'
+    'project_title' => 'Titre du projet',
     'history' => 'Historique',
     'date' => 'Date',
     'event' => 'Event',

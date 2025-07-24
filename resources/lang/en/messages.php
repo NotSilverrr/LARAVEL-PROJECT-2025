@@ -89,7 +89,7 @@ return [
     'add' => 'Add',
     'edit_member' => 'Edit Member',
     'admin' => 'Admin',
-    'owner' => 'Owner'
+    'owner' => 'Owner',
     'history' => 'History',
     'date' => 'Date',
     'event' => 'Event',
