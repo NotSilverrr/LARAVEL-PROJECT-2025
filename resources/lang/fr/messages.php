@@ -67,6 +67,7 @@ return [
     'email' => 'Email',
     'role' => 'Rôle',
     'groups' => 'Groupes',
+    'group' => 'Groupe',
     'add_group' => 'Ajouter un groupe',
     'created_at' => 'Date de création',
     'unknown' => 'Inconnu',
@@ -86,6 +87,10 @@ return [
     'delete_category' => 'Supprimer la catégorie',
     'delete_category_confirm' => 'Supprimer la catégorie ":name" ?',
     'add' => 'Ajouter',
+    'edit_member' => 'Modifier le membre',
+    'admin' => 'Admin',
+    'owner' => 'Propriétaire',
+    'project_title' => 'Titre du projet'
     'history' => 'Historique',
     'date' => 'Date',
     'event' => 'Event',

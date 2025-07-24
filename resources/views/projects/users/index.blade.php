@@ -25,7 +25,7 @@
         </thead>
         <tbody>
             @foreach ($users as $user)
-                <tr class="odd:bg-gray-700/50">
+                <tr class="odd:bg-gray-700/50" onclick="window.location='{{ route('projects.users.edit', [$project, $user]) }}'">
                     <td class="p-4">{{ $user->firstname }}</td>
                     <td class="p-4">{{ $user->lastname }}</td>
                     <td class="p-4">{{ $user->email }}</td>

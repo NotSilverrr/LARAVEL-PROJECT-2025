@@ -94,6 +94,15 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        // Check if the user has permission to delete the project
+        if (Auth::user()->cannot('delete', $project)) {
+            return redirect()->route('projects.view.kanban', $project->id)
+                ->with('error', 'You do not have permission to delete this project.');
+        }
+
+        // Delete the project and its related data
+        $project->delete();
+
+        return redirect()->route('dashboard')->with('success', 'Project deleted successfully.');
     }
 }

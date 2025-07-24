@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="flex items-center justify-center min-h-screen bg-gray-900 bg-opacity-80 py-10">
+    <div class="flex items-center justify-center min-h-screen bg-gray-900 bg-opacity-0 py-10">
         <div class="bg-gray-800 p-8 rounded-[1rem] w-11/12 sm:w-2/4 lg:w-1/3 shadow-lg">
             <h2 class="text-white text-xl font-bold mb-6 text-center">{{ __('messages.create_project') }}</h2>
             <form action="{{ route('projects.store') }}" method="POST" class="flex flex-col">

@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Models\Category;
-use Carbon\Carbon;
 
 class ProjectViewController extends Controller
 {
     public function kanban(Project $project)
     {
         // Tu peux charger ici les colonnes et tâches si besoin
-        $columns = $project->columns()->with('tasks')->get();
+        $columns = $project->columns()->with(['tasks' => function($q) use ($project) {
+            $q->visibleForUser(auth()->user(), $project->id);
+        }])->get();
         $categories = $project->categories()->get();
 
         // dd($columns, $categories); // Pour déboguer et voir les données
@@ -81,7 +82,7 @@ class ProjectViewController extends Controller
         $totalCells = $totalDays + $first_day_of_month;
         $totalWeeks = ceil($totalCells / 7);
 
-        $tasks = $project->tasks()->get();
+        $tasks = \App\Models\Task::visibleForUser(auth()->user(), $project->id)->get();
         $categories = Category::all();
 
         return view('projects.views.calendar', [
@@ -137,7 +138,7 @@ class ProjectViewController extends Controller
             $nextYear++;
         }
 
-        $tasks = $project->tasks()->get();
+        $tasks = \App\Models\Task::visibleForUser(auth()->user(), $project->id)->get();
         $categories = Category::all();
 
         return view('projects.views.week', [
@@ -189,7 +190,7 @@ class ProjectViewController extends Controller
         $prevPeriod = (clone $centerDate)->modify('-2 days');
         $nextPeriod = (clone $centerDate)->modify('+2 days');
 
-        $tasks = $project->tasks()->get();
+        $tasks = \App\Models\Task::visibleForUser(auth()->user(), $project->id)->get();
         $categories = Category::all();
 
         return view('projects.views.three_days', [
@@ -238,7 +239,7 @@ class ProjectViewController extends Controller
         $prevDate = (clone $currentDate)->modify('-1 day');
         $nextDate = (clone $currentDate)->modify('+1 day');
 
-        $tasks = $project->tasks()->get();
+        $tasks = \App\Models\Task::visibleForUser(auth()->user(), $project->id)->get();
         $categories = Category::all();
 
         return view('projects.views.day', [

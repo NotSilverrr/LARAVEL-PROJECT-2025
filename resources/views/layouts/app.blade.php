@@ -4,112 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="icon" type="image/png" href="/assets/images/KanboardFavIcon.png">
-
-        <style>
-            /* Styles pour le mode light */
-            [data-theme="light"] {
-                background-color: #f8fafc;
-                color: #374151;
-            }
-
-            /* Fond principal */
-            [data-theme="light"] .bg-gray-700 {
-                background-color: #f1f5f9 !important;
-            }
-
-            [data-theme="light"] .bg-gray-800 {
-                background-color: #e2e8f0 !important;
-            }
-
-            [data-theme="light"] .bg-gray-600 {
-                background-color: #cbd5e1 !important;
-            }
-
-            /* Textes */
-            [data-theme="light"] .text-white {
-                color: #000000 !important;
-            }
-
-            [data-theme="light"] .text-gray-100 {
-                color: #000000 !important;
-            }
-
-            [data-theme="light"] .text-gray-700 {
-                color: #000000 !important;
-            }
-
-            [data-theme="light"] .text-gray-500 {
-                color: #000000 !important;
-            }
-
-            [data-theme="light"] .text-gray-400 {
-                color: #000000 !important;
-            }
-
-            /* Bords */
-            [data-theme="light"] .border-gray-400 {
-                border-color: #cbd5e1 !important;
-            }
-
-            [data-theme="light"] .border-gray-600 {
-                border-color: #000000 !important;
-            }
-
-            /* Opacités */
-            [data-theme="light"] .bg-gray-700/40 {
-                background-color: rgba(241, 245, 249, 0.4) !important;
-            }
-
-            /* Elements spécifiques */
-            [data-theme="light"] .bg-gray-200/20 {
-                background-color: rgba(203, 213, 225, 0.2) !important;
-            }
-
-            /* Navigation */
-            [data-theme="light"] .bg-gray-700 {
-                background-color: #f1f5f9 !important;
-            }
-
-            [data-theme="light"] .text-white {
-                color: #000000 !important;
-            }
-
-            /* Boutons et interactions */
-            [data-theme="light"] .hover:bg-gray-600/20 {
-                background-color: rgba(203, 213, 225, 0.2) !important;
-            }
-
-            [data-theme="light"] .hover:bg-gray-700/20 {
-                background-color: rgba(241, 245, 249, 0.2) !important;
-            }
-
-            /* Modal */
-            [data-theme="light"] .modal-content {
-                background-color: #f1f5f9 !important;
-            }
-
-            /* Image de fond */
-            [data-theme="dark"] .bg-project-image {
-                background-image: url('{{ asset('assets/images/background.jpg') }}');
-                background-size: 100% auto;
-            }
-
-            [data-theme="light"] .bg-project-image {
-                background-image: url('{{ asset('assets/images/background-light.png') }}');
-                background-size: 100% auto;
-            }
-
-            /* Image de fond du body */
-            [data-theme="dark"] body {
-                background-color: #f8fafc;
-            }
-
-            [data-theme="light"] body {
-                background-color: #f8fafc;
-            }
-        </style>
-
+        <link rel="icon" type="image/png" href="{{ asset('storage/assets/images/KanboardFavIcon.png') }}">
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
@@ -121,6 +16,17 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
 <!-- Toastify JS -->
+    <style>
+    [data-theme="dark"] .bg-project-image {
+        background-image: url('{{ asset('storage/assets/images/background.jpg') }}') !important;
+        background-size: 100% auto !important;
+    }
+    [data-theme="light"] .bg-project-image {
+        background-image: url('{{ asset('storage/assets/images/background-light.png') }}') !important;
+        background-size: 100% auto !important;
+        background-color: transparent !important;
+    }
+    </style>
         <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
         <script>
             // Fonction pour sauvegarder le mode dans localStorage
@@ -169,6 +75,29 @@
                     setTheme(newTheme);
                     updateThemeIcon(newTheme);
                 });
+
+                // Afficher les messages de succès et d'erreur
+                @if (session('success'))
+                    Toastify({
+                        text: "{{ session('success') }}",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "#22c55e",
+                        className: "text-white"
+                    }).showToast();
+                @endif
+
+                @if (session('error'))
+                    Toastify({
+                        text: "{{ session('error') }}",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "#f56565",
+                        className: "text-white"
+                    }).showToast();
+                @endif
             });
         </script>
     </head>
@@ -188,8 +117,10 @@
 
                 <x-sidebar />
         
-                <section class="flex-1 flex flex-col overflow-y-auto bg-gray-800 relative" >    
-                    {{ $slot }}
+                <section class="flex-1 flex flex-col overflow-y-auto relative bg-project-image" >   
+                    <div class="absolute inset-0 bg-black bg-opacity-40 z-0">
+                        {{ $slot }}
+                    </div>
                 </section>
             </main>
 

@@ -13,31 +13,32 @@
         @endforeach
     </script>
     @endif
-    <div class="flex flex-col h-full flex-1 p-6 bg-project-image">
-        <div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
+    <div class="flex flex-col h-full flex-1 p-6">
 
         <div class="relative z-10">
             <div class="flex justify-between items-center">
                 <div class="flex gap-4 items-center">
                     <h1 class="text-3xl mr-4 font-bold">{{$project->name}}</h1>
-                    <a href="{{route('projects.edit', $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Edit">
+                    @can('manageMembers', $project)
+                    <a href="{{route("projects.edit", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Edit">
                         <x-iconpark-edit-o class="w-6 h-6 text-gray-100" />
                     </a>
-                    <a href="{{ route('projects.import.form', $project) }}" class="p-2 rounded-full hover:bg-green-200/20 transition duration-200" title="Importer depuis Excel">
-                        <x-iconpark-upload-o class="w-6 h-6 text-gray-100" />
-                    </a>
-                    <a href="{{route("projects.users.index", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Groups">
+                    @endcan
+                    @can('manageMembers', $project)
+                    <a href="{{route("projects.users.index", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Members">
                         <x-iconpark-user-o class="w-6 h-6 text-gray-100" />
                     </a>
+                    @endcan
+                    @can('manageGroups', $project)
                     <a href="{{route("projects.groups.index", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Groups">
                         <x-iconpark-peoples-o class="w-6 h-6 text-gray-100" />
                     </a>
-                    <a href="" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Delete">
-                        <x-iconpark-delete-o class="w-6 h-6 text-gray-100 " />
-                    </a>
+                    @endcan
+                    @can('manageMembers', $project)
                     <a href="{{route("projects.categories.index", $project)}}" class="p-2 rounded-full hover:bg-gray-200/20 transition duration-200" title="Category">
                         <x-iconpark-gridfour class="w-6 h-6 text-gray-100 " />
                     </a>
+                    @endcan
 
                 </div>
                 <div class="flex gap-1 bg-gray-800 rounded-full p-1">

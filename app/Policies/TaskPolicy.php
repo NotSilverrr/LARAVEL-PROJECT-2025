@@ -21,6 +21,20 @@ class TaskPolicy
      */
     public function view(User $user, Task $task): bool
     {
+        // Si l'utilisateur est admin du projet, il peut voir toutes les tâches du projet
+        $project = $task->project;
+        if ($project && $project->users()->where('user_id', $user->id)->wherePivot('role', 'admin')->exists()) {
+            return true;
+        }
+        // Vérifie si l'utilisateur est directement affecté à la tâche
+        if ($task->users()->where('user_id', $user->id)->exists()) {
+            return true;
+        }
+        // Vérifie si l'utilisateur appartient à un groupe affecté à la tâche
+        $userGroupIds = $user->groups ? $user->groups->pluck('id')->toArray() : [];
+        if (!empty($userGroupIds)) {
+            return $task->groups()->whereIn('group_id', $userGroupIds)->exists();
+        }
         return false;
     }
 
@@ -37,13 +51,15 @@ class TaskPolicy
      */
     public function update(User $user, Task $task): bool
     {
-        // dd($user, $task);
-        // Check if the user is the creator of the task or has permission to update it
-        if ($task->created_by === $user->id || $task->project->users()->where('user_id', $user->id)->exists()) {
+        // Seuls les utilisateurs affectés à la tâche (directement ou via un groupe) peuvent la modifier
+        if ($task->users()->where('user_id', $user->id)->exists()) {
             return true;
         }
-        return true; // Temporarily allowing all updates for debugging
-        // return false;
+        $userGroupIds = $user->groups ? $user->groups->pluck('id')->toArray() : [];
+        if (!empty($userGroupIds)) {
+            return $task->groups()->whereIn('group_id', $userGroupIds)->exists();
+        }
+        return false;
     }
 
     /**
@@ -51,6 +67,14 @@ class TaskPolicy
      */
     public function delete(User $user, Task $task): bool
     {
+        // Seuls les utilisateurs affectés à la tâche (directement ou via un groupe) peuvent la supprimer
+        if ($task->users()->where('user_id', $user->id)->exists()) {
+            return true;
+        }
+        $userGroupIds = $user->groups ? $user->groups->pluck('id')->toArray() : [];
+        if (!empty($userGroupIds)) {
+            return $task->groups()->whereIn('group_id', $userGroupIds)->exists();
+        }
         return false;
     }
 
@@ -59,6 +83,14 @@ class TaskPolicy
      */
     public function restore(User $user, Task $task): bool
     {
+        // Seuls les utilisateurs affectés à la tâche (directement ou via un groupe) peuvent la restaurer
+        if ($task->users()->where('user_id', $user->id)->exists()) {
+            return true;
+        }
+        $userGroupIds = $user->groups ? $user->groups->pluck('id')->toArray() : [];
+        if (!empty($userGroupIds)) {
+            return $task->groups()->whereIn('group_id', $userGroupIds)->exists();
+        }
         return false;
     }
 
@@ -67,6 +99,14 @@ class TaskPolicy
      */
     public function forceDelete(User $user, Task $task): bool
     {
+        // Seuls les utilisateurs affectés à la tâche (directement ou via un groupe) peuvent la supprimer définitivement
+        if ($task->users()->where('user_id', $user->id)->exists()) {
+            return true;
+        }
+        $userGroupIds = $user->groups ? $user->groups->pluck('id')->toArray() : [];
+        if (!empty($userGroupIds)) {
+            return $task->groups()->whereIn('group_id', $userGroupIds)->exists();
+        }
         return false;
     }
 }

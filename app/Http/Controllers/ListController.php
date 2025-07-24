@@ -9,7 +9,7 @@ class ListController extends Controller
 {
     public function list(Project $project)
     {
-        $query = $project->tasks()->with('column', 'category', 'creator', 'groups', 'users');
+        $query = \App\Models\Task::visibleForUser(auth()->user(), $project->id)->with('column', 'category', 'creator', 'groups', 'users');
         
         // Recherche par titre
         if (request('search')) {

@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}" class="flex items-center space-x-[-4px]">
-                        <img src="/assets/images/KanboardFavIconBlanc2.png" alt="KanBoard" class="w-7 h-7">
+                        <img src="{{ asset('storage/assets/images/KanboardFavIconBlack.png') }}" alt="KanBoard" class="w-7 h-8">
                         <span class="text-white text-xl font-bold">anBoard</span>
                     </a>
                 </div>

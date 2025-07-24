@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 use App\Models\Group;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
     public function index(Project $project)
     {
+        $this->authorize('manageGroups', $project);
         $groups = $project->groups()
             ->with('creator')
             ->paginate(10);
@@ -28,6 +32,7 @@ class GroupController extends Controller
      */
     public function create(Project $project)
     {
+        $this->authorize('manageGroups', $project);
         // Get all users in the project
         $users = $project->users;
         return view('projects.groups.create', [
@@ -41,6 +46,7 @@ class GroupController extends Controller
      */
     public function store(Request $request, Project $project)
     {
+        $this->authorize('manageGroups', $project);
         $request->validate([
             'name' => 'required|string|max:255',
             'users' => 'nullable|array',
@@ -64,6 +70,7 @@ class GroupController extends Controller
      */
     public function edit(Project $project, Group $group)
     {
+        $this->authorize('manageGroups', $project);
         $users = $project->users;
         $groupUserIds = $group->users()->pluck('users.id')->toArray();
         return view('projects.groups.edit', [
@@ -79,6 +86,7 @@ class GroupController extends Controller
      */
     public function update(Request $request, Project $project, Group $group)
     {
+        $this->authorize('manageGroups', $project);
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'users' => 'nullable|array',
@@ -100,6 +108,7 @@ class GroupController extends Controller
      */
     public function destroy(Project $project, Group $group)
     {
+        $this->authorize('manageGroups', $project);
         $group->users()->detach();
         $group->delete();
         return redirect()->route('projects.groups.index', $project)

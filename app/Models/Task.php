@@ -9,6 +9,31 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Task extends Model
 {
+    public function scopeVisibleForUser($query, $user, $projectId)
+    {
+        $isAdmin = \App\Models\Project::find($projectId)
+            ->users()
+            ->where('user_id', $user->id)
+            ->wherePivot('role', 'admin')
+            ->exists();
+        if ($isAdmin) {
+            return $query->where('project_id', $projectId);
+        }
+        $userGroupIds = $user->groups ? $user->groups->pluck('id')->toArray() : [];
+        return $query->where('project_id', $projectId)
+    ->where(function($q) use ($user, $userGroupIds) {
+        $q->whereHas('users', function($q2) use ($user) {
+            $q2->where('users.id', $user->id);
+        });
+        if (!empty($userGroupIds)) {
+            $q->orWhereHas('groups', function($q3) use ($userGroupIds) {
+                $q3->whereIn('groups.id', $userGroupIds);
+            });
+        }
+        $q->orWhere('created_by', $user->id);
+    });
+    }
+
     protected $casts = [
         'date_start' => 'date',
         'date_end' => 'date',

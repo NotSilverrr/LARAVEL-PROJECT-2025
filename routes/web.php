@@ -13,6 +13,7 @@ use App\Http\Controllers\ProjectViewController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['web'])->post('/language-switch', [LanguageController::class, 'switch'])->name('language.switch');
@@ -21,9 +22,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('projects', [ProjectController::class, 'store'])->name('projects.store');
     Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
     Route::get('/projects/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
+    Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
     Route::put('/projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
     Route::get('/projects/{project}/categories', [CategoryController::class, 'index'])->name('projects.categories.index');
     Route::get('/projects/{project}/categories/{category}/edit', [CategoryController::class, 'edit'])->name('projects.categories.edit');
@@ -52,6 +53,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/projects/{project}/categories/{category}', [CategoryController::class, 'destroy'])->name('projects.categories.destroy');
     Route::post('/projects/{project}/categories', [CategoryController::class, 'store'])->name('projects.categories.store');
     Route::get('/projects/{project}/users', [ProjectUserController::class, 'index'])->name('projects.users.index');
+    Route::get('/projects/{project}/users/{user}/edit', [ProjectUserController::class, 'edit'])->name('projects.users.edit');
+    Route::patch('/projects/{project}/users/{user}', [ProjectUserController::class, 'update'])->name('projects.users.update');
     Route::get('/projects/{project}/users/{user}/history', [ProjectUserController::class, 'history'])->name('projects.users.history');
     
     Route::get('/projects/{project}/groups', [GroupController::class, 'index'])->name('projects.groups.index');
@@ -77,6 +80,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/projects/{project}/tasks', [TaskController::class, 'store'])->name('projects.tasks.store');
     Route::get('/projects/{project}/tasks/{task}/edit', [TaskController::class, 'edit'])->name('projects.tasks.edit');
     Route::patch('/projects/{project}/tasks/{task}', [TaskController::class, 'update'])->name('projects.tasks.update');
+    Route::delete('/projects/{project}/tasks/{task}', [TaskController::class, 'destroy'])->name('projects.tasks.destroy');
     Route::post('/projects/{project}/column', [ColumnController::class, 'store'])->name('projects.column.store');
     Route::delete('projects/{project}/column/{column}', [ColumnController::class, 'destroy'])->name('projects.columns.destroy');
     Route::patch('/projects/{project}/column/{column}', [ColumnController::class, 'update'])->name('projects.columns.update');

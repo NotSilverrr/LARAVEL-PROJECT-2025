@@ -78,7 +78,8 @@ class TaskController extends Controller
     {
         // Fetch all categories for the select dropdown
         $categories = \App\Models\Category::all();
-        return view('projects.tasks.task-edit-popup', compact('project', 'task', 'categories'));
+        $groups = $project->groups;
+        return view('projects.tasks.task-edit-popup', compact('project', 'task', 'categories', 'groups'));
     }
 
     /**
@@ -109,19 +110,21 @@ class TaskController extends Controller
         ]);
 
         $task->update($data);
-        if (isset($data['user_ids'])) {
-            $task->users()->sync($data['user_ids']);
-        }
-
+        $task->users()->sync($request->input('user_ids', []));
+        $task->groups()->sync($request->input('group_ids', []));
         return redirect()->back()->with('success', 'Tâche mise à jour avec succès.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(Project $project, Task $task)
     {
-        //
+        // Detach relationships if necessary
+        $task->users()->detach();
+        $task->groups()->detach();
+        $task->delete();
+        return redirect()->back()->with('success', 'Tâche supprimée avec succès.');
     }
 
     public function moveColumn(Task $task, Column $column)

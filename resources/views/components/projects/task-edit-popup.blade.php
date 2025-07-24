@@ -1,4 +1,4 @@
-<div class="modal-content bg-gray-800 p-10 rounded-[1.5rem] w-11/12 max-w-6xl">
+<div class="modal-content bg-gray-800 p-10 rounded-[1.5rem] w-11/12 max-w-6xl max-h-[90vh] overflow-y-auto">
     <button class="modal-close text-white text-3xl ml-auto mb-4">&times;</button>
     <h2 class="text-white text-2xl font-bold mb-10 text-center">{{ 'Modifier la tâche ' . $task->title ?? 'Modifier une tâche' }}</h2>
     <form action="{{ $action }}" method="POST" class="flex flex-col gap-0">
@@ -28,10 +28,20 @@
                 </div>
                 <div>
                     <label for="users" class="block text-gray-100 text-sm font-bold mb-2">@lang('messages.member')s assignés</label>
-                    <select name="user_ids[]" id="users" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline" multiple required>
+                    <select name="user_ids[]" id="users" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline" multiple>
                         @foreach ($project->users as $user)
                             <option value="{{ $user->id }}" {{ in_array($user->id, $task->users->pluck('id')->toArray()) ? 'selected' : '' }}>
                                 {{ $user->firstname }} {{ $user->lastname }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label for="groups" class="block text-gray-100 text-sm font-bold mb-2">@lang('messages.group')s assignés</label>
+                    <select name="group_ids[]" id="groups" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-700 leading-tight focus:outline-none focus:shadow-outline" multiple>
+                        @foreach ($groups as $group)
+                            <option value="{{ $group->id }}" {{ in_array($group->id, $task->groups->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                {{ $group->name }}
                             </option>
                         @endforeach
                     </select>
@@ -66,5 +76,10 @@
         </div>
         <input type="hidden" name="column_id" id="column_id" value="{{ old('column_id', $task->column_id ?? '') }}">
         <button type="submit" class="block px-8 py-3 rounded-[1rem] bg-gradient-to-b from-[#E04E75] to-[#902340] hover:bg-gradient-to-t text-white text-lg font-semibold mt-8 w-full">{{ $button ?? __('messages.update') }}</button>
+    </form>
+    <form action="{{ route('projects.tasks.destroy', ['project' => $project->id, 'task' => $task->id]) }}" method="POST" class="mt-4">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="block px-8 py-3 rounded-[1rem] bg-gradient-to-b from-red-500 to-red-800 hover:bg-gradient-to-t text-white text-lg font-semibold w-full">{{ __('messages.delete') }}</button>
     </form>
 </div>

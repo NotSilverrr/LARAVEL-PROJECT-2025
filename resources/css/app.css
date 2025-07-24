@@ -41,6 +41,43 @@
         transform: translateX(4px);
     }
 }
+  /* Styles pour le mode light */
+  [data-theme="light"] {
+    background-color: #f8fafc;
+    color: #374151;
+}
+
+[data-theme="light"] .bg-gray-800 {
+    background-color: #e2e8f0 ;
+}
+
+[data-theme="light"] .bg-gray-600 {
+    background-color: #cbd5e1 ;
+}
+
+/* Textes */
+[data-theme="light"] .text-white,
+[data-theme="light"] .text-gray-100,
+[data-theme="light"] .text-gray-700,
+[data-theme="light"] .text-gray-500,
+[data-theme="light"] .text-gray-400,
+[data-theme="light"] .border-gray-600,
+[data-theme="light"] .text-white {
+    color: #000000 ;
+}
+
+/* Bords */
+[data-theme="light"] .border-gray-400,
+[data-theme="light"] .hover:bg-gray-600 {
+    border-color: #cbd5e1 ;
+}
+
+/* Navigation */
+[data-theme="light"] .bg-gray-700,
+[data-theme="light"] .modal-content {
+    background-color: #f1f5f9 ;
+}
+
 
 /* Styles personnalisés pour la page d'accueil */
 .welcome-section {
