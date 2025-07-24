@@ -44,14 +44,10 @@ class GroupController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Project $project)
+    public function store(\App\Http\Requests\StoreGroupRequest $request, Project $project)
     {
         $this->authorize('manageGroups', $project);
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'users' => 'nullable|array',
-            'users.*' => 'exists:users,id',
-        ]);
+        // Les données sont déjà validées
 
         $group = $project->groups()->create([
             'name' => $request->input('name'),
@@ -84,14 +80,10 @@ class GroupController extends Controller
     /**
      * Update the specified group in storage.
      */
-    public function update(Request $request, Project $project, Group $group)
+    public function update(\App\Http\Requests\UpdateGroupRequest $request, Project $project, Group $group)
     {
         $this->authorize('manageGroups', $project);
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'users' => 'nullable|array',
-            'users.*' => 'exists:users,id',
-        ]);
+        // Les données sont déjà validées
 
         $group->update([
             'name' => $validated['name'],

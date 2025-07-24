@@ -16,7 +16,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
         "maatwebsite/excel": "*",
-        "phpoffice/phpspreadsheet": "^4.4",
+        "phpoffice/phpspreadsheet": "^4.5",
         "resend/resend-php": "^0.16.0",
         "spatie/laravel-activitylog": "^4.10"
     },

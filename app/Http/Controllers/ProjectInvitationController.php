@@ -52,18 +52,9 @@ class ProjectInvitationController extends Controller
         }
     }
 
-    public function register(Request $request)
+    public function register(\App\Http\Requests\RegisterProjectInvitationRequest $request)
     {
-        $request->validate([
-            'token' => 'required',
-            'firstname' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-
+        // Les données sont déjà validées
 
         // Vérifier l'invitation
         $invitation = ProjectInvitation::where('token', $request->token)->firstOrFail();
