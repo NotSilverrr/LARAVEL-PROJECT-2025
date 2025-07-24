@@ -9,6 +9,7 @@ class ListController extends Controller
 {
     public function list(Project $project)
     {
+        $this->authorize('view', $project);
         $query = \App\Models\Task::visibleForUser(auth()->user(), $project->id)->with('column', 'category', 'creator', 'groups', 'users');
         
         // Recherche par titre
