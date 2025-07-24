@@ -15,7 +15,10 @@ use App\Http\Controllers\ListController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\SocialiteController;
 
+Route::get('login/{provider}', [SocialiteController::class, 'redirect'])->name('socialite.redirect');
+Route::get('login/{provider}/callback', [SocialiteController::class, 'callback'])->name('socialite.callback');
 Route::middleware(['web'])->post('/language-switch', [LanguageController::class, 'switch'])->name('language.switch');
 
 Route::get('/', function () {
