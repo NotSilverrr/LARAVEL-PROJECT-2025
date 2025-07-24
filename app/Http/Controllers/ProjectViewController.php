@@ -83,7 +83,7 @@ class ProjectViewController extends Controller
         $totalWeeks = ceil($totalCells / 7);
 
         $tasks = \App\Models\Task::visibleForUser(auth()->user(), $project->id)->get();
-        $categories = Category::all();
+        $categories = $project->categories()->get();
 
         return view('projects.views.calendar', [
             'today' => $today,
@@ -139,7 +139,7 @@ class ProjectViewController extends Controller
         }
 
         $tasks = \App\Models\Task::visibleForUser(auth()->user(), $project->id)->get();
-        $categories = Category::all();
+        $categories = $project->categories()->get();
 
         return view('projects.views.week', [
             'today' => $today,
@@ -191,7 +191,7 @@ class ProjectViewController extends Controller
         $nextPeriod = (clone $centerDate)->modify('+2 days');
 
         $tasks = \App\Models\Task::visibleForUser(auth()->user(), $project->id)->get();
-        $categories = Category::all();
+        $categories = $project->categories()->get();
 
         return view('projects.views.three_days', [
             'today' => $today,
@@ -240,7 +240,7 @@ class ProjectViewController extends Controller
         $nextDate = (clone $currentDate)->modify('+1 day');
 
         $tasks = \App\Models\Task::visibleForUser(auth()->user(), $project->id)->get();
-        $categories = Category::all();
+        $categories = $project->categories()->get();
 
         return view('projects.views.day', [
             'today' => $today,
