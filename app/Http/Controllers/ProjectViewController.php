@@ -10,6 +10,7 @@ class ProjectViewController extends Controller
 {
     public function kanban(Project $project)
     {
+        $this->authorize('view', $project);
         // Tu peux charger ici les colonnes et tâches si besoin
         $columns = $project->columns()->with(['tasks' => function($q) use ($project) {
             $q->visibleForUser(auth()->user(), $project->id);
@@ -23,6 +24,7 @@ class ProjectViewController extends Controller
 
     public function calendar(Request $request, Project $project)
     {
+        $this->authorize('view', $project);
         $months = [
             ["name"=>"January","days"=>31],
             ["name"=>"February","days"=>28],
@@ -109,6 +111,7 @@ class ProjectViewController extends Controller
 
     public function week(Request $request, Project $project)
     {
+        $this->authorize('view', $project);
         $today = [
             "year" => (int)date("Y"),
             "month" => (int)date("m"),
@@ -157,6 +160,7 @@ class ProjectViewController extends Controller
 
     public function three_days(Request $request, Project $project)
     {
+        $this->authorize('view', $project);
         $today = [
             "year" => (int)date("Y"),
             "month" => (int)date("m"),
@@ -213,6 +217,7 @@ class ProjectViewController extends Controller
 
     public function day(Request $request, Project $project)
     {
+        $this->authorize('view', $project);
         $today = [
             "year" => (int)date("Y"),
             "month" => (int)date("m"),
