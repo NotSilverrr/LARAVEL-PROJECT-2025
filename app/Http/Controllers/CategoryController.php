@@ -29,12 +29,9 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Project $project)
+    public function store(\App\Http\Requests\StoreCategoryRequest $request, Project $project)
     {
         // verify if the user has permission to create a category in this project
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
         $project->categories()->create([
             'name' => $request->name,
             'created_by' => $request->user()->id,
@@ -61,11 +58,9 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project, Category $category)
+    public function update(\App\Http\Requests\UpdateCategoryRequest $request, Project $project, Category $category)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        // Les données sont déjà validées
         $category->update(['name' => $request->name]);
         return redirect()->route('projects.categories.index', $project)->with('success', 'Catégorie modifiée !');
     }

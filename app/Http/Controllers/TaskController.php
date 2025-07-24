@@ -31,19 +31,9 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Project $project)
+    public function store(\App\Http\Requests\StoreTaskRequest $request, Project $project)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'priority' => 'nullable|string|in:low,medium,high',
-            'category_id' => 'nullable|exists:categories,id',
-            'date_start' => 'nullable|date',
-            'date_end' => 'nullable|date|after_or_equal:date_start',
-            'column_id' => 'nullable|exists:columns,id',
-            'assigned_users' => 'array',
-            'assigned_users.*' => 'exists:users,id',
-        ]);
+        // Les données sont déjà validées
 
         $data = $request->only([
             'title',
@@ -92,18 +82,9 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project, Task $task)
+    public function update(\App\Http\Requests\UpdateTaskRequest $request, Project $project, Task $task)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'priority' => 'nullable|string|in:low,medium,high',
-            'category_id' => 'nullable|exists:categories,id',
-            'date_start' => 'nullable|date',
-            'date_end' => 'nullable|date|after_or_equal:date_start',
-            // 'column_id' => 'nullable|exists:columns,id',
-            'status' => 'required|string|in:todo,in_progress,done',
-        ]);
+        // Les données sont déjà validées
 
         $data = $request->only([
             'title',
@@ -155,11 +136,9 @@ class TaskController extends Controller
     /**
      * Assigner un utilisateur à une tâche existante
      */
-    public function assignUser(Request $request, Task $task)
+    public function assignUser(\App\Http\Requests\AssignUserToTaskRequest $request, Task $task)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-        ]);
+        // Les données sont déjà validées
 
         $user = User::findOrFail($request->user_id);
         
@@ -175,11 +154,9 @@ class TaskController extends Controller
     /**
      * Retirer un utilisateur d'une tâche
      */
-    public function unassignUser(Request $request, Task $task)
+    public function unassignUser(\App\Http\Requests\UnassignUserFromTaskRequest $request, Task $task)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-        ]);
+        // Les données sont déjà validées
 
         $task->users()->detach($request->user_id);
 

@@ -32,12 +32,9 @@ class ColumnController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Project $project,Request $request)
+    public function store(Project $project, \App\Http\Requests\StoreColumnRequest $request)
     {
-        // Validate the name et add the column to the project
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        // Les données sont déjà validées
         $data = $request->only(['name']);
         $data['created_by'] = Auth::id();
 
@@ -65,12 +62,9 @@ class ColumnController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project, Column $column)
+    public function update(\App\Http\Requests\UpdateColumnRequest $request, Project $project, Column $column)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'is_final' => 'nullable|boolean',
-        ]);
+        // Les données sont déjà validées
         $column->update([
             'name' => $request->name,
             'is_final' => $request->has('is_final'),

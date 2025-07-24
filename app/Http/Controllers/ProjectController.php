@@ -27,12 +27,9 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(\App\Http\Requests\StoreProjectRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-        ]);
+        // Les données sont déjà validées
 
         $data = $request->all();
         $data['created_by'] = Auth::id();
@@ -77,12 +74,9 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(\App\Http\Requests\UpdateProjectRequest $request, Project $project)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-        ]);
+        // Les données sont déjà validées
 
         $project->update($request->all());
 

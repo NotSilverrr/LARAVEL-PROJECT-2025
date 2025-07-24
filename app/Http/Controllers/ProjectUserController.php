@@ -25,13 +25,9 @@ class ProjectUserController extends Controller
         
     }
 
-    public function inviteUserToProject(Request $request, Project $project) {
+    public function inviteUserToProject(\App\Http\Requests\InviteProjectUserRequest $request, Project $project) {
         $this->authorize('manageMembers', $project);
-
-        // Valider la requête
-        $request->validate([
-            'email' => 'required|email',
-        ]);
+        // Les données sont déjà validées
         // Vérifier si l'utilisateur est déjà membre du projet
         $user = User::where('email', $request->email)->first();
         if ($user && $project->users()->where('user_id', $user->id)->exists()) {
@@ -79,16 +75,14 @@ class ProjectUserController extends Controller
         return view('projects.users.edit', compact('project', 'user', 'pivot'));
     }
 
-    public function update(Request $request, Project $project, User $user)
+    public function update(\App\Http\Requests\UpdateProjectUserRequest $request, Project $project, User $user)
     {
         $this->authorize('manageMembers', $project);
         // Ensure user is part of the project
         if (!$project->users()->where('user_id', $user->id)->exists()) {
             return back()->with('error', 'Utilisateur non membre du projet.');
         }
-        $request->validate([
-            'role' => 'required|in:owner,admin,member',
-        ]);
+        // Les données sont déjà validées
         $project->users()->updateExistingPivot($user->id, ['role' => $request->role]);
         return redirect()->route('projects.users.index', $project)->with('success', 'Rôle mis à jour avec succès.');
     }

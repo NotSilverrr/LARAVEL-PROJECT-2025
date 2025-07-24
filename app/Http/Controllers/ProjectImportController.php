@@ -14,11 +14,9 @@ class ProjectImportController extends Controller
         return view('projects.import', compact('project'));
     }
 
-    public function import(Request $request, Project $project)
+    public function import(\App\Http\Requests\ImportProjectRequest $request, Project $project)
     {
-        $request->validate([
-            'file' => 'required|file|mimes:xlsx,csv,xls',
-        ]);
+        // Les données sont déjà validées
 
         $spreadsheet = IOFactory::load($request->file('file')->getRealPath());
         $sheet = $spreadsheet->getActiveSheet();
