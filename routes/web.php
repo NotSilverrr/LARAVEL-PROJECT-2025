@@ -55,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/projects/{project}/users', [ProjectUserController::class, 'index'])->name('projects.users.index');
     Route::get('/projects/{project}/users/{user}/edit', [ProjectUserController::class, 'edit'])->name('projects.users.edit');
     Route::patch('/projects/{project}/users/{user}', [ProjectUserController::class, 'update'])->name('projects.users.update');
+    Route::get('/projects/{project}/users/{user}/history', [ProjectUserController::class, 'history'])->name('projects.users.history');
     
     Route::get('/projects/{project}/groups', [GroupController::class, 'index'])->name('projects.groups.index');
     Route::get('/projects/{project}/groups/create', [GroupController::class, 'create'])->name('projects.groups.create');
@@ -64,6 +65,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/projects/{project}/groups/{group}', [GroupController::class, 'destroy'])->name('projects.groups.destroy');
     
     Route::post('/projects/{project}/inviteUser', [ProjectUserController::class, 'inviteUserToProject'])->name('projects.users.invite');
+
+    Route::get('/projects/{project}/import', [\App\Http\Controllers\ProjectImportController::class, 'show'])->name('projects.import.form');
+    Route::post('/projects/{project}/import', [\App\Http\Controllers\ProjectImportController::class, 'import'])->name('projects.import');
 
     Route::get('/projects/{project}/view/list', [ListController::class, 'list'])->name('projects.view.list');
     Route::get('/projects/{project}/view/kanban', [ProjectViewController::class, 'kanban'])->name('projects.view.kanban');

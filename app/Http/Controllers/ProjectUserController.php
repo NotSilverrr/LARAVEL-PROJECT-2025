@@ -91,5 +91,13 @@ class ProjectUserController extends Controller
         ]);
         $project->users()->updateExistingPivot($user->id, ['role' => $request->role]);
         return redirect()->route('projects.users.index', $project)->with('success', 'Rôle mis à jour avec succès.');
+
+      public function history(Project $project, User $user)
+    {
+        $activities = \Spatie\Activitylog\Models\Activity::where('causer_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        return view('projects.users.history', compact('project', 'user', 'activities'));
     }
 }

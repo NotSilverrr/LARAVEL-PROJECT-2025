@@ -87,9 +87,16 @@ return [
     'delete_category' => 'Delete Category',
     'delete_category_confirm' => 'Delete category ":name"?',
     'add' => 'Add',
-    'welcome_title' => 'Welcome to the Kanban board!',
-    'welcome_subtitle' => 'Manage your tasks and projects with ease.',
     'edit_member' => 'Edit Member',
     'admin' => 'Admin',
     'owner' => 'Owner'
+    'history' => 'History',
+    'date' => 'Date',
+    'event' => 'Event',
+    'details' => 'Details',
+    'no_activity_found' => 'No activity found',
+    'user_history' => 'User History',
+    'back' => 'Back',
+    'welcome_title' => 'Welcome to the Kanban board!',
+    'welcome_subtitle' => 'Manage your tasks and projects with ease.',
 ];

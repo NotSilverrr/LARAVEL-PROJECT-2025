@@ -31,6 +31,8 @@
                     <td class="p-4">{{ $user->email }}</td>
                     <td class="p-4">{{ $user->pivot->role }}</td>
                     <td>
+                        <a href="{{ route('projects.users.history', [$project, $user]) }}" class="text-green-500 mr-2">@lang('messages.history')</a>
+                        |
                         <form action="{{ route('projects.users.destroy', [$project, $user]) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
