@@ -9,11 +9,20 @@ class ListController extends Controller
 {
     public function list(Project $project)
     {
-        $query = $project->tasks()->with('column', 'category', 'creator', 'groups', 'users');
-        
-        // Recherche par titre
+        $query = $project->tasks();
+
+        // Recherche fulltext uniquement sur le title avec Scout, filtre par projet conservé
         if (request('search')) {
-            $query->where('title', 'like', '%' . request('search') . '%');
+            $searchTerm = request('search');
+            $searchResults = \App\Models\Task::search($searchTerm)
+                ->where('project_id', $project->id)
+                ->get();
+
+            $ids = is_array($searchResults)
+                ? array_column($searchResults, 'id')
+                : $searchResults->pluck('id')->toArray();
+
+            $query->whereIn('id', $ids);
         }
 
         // Filtrer par colonne
@@ -36,8 +45,9 @@ class ListController extends Controller
             $query->where('priority', request('priority'));
         }
 
-        $tasks = $query->get();
-        
+        // Charger les relations après tous les filtres
+        $tasks = $query->with('column', 'category', 'creator', 'groups', 'users')->get();
+
         $categories = $project->categories()->get();
         $columns = $project->columns()->get();
 

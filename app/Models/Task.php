@@ -6,12 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Laravel\Scout\Searchable;
 
 class Task extends Model
 {
+    use Searchable;
     protected $casts = [
         'date_start' => 'date',
         'date_end' => 'date',
+        'title' => 'string',
     ];
     /** @use HasFactory<\Database\Factories\TaskFactory> */
     use HasFactory;
@@ -29,6 +32,17 @@ class Task extends Model
         'category_id',
         'status',
     ];
+
+    /**
+     * Champs indexés par Scout/Meilisearch
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'title' => $this->title,
+            'description' => $this->description,
+        ];
+    }
 
     public function project(): BelongsTo
     {

@@ -83,12 +83,10 @@
                     @forelse ($tasks as $task)
                         <tr class="hover:bg-gray-800/40 transition task-list-row cursor-pointer {{ $task->isLate() ? 'bg-red-800/20' : '' }}" data-task-id="{{ $task->id }}">
                             <td class="px-4 py-3">
-                                <a href="{{ route('projects.show', $task->id) }}" class="hover:underline {{ $task->isLate() ? 'text-red-400' : 'text-blue-300' }}">
-                                    {{ $task->title }}
-                                    @if($task->isLate())
-                                        <span class="text-xs text-red-400">(@lang('messages.late'))</span>
-                                    @endif
-                                </a>
+                                {{ $task->title }}
+                                @if($task->isLate())
+                                    <span class="text-xs text-red-400">(@lang('messages.late'))</span>
+                                @endif
                             </td>
                             <td class="px-4 py-3">{{ $task->description }}</td>
                             <td class="px-4 py-3">{{ $task->priority }}</td>
