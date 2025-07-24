@@ -27,7 +27,6 @@ class StoreTaskRequest extends FormRequest
             'priority' => 'required|string|in:low,medium,high',
             'date_start' => 'required|date',
             'date_end' => 'required|date|after_or_equal:date_start',
-            'column_id' => 'required|exists:columns,id',
             'category_id' => 'nullable|exists:categories,id',
         ];
     }
