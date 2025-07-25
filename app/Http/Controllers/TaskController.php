@@ -102,7 +102,7 @@ class TaskController extends Controller
         $newUsers = $request->input('user_ids', []);
         // If the users haven't changed, we can skip the event
 
-        if (!empty(array_diff($currentUsers, $newUsers)) && !empty(array_diff($newUsers, $currentUsers))) {
+        if (!empty(array_diff($currentUsers, $newUsers)) || !empty(array_diff($newUsers, $currentUsers))) {
             $assignedUsers = User::whereIn('id', $request->input('user_ids', []))->get();
             foreach ($assignedUsers as $user) {
                 event(new \App\Events\UserAddedToTask($task, $user));
