@@ -39,6 +39,9 @@
                         <x-iconpark-gridfour class="w-6 h-6 text-gray-100 " />
                     </a>
                     @endcan
+                    <a href="{{ route('projects.import.form', $project) }}" class="p-2 rounded-full hover:bg-green-200/20 transition duration-200" title="Importer depuis Excel">
+                        <x-iconpark-upload-o class="w-6 h-6 text-gray-100" />
+                    </a>
 
                 </div>
                 <div class="flex gap-1 bg-gray-800 rounded-full p-1">
