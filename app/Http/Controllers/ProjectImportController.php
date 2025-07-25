@@ -24,6 +24,9 @@ class ProjectImportController extends Controller
 
         $headers = array_map('strtolower', array_map('trim', array_values(array_shift($rows))));
 
+        $firstColumn = $project->columns()->orderBy('id')->first();
+        $firstColumnId = $firstColumn ? $firstColumn->id : null;
+
         foreach ($rows as $row) {
             $taskData = array_combine($headers, array_values($row));
             if (empty($taskData['priority']) || empty($taskData['title'])) {
@@ -38,12 +41,12 @@ class ProjectImportController extends Controller
                 'date_end' => $taskData['date_end'] ?? null,
                 'created_by' => $taskData['created_by'] ?? null,
                 'project_id' => $project->id,
-                'column_id' => $taskData['column_id'] ?? null,
+                'column_id' => $firstColumnId,
                 'category_id' => $taskData['category_id'] ?? null,
                 'status' => $taskData['status'] ?? null,
             ]);
         }
 
-        return redirect()->route('projects.show', $project)->with('success', 'Importation réussie !');
+        return redirect()->route('projects.view.kanban', $project)->with('success', 'Importation réussie !');
     }
 }
