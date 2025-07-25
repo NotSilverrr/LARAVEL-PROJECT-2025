@@ -97,6 +97,18 @@ class TaskController extends Controller
             'status'
         ]);
 
+        // Get the current users assigned to the task and compare with the new ones
+        $currentUsers = $task->users->pluck('id')->toArray();
+        $newUsers = $request->input('user_ids', []);
+        // If the users haven't changed, we can skip the event
+
+        if (!empty(array_diff($currentUsers, $newUsers)) && !empty(array_diff($newUsers, $currentUsers))) {
+            $assignedUsers = User::whereIn('id', $request->input('user_ids', []))->get();
+            foreach ($assignedUsers as $user) {
+                event(new \App\Events\UserAddedToTask($task, $user));
+            }
+        }
+
         $task->update($data);
         $task->users()->sync($request->input('user_ids', []));
         $task->groups()->sync($request->input('group_ids', []));

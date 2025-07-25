@@ -98,6 +98,7 @@ class Task extends Model
      */
     public function assignUser(User $user): void
     {
+        dd('Assigning user to task', $user->id, $this->id);
         // Vérifier si l'utilisateur n'est pas déjà assigné
         if (!$this->users()->where('user_id', $user->id)->exists()) {
             $this->users()->attach($user);
