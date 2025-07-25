@@ -97,6 +97,14 @@ class TaskController extends Controller
             'status'
         ]);
 
+        // If users changed, call the event
+        if ($request->has('user_ids')) {
+            $assignedUsers = User::whereIn('id', $request->input('user_ids', []))->get();
+            foreach ($assignedUsers as $user) {
+                event(new \App\Events\UserAddedToTask($task, $user));
+            }
+        }
+
         $task->update($data);
         $task->users()->sync($request->input('user_ids', []));
         $task->groups()->sync($request->input('group_ids', []));

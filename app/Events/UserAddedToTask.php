@@ -24,6 +24,7 @@ class UserAddedToTask
      */
     public function __construct(Task $task, User $user)
     {
+        // dd('UserAddedToTask event triggered', $task->id, $user->id);
         $this->task = $task;
         $this->user = $user;
     }
