@@ -13,7 +13,7 @@ use Illuminate\Queue\SerializesModels;
 
 class TaskAssignedMail extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    // use Queueable, SerializesModels;
 
     public Task $task;
     public User $user;
